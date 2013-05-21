@@ -1,0 +1,206 @@
+// ------------------------------------------------------------------------------------- \\
+
+// Fonts
+// ===================================================================================== \\
+
+// Default font faces
+//-- $font-family:;
+//-- $font-family-alt:;
+
+// Default font sizes
+//-- $font-size-ratio:;
+//-- $font-size:;
+//-- $fluid-font-size:;
+//-- $static-font-size:;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Leading
+// ===================================================================================== \\
+
+// Default line heights
+//-- $lead-ratio:;
+//-- $leadhalf-ratio:;
+//-- $leadx2-ratio:;
+
+// Line height / leading in static proportions - rems
+//-- $lead:;
+//-- $leadhalf:;
+//-- $leadx2:;
+
+// Line height / leading in fluid proportions - ems
+//-- $fluid-lead:;
+//-- $fluid-leadhalf:;
+//-- $fluid-leadx2:;
+
+// Line height / leading in static proportions - px
+//-- $static-lead:;
+//-- $static-leadhalf:;
+//-- $static-leadx2:;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Padding
+// ===================================================================================== \\
+
+// Default padding size (squares off line-height)
+//-- $pad-ratio:;
+//-- $padhalf-ratio:;
+//-- $pad3q-ratio:;
+//-- $padx2-ratio:;
+
+// Padding in static proportions - rems
+//-- $pad:;
+//-- $padhalf:;
+//-- $pad3q:;
+//-- $padx2:;
+
+// Padding in fluid proportions - ems
+//-- $fluid-pad:;
+//-- $fluid-padhalf:;
+//-- $fluid-pad3q:;
+//-- $fluid-padx2:;
+
+// Padding in static proportions - px
+//-- $static-pad:;
+//-- $static-padhalf:;
+//-- $static-pad3q:;
+//-- $static-padx2:;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Gutters
+// ===================================================================================== \\
+
+// Default gutter size (same as line-height)
+//-- $gutter-ratio:;
+//-- $gutterhalf-ratio:;
+//-- $gutterx2-ratio:;
+
+// Gutters in static proportions - rems
+//-- $gutter:;
+//-- $gutterhalf:;
+//-- $gutterx2:;
+
+// Gutters in fluid proportions - ems
+//-- $fluid-gutter:;
+//-- $fluid-gutterhalf:;
+//-- $fluid-gutterx2:;
+
+// Padding in static proportions - px
+//-- $static-gutter:;
+//-- $static-gutterhalf:;
+//-- $static-gutterx2:;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Spaces
+// ===================================================================================== \\
+
+// Approximate size of the inline space
+//-- $space-ratio:;
+//-- $space:;
+//-- $fluid-space:;
+//-- $static-space:;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Color Scheme
+// ===================================================================================== \\
+
+//-- $background-color:;
+//-- $text-color:;
+
+//-- $link-color:;
+	//-- $link-color-visited:;
+	//-- $link-color-hover:;
+
+//-- $border-color:;
+
+//-- $success-color:;
+	//-- $success-background-color:;
+	//-- $success-text-color:;
+//-- $info-color:;
+	//-- $info-background-color:;
+	//-- $info-text-color:;
+//-- $alert-color:;
+	//-- $alert-background-color:;
+	//-- $alert-text-color:;
+//-- $warning-color:;
+	//-- $warning-background-color:;
+	//-- $warning-text-color:;
+//-- $error-color:;
+	//-- $error-background-color:;
+	//-- $error-text-color:;
+//-- $inverse-color:;
+	//-- $inverse-background-color:;
+	//-- $inverse-text-color:;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Layout
+// ===================================================================================== \\
+
+//-- @mixin html() { }
+//-- @mixin body() { }
+
+// ------------------------------------------------------------------------------------- \\
+
+// Headings
+// ===================================================================================== \\
+
+//-- @mixin h1() { }
+//-- @mixin h2() { }
+//-- @mixin h3() { }
+//-- @mixin h4() { }
+//-- @mixin h5() { }
+//-- @mixin h6() { }
+
+// ------------------------------------------------------------------------------------- \\
+
+// Multimedia
+// ===================================================================================== \\
+
+//-- @mixin media-frame() { }
+
+// ------------------------------------------------------------------------------------- \\
+
+// Forms
+// ===================================================================================== \\
+
+//-- @mixin fieldset() { }
+//-- @mixin field() { }
+//-- @mixin input() { }
+//-- @mixin select() { }
+//-- @mixin textarea() { }
+//-- @mixin choice() { }
+//-- @mixin checkbox() { }
+//-- @mixin radio() { }
+//-- @mixin button() { }
+
+// ------------------------------------------------------------------------------------- \\
+
+// User Interface
+// ===================================================================================== \\
+
+//-- @mixin autocomplete() { }
+	//-- @mixin autocomplete-suggestion() { }	
+//-- @mixin dropdown-menu() { }
+//-- @mixin links() { }
+//-- @mixin message() { }
+//-- @mixin modal() { }
+	//-- @mixin modal-close() { }
+//-- @mixin tabs() { }
+	//-- @mixin tabs-link() { }
+
+// ------------------------------------------------------------------------------------- \\
+
+// Misc Elements
+// ===================================================================================== \\
+
+//-- @mixin big() { }
+//-- @mixin small() { }
+//-- @mixin selected-text { }
+//-- @mixin hr() { }
+
+// ------------------------------------------------------------------------------------- \\

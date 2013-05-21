@@ -1,0 +1,69 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+nav ul { @extend %grid-row; }
+nav ul li { @extend %grid-unit; @extend %space-in-vertical; @extend %space-in-gutter-horizontal; }
+form > legend { @extend %space-out-bottom; }
+form > *[type="submit"] { @extend %space-out-lead-top; }
+
+// ------------------------------------------------------------------------------------- \\
+
+.site { }
+	.site-head { }
+		.site-logo { }
+		.site-title { }
+		.site-subtitle { }
+	.site-menu { }
+	.site-body { }
+	.site-foot { }
+		.site-disclaimer { }
+
+// ------------------------------------------------------------------------------------- \\
+
+.page { }
+	.page-head { }
+		.page-media { }
+		.page-title { }
+		.page-subtitle { }
+	.page-body { }
+	.page-foot { }
+
+// ------------------------------------------------------------------------------------- \\
+
+.navmain { }
+	.navmain-item { }
+		.navmain-link { }
+
+// ------------------------------------------------------------------------------------- \\
+
+.navpage { }
+	.navpage-item { }
+		.navpage-link { }
+
+// ------------------------------------------------------------------------------------- \\
+
+.navfoot { }
+	.navfoot-item { }
+		.navfoot-link { }
+
+// ------------------------------------------------------------------------------------- \\
+
+.propsearch { @extend %inline-row; }
+	.propsearch fieldset,
+	.propsearch label {
+		@extend %inline-unit;
+		vertical-align: bottom;
+	}
+
+// ------------------------------------------------------------------------------------- \\
+
+.rtf { @extend %rtf; }
+.success { @extend %message; @extend %success; }
+.info { @extend %message; @extend %info; }
+.alert { @extend %message; @extend %alert; }
+.warning { @extend %message; @extend %warning; }
+.error { @extend %message; @extend %error; }
+.inverse { @extend %message; @extend %inverse; }
+
+// ------------------------------------------------------------------------------------- \\

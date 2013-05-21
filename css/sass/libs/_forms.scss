@@ -1,0 +1,215 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+## Forms
+
+Heavily borrowed from [normalize.css](http://necolas.github.io/normalize.css/) by Nicolas Gallagher.
+*/
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Form & Fieldset
+*/
+
+form { }
+	fieldset { @include fieldset; }
+		fieldset small {
+			@extend %align-center;
+			@extend %small;
+		}
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Legend & Label
+
+- Reset `padding` and `border` on legend
+- Normalize text wrapping on `legend`
+- Fix IE 7 pixel bug on `legend`
+- Set `label` to `display:block`
+
+
+*/
+
+legend {
+	@extend %reset-padding;
+	@extend %reset-border;
+	white-space: normal;
+	word-wrap: break-word;
+	@if $legacy-support-for-ie { _margin-left: -7px; }
+	> * { @extend %reset-block; }
+}
+
+label { @extend %reset-block; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Form Fields
+
+- Correct `font-family` not being inherited in all browsers
+- Correct `font-size` not being inherited in all browsers
+- Correct FF4+ setting `line-height` on `input` using `!important` in UA stylesheet
+- Correct `text-transform` inheritance for `button` and `select`
+- Reset excess padding on `radio` in IE 8/9
+- Correct inability to style clickable `input` types in iOS
+- Avoid bug in WebKit Android 4* where above interferes with native `audio` controls
+- Improve usability and consistency of `cursor` style and `outline`
+- [Make buttons play nice in IE](http://viget.com/inspire/styling-the-button-element-in-internet-explorer)
+- Normalize button `appearance` in Safari 5 and Chrome
+- Remove inner padding and search cancel icon in Safari 5 and Chrome
+- Remove inner `padding` and `border` on FF 4+
+- Remove vertical scrollbar from `textarea` in IE 8/9
+- Limit `textarea` resize to vertical
+
+
+*/
+
+button,
+input,
+select,
+textarea {
+	@extend %reset-margin;
+	font-family: inherit;
+	font-size: 100%;
+	min-width: auto;
+	max-width: 100%;
+}
+
+button,
+input {
+	line-height: normal;
+}
+
+button,
+select {
+	text-transform: none;
+}
+
+input,
+select,
+textarea {
+	@extend %field;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="search"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="password"] {
+	@extend %input;
+	min-height: $fluid-lead;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	@extend %reset-padding;
+	@extend %choice;
+}
+
+input[type="checkbox"] {
+	@extend %checkbox;
+}
+
+input[type="radio"] {
+	@extend %radio;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	@extend %button;
+	min-height: $fluid-lead;
+	cursor: pointer;
+	-webkit-appearance: button;
+	@if $legacy-support-for-ie {
+		_width: auto;
+		_overflow: visible;
+	}
+	&:focus { outline: thin dotted; }
+	&:active, &:hover { outline: none; }
+}
+
+button[disabled],
+html input[disabled] {
+	@extend %disabled;
+}
+
+input[type="search"] {
+	-webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+	 -webkit-appearance: none;
+}
+
+select {
+	@extend %select;
+	min-height: $fluid-lead;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+	// can't be combined with other selectors
+	padding: 0;
+	border: 0;
+}
+
+textarea {
+	overflow-y: auto;
+	resize: vertical;
+	@extend %textarea;
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Field Placeholders
+
+Formatting placeholder "classes" for field styles.  For use with `@extend`.
+
+- `%field`
+- `%input`
+- `%select`
+- `%textarea`
+- `%choice`
+- `%checkbox`
+- `%radio`
+
+
+*/
+
+%field { @include field; }
+%input { @include input; }
+%select { @include select; }
+%textarea { @include textarea; }
+%choice {  @include choice; }
+%checkbox { @include checkbox; }
+%radio { @include radio; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Form Miscellany
+
+Misc browser normalization styles including placeholders, valid, and invalid.
+
+- `::placeholder` selectors can't be combined or they won't work
+
+
+*/
+
+::-webkit-input-placeholder { @include placeholder-text; }
+::-moz-placeholder { @include placeholder-text; }
+::placeholder { @include placeholder-text; }
+::-webkit-autofill { }
+:valid, :invalid { }
+
+// ------------------------------------------------------------------------------------- \\

@@ -1,0 +1,329 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+## Rich Text Formatting
+
+Content module for rich text blocks. Provides readable text formatting.  For use with `@extend`.
+
+*/
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Resets
+
+Set overflow to help prevent WYSIWYG HTML from breaking layout.
+
+*/
+
+%rtf { overflow: hidden; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Headings
+
+Format headings `h1` through `h6` according to heading styles.
+
+     <div class="rtf">
+          <h1>Heading 1</h1>
+          <h2>Heading 2</h2>
+          <h3>Heading 3</h3>
+          <h4>Heading 4</h4>
+          <h5>Heading 5</h5>
+          <h6>Heading 6</h6>
+     </div>
+
+*/
+
+
+
+%rtf h1 { @extend %h1; }
+%rtf h2 { @extend %h2; }
+%rtf h3 { @extend %h3; }
+%rtf h4 { @extend %h4; }
+%rtf h5 { @extend %h5; }
+%rtf h6 { @extend %h6; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Vertical Spacing
+
+Add bottom margins to block-level elements such as tables and paragraphs.
+
+*/
+
+%rtf h1,
+%rtf h2,
+%rtf h3,
+%rtf h4,
+%rtf h5,
+%rtf h6,
+%rtf table,
+%rtf address,
+%rtf pre,
+%rtf p,
+%rtf ol,
+%rtf ul,
+%rtf dl,
+%rtf blockquote { @extend %space-out-lead-bottom; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Horizontal Spacing
+
+Set maximum width of ideal line length for blocks of text such as headings, lists, and blockquotes.  Try to enforce color.
+
+*/
+
+%rtf p,
+%rtf ol,
+%rtf ul,
+%rtf dl,
+%rtf blockquote {
+	max-width: 60em;
+	word-spacing: 1px;
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Paragraph
+
+Paragraphs will have a bottom margin, maximum line width, and can optionally indent successive paragraphs.  Add the class `cols` for CSS3 columns.
+
+     <div class="rtf">
+          <p class="cols">The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.</p>
+          <p>The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.</p>
+     </div>
+
+*/
+
+%rtf p + p { }
+
+%rtf-2cols {
+	max-width: 100%;
+	@include column-count( 2 );
+	@include column-gap( $fluid-gutterx2 );
+}
+
+%rtf-3cols {
+	max-width: 100%;
+	@include column-count( 3 );
+	@include column-gap( $fluid-gutter );
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Lists
+
+Add bullets back to lists and set left padding.
+
+     <ol class="rtf">
+          <li>List item</li>
+          <li>
+               <ul>
+                    <li>List item</li>
+                    <li>List item</li>
+               </ul>
+          </li>
+          <li>List item</li>
+     </ol>
+
+*/
+
+%rtf ul,
+%rtf ol { @extend %space-in-gutter-left; }
+%rtf ul { list-style-type: disc; }
+%rtf ol { list-style-type: decimal; }
+%rtf li ol,
+%rtf li ul { margin-bottom: 0; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Data lists
+
+Add styles to data/definition lists.
+
+     <div class="rtf">
+          <dl>
+               <dt>Key</dt>
+               <dd>Value</dd>
+          </dl>
+     </div>
+
+*/
+
+%rtf dt { font-weight: bold; }
+%rtf dd { @extend %space-out-gutter-left; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Quotes & Blockquotes
+
+- Format `blockquote` with margins and decorative quotation marks.
+- Format quotes (`q`) with quotation marks
+
+
+     <div class="rtf">
+          <blockquote>The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.  </blockquote>
+     </div>
+
+	   <q>Inline quote</q>
+
+*/
+
+%rtf blockquote {
+	@extend %space-in-gutterx2-horizontal;
+	@include pseudolayer( $after: true ) {
+		@extend %space-in-all;
+		color: $border-color;
+		font-family: $font-family-alt;
+		font-size: $fluid-leadx2;
+	}
+	&:before {
+		content: "\201C";
+		top: -$lead; bottom: auto;
+	}
+	&:after {
+		content: "\201D";
+		top: auto; bottom: -$lead;
+		text-align: right;
+	}
+	& small {
+		display: block;
+		text-align: right;
+		&:before { content: "\2014 \0020"; }
+	}
+}
+
+%rtf q { quotes: "\201C" "\201D" "\2018" "\2019"; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Multimedia
+
+- Format multimedia next to text by aligning it to the top of text.
+
+
+*/
+
+%rtf %media { position: relative; top: $fluid-pad; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Links
+
+These are presumed to be plain text links.
+
+- Underline link with dotted border
+- Optionally add icons next to links to type/destination.
+
+
+     <a href="#test">Test Link</a>
+
+*/
+
+%rtf a {
+	border-bottom: 1px dotted;
+	&:focus,
+	&:hover { border-bottom-style: solid; }
+}
+%rtf a:after { } // link
+%rtf a[href^="http"]:after { } // external
+%rtf a[href$=".pdf"]:after,
+%rtf a[href$=".ppt"]:after,
+%rtf a[href$=".doc"]:after,
+%rtf a[href$=".xls"]:after,
+%rtf a[target="_blank"] { } // documents
+%rtf a[href$=".jpg"]:after,
+%rtf a[href$=".gif"]:after,
+%rtf a[href$=".png"]:after { } // images
+%rtf a[href^="\#"]:after { } // on page
+%rtf a%media:after { } // link around an image (hide or restyle for placement)
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Inline Elements
+
+- Format `small` font
+- Format `big` font
+- Add border to `dfn` and `abbr`
+- Add highlight and space to `mark`
+
+
+     <div class="rtf">
+          The quick <dfn title="Tooltip">brown</dfn> fox jumped over the lazy dog.
+     </div>
+
+*/
+
+%rtf abbr[title],
+%rtf dfn[title] {
+	border-bottom: 1px dotted;
+}
+
+%rtf mark {
+	@extend %space-in-half-horizontal;
+	@extend %space-out-half-horizontal;
+}
+
+%rtf big { @extend %big; }
+
+%rtf small {  @extend %small; }
+
+%rtf hr { @extend %hr; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Code and Pre
+
+Optionally add line and space around code and preformatted text.
+
+     <div class="rtf">
+          <pre>The quick brown fox jumped over the lazy dog.</pre>
+     </div>
+
+*/
+
+%rtf code {
+	@extend %space-in-half-horizontal;
+	@extend %space-out-half-horizontal;
+}
+
+%rtf pre {
+	@extend %space-in-vertical;
+	@extend %space-in-font-horizontal;
+}
+
+%rtf code,
+%rtf pre {
+	border: 1px solid $border-color;
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Rich Text Formatting: Ellipsis
+*/
+
+%rtf-ellipsis {
+	display: block;
+	width: 96%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+// ------------------------------------------------------------------------------------- \\

@@ -1,0 +1,399 @@
+$legacy-support-for-ie: false;
+$legacy-support-for-mozilla: false;
+$support-for-original-webkit-gradients: false;
+$experimental-support-for-svg: true;
+
+// ------------------------------------------------------------------------------------- \\
+
+@import "compass/css3";
+@import "compass/utilities/color/contrast";
+@import "rgbapng";
+// @import "breakpoint";
+
+// ------------------------------------------------------------------------------------- \\
+
+// Fonts
+// ===================================================================================== \\
+
+// Default font faces
+$font-family: sans-serif !default;
+$font-family-alt: serif !default;
+
+// Default font sizes
+$font-size-ratio: 1 !default;
+$font-size: #{$font-size-ratio}rem !default;
+$fluid-font-size: #{$font-size-ratio}em !default;
+$static-font-size: 16px !default;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Leading
+// ===================================================================================== \\
+
+// Default line heights
+$lead-ratio: 1.5625 !default;
+$leadhalf-ratio: $lead-ratio / 2 !default;
+$leadx2-ratio: $lead-ratio * 2 !default;
+
+// Line height / leading in static proportions - rems
+$lead: #{$lead-ratio}rem !default;
+$leadhalf: #{$leadhalf-ratio}rem !default;
+$leadx2: #{$leadx2-ratio}rem !default;
+
+// Line height / leading in fluid proportions - ems
+$fluid-lead: #{$lead-ratio}em !default;
+$fluid-leadhalf: #{$leadhalf-ratio}em !default;
+$fluid-leadx2: #{$leadx2-ratio}em !default;
+
+// Line height / leading in static proportions - px
+$static-lead: $static-font-size * $lead-ratio !default;
+$static-leadhalf: $static-lead / 2 !default;
+$static-leadx2: $static-lead * 2 !default;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Padding
+// ===================================================================================== \\
+
+// Default padding size (squares off line-height)
+$pad-ratio: ( $lead-ratio - $font-size-ratio ) !default;
+$padhalf-ratio: ( $pad-ratio / 2 ) !default;
+$pad3q-ratio: $pad-ratio + $padhalf-ratio  !default;
+$padx2-ratio: ( $pad-ratio * 2 ) !default;
+
+// Padding in static proportions - rems
+$pad: #{$pad-ratio}rem !default;
+$padhalf: #{$padhalf-ratio}rem !default;
+$pad3q: #{$pad3q-ratio}rem;
+$padx2: #{$padx2-ratio}rem !default;
+
+// Padding in fluid proportions - ems
+$fluid-pad: #{$pad-ratio}em !default;
+$fluid-padhalf: #{$padhalf-ratio}em !default;
+$fluid-pad3q: #{$pad3q-ratio}em !default;
+$fluid-padx2: #{$padx2-ratio}em !default;
+
+// Padding in static proportions - px
+$static-pad: $static-lead - $static-font-size !default;
+$static-padhalf: $static-pad / 2 !default;
+$static-pad3q: $static-pad + $static-padhalf !default;
+$static-padx2: $static-pad * 2 !default;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Gutters
+// ===================================================================================== \\
+
+// Default gutter size (same as line-height)
+$gutter-ratio: $lead-ratio !default;
+$gutterhalf-ratio: $leadhalf-ratio !default;
+$gutterx2-ratio: $leadx2-ratio !default;
+
+// Gutters in static proportions - rems
+$gutter: $lead !default;
+$gutterhalf: $leadhalf !default;
+$gutterx2: $leadx2 !default;
+
+// Gutters in fluid proportions - ems
+$fluid-gutter: $fluid-lead !default;
+$fluid-gutterhalf: $fluid-leadhalf !default;
+$fluid-gutterx2: $fluid-leadx2 !default;
+
+// Gutters in static proportions - px
+$static-gutter: $static-lead !default;
+$static-gutterhalf: $static-leadhalf !default;
+$static-gutterx2: $static-leadx2 !default;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Spaces
+// ===================================================================================== \\
+
+// Approximate size of the inline space
+$space-ratio: ( $font-size-ratio / 4 ) !default;
+$space: #{$space-ratio}rem !default;
+$fluid-space: #{$space-ratio}em !default;
+$static-space: $static-font-size / 4 !default;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Color Scheme
+// ===================================================================================== \\
+
+$contrasted-lightness-threshold: 50%;
+$contrasted-saturation-threshold: 20%;
+
+// ------------------------------------------------------------------------------------- \\
+
+$background-color: #FFF !default;
+$text-color: contrast-color( $background-color, darken(desaturate($background-color,66%),73%), lighten(desaturate($background-color,66%),73%) ) !default;
+
+$link-color: if(
+		saturation( $background-color ) > $contrasted-saturation-threshold,
+			contrast-color( $background-color, darken(saturate(complement($background-color),96%),54%), lighten(saturate(complement($background-color),96%),54%) ),
+			contrast-color( $background-color, darken(adjust-color($text-color,$red:-180,$green:45,$blue:180),16%), lighten(adjust-color($text-color,$red:180,$green:-45,$blue:-180),16%) )
+	) !default;
+	$link-color-visited: contrast-color( $background-color, darken($link-color,16%), darken($link-color,16%) ) !default;
+	$link-color-hover: contrast-color( $background-color, lighten($link-color,16%), lighten($link-color,16%) ) !default;
+
+$border-color: contrast-color( $background-color, darken($background-color,19%), lighten($background-color,19%) ) !default;
+
+$success-color: #67BE7A !default;
+	$success-background-color: transparentize( contrast-color( $background-color, lighten($success-color,23%), darken($success-color,23%) ), 0.10 ) !default;
+	$success-text-color: contrast-color( $background-color, darken($success-color,56%), lighten($success-color,56%) ) !default;
+$info-color: #718DD0;
+	$info-background-color: transparentize( contrast-color( $background-color, lighten($info-color,23%), darken($info-color,23%) ), 0.10 ) !default;
+	$info-text-color: contrast-color( $background-color, darken($info-color,56%), lighten($info-color,56%) ) !default;
+$alert-color: #DFCA51;
+	$alert-background-color: transparentize( contrast-color( $background-color, lighten($alert-color,23%), darken($alert-color,23%) ), 0.10 ) !default;
+	$alert-text-color: contrast-color( $background-color, darken($alert-color,56%), lighten($alert-color,56%) ) !default;
+$warning-color: #DE9741;
+	$warning-background-color: transparentize( contrast-color( $background-color, lighten($warning-color,23%), darken($warning-color,23%) ), 0.10 ) !default;
+	$warning-text-color: contrast-color( $background-color, darken($warning-color,56%), lighten($warning-color,56%) ) !default;
+$error-color: #D24650;
+	$error-background-color: transparentize( contrast-color( $background-color, lighten($error-color,23%), darken($error-color,23%) ), 0.10 ) !default;
+	$error-text-color: contrast-color( $background-color, darken($error-color,56%), lighten($error-color,56%) ) !default;
+$inverse-color: $text-color;
+	$inverse-background-color: transparentize( contrast-color( $background-color, darken($inverse-color,23%), lighten($inverse-color,23%) ), 0.10 ) !default;
+	$inverse-text-color: contrast-color( $background-color, lighten($inverse-color,66%), darken($inverse-color,66%) ) !default;
+
+// ------------------------------------------------------------------------------------- \\
+
+// Layout
+// ===================================================================================== \\
+
+@mixin html() {
+	background-color: $background-color;
+	color: $text-color;
+	font-family: $font-family;
+}
+
+@mixin body() {
+	@extend %space-in-gutter-all;
+	font-size: $font-size;
+	line-height: $lead-ratio;
+	vertical-align: baseline;
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+// Headings
+// ===================================================================================== \\
+
+@mixin h1() {
+	font-size: 200%;
+}
+@mixin h2() {
+	font-size: 180%;
+}
+@mixin h3() {
+	font-size: 160%;
+}
+@mixin h4() {
+	font-size: 140%;
+}
+@mixin h5() {
+	font-size: 120%;
+}
+@mixin h6() {
+	font-size: 100%;
+	font-weight: bold;
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+// Multimedia
+// ===================================================================================== \\
+
+@mixin media-frame() {
+	background: transparent image-url("loader.png") 50% 50% no-repeat;
+	.ie & { background-image: image-url("loader.gif"); }
+	min-width: 40px; // loader size
+	min-height: 40px; // loader size
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+// Forms
+// ===================================================================================== \\
+
+@mixin fieldset() {
+	@extend %reset-margin;
+	@extend %reset-padding;
+	@extend %reset-border;
+}
+
+@mixin field() {
+	display: block;
+	position: relative;
+	vertical-align: text-top;
+	color: contrast-color( $background-color, darken($text-color,10%), lighten($text-color,10%) );
+	background-color: transparent;
+	@include background-image(
+		linear-gradient( rgba(0,0,0,0.12), rgba(0,0,0,0.08) )
+	);
+	@include box-shadow(
+		inset 1px 1px 1px rgba(0,0,0,0.06),
+		1px 1px 0 rgba(255,255,255,0.24)
+	);
+	border: 1px solid;
+	border-color: rgba(0,0,0,0.16) rgba(0,0,0,0.06) rgba(0,0,0,0.03) rgba(0,0,0,0.12);
+	@include border-radius( $fluid-padhalf );
+}
+
+@mixin input() {
+	@extend %space-in-half-all;
+}
+
+@mixin select() {
+	@extend %space-in-half-all;
+	-webkit-appearance: menulist-textfield;
+}
+
+@mixin textarea() {
+	min-height: #{$lead-ratio * 4}em;
+}
+
+@mixin choice() {
+	@extend %inline-unit;
+	@extend %space-out-half-right;
+	width: $fluid-font-size;
+	height: $fluid-font-size;
+	z-index: 0;
+	/*
+	input {
+		opacity: 0;
+		position: relative;
+		z-index: 2;
+	}
+	i {
+		opacity: 0;
+		position: absolute;
+		z-index: -1;
+	}
+	&:checked + i { @include opacity( 1 ); }
+	*/
+}
+
+@mixin checkbox() {
+	&,
+	&:before,
+	&:after {
+		@include border-radius( 1px );
+	}
+	.icon { bottom: 0; right: 0; }
+}
+
+@mixin radio() {
+	&,
+	&:before,
+	&:after {
+		@include border-radius( $fluid-font-size );
+	}
+	.icon { top: 0; left: 0; }
+}
+
+@mixin button() {
+	@extend %space-in-half-vertical;
+	@extend %space-in-gutterhalf-horizontal;
+	@include pseudolayer( $z-index: 1, $after: true );
+	&, &:before, &:after { @include border-radius( $fluid-pad ); }
+	font-weight: bold;
+	color: contrast-color( $background-color, lighten($background-color,6%), darken($background-color,6%) );
+	background-color: $link-color;
+	@include background-image(
+		linear-gradient( rgba(255,255,255,0.14), rgba(0,0,0,0.10) )
+	);
+	@include box-shadow(
+		inset 1px 1px 0 rgba(255,255,255,0.26),
+		1px 1px 1px rgba(0,0,0,0.26)
+	);
+	border: 1px solid;
+	border-color: rgba(255,255,255,0.02) rgba(0,0,0,0.46) rgba(0,0,0,0.46) rgba(255,255,255,0.02);
+	&:focus:before,
+	&:hover:before { @include rgba-background-inline( rgba(255,255,255,0.25) ); }
+	&:active:before { @include rgba-background-inline( rgba(0,0,0,0.15) ); }
+	&[disabled]:before { @include rgba-background-inline( rgba(125,125,125,0.50) ); }
+}
+
+@mixin placeholder-text() {
+	color: $text-color;
+	font-style: normal;
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+// User Interface
+// ===================================================================================== \\
+
+@mixin autocomplete() {
+	@extend %space-out-lead-top;
+	@extend %space-in-half-all;
+}
+
+	@mixin autocomplete-suggestion() {
+		@extend %space-in-half-all;
+		.hover &,
+		&.hover { @include rgba-background-inline( rgba($border-color,0.75) ); }
+	}
+
+@mixin dropdown-menu() { }
+
+@mixin links() {
+	color: $link-color;
+	text-decoration: none;
+	font-weight: bold;
+	&:link { }
+	&:visited { color: $link-color-visited; }
+	&:focus,
+	&:active,
+	&:hover { color: $link-color-hover; }
+}
+
+@mixin message() {
+	@extend %space-in-vertical;
+	@extend %space-in-x2-horizontal;
+	@include border-radius( $fluid-pad );
+	@include background-clip( padding-box );
+	border-width: $padhalf;
+}
+
+@mixin modal() {
+	@extend %space-in-gutter-all;
+	max-width: 75%;
+}
+	@mixin modal-close() {
+		top: -10px; right: -10px; // half of icon size
+		@extend %icon;
+		@extend %icon-close;
+	}
+
+@mixin tabs() { }
+	@mixin tabs-link() { }
+
+// ------------------------------------------------------------------------------------- \\
+
+// Misc Elements
+// ===================================================================================== \\
+
+@mixin big() {
+	font-size: 120%;
+}
+
+@mixin small() {
+	@include opacity( 0.80 );
+	font-size: 80%;
+}
+
+@mixin selected-text() {
+	color: inherit;
+	@include rgba-background-inline( rgba($alert-color,0.50) );
+}
+
+@mixin hr() {
+	border: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+// ------------------------------------------------------------------------------------- \\

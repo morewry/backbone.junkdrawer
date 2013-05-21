@@ -1,0 +1,58 @@
+{{#page}}
+<section class="page">
+
+	{{#pageHead}}
+	<header class="page-head">
+		{{#pageMedia}}
+			<div class="page-media">
+				<div class="page-media-frame">
+					{{pageMedia}}
+				</div>
+			</div>
+		{{/pageMedia}}
+		{{#pageMedia}}<div class="page-media-body">{{/pageMedia}}
+			{{#pageLogo}}<img class="page-logo" />{{/pageLogo}}
+			{{#pageTitle}}<h1 class="page-title">{{pageTitle}}</h1>{{/pageTitle}}
+			{{#pageSubtitle}}<h2 class="page-subtitle">{{pageSubtitle}}</h2>{{/pageSubtitle}}
+		{{#pageMedia}}</div>{{/pageMedia}}
+	</header>
+	{{/pageHead}}
+
+	{{#pageMenu}}
+	<nav class="page-menu">
+
+	</nav>
+	{{/pageMenu}}
+	{{#pageBody}}
+	<div class="page-body">
+		{{#navPage}}
+		<ul id="js-navpage" class="navpage">
+			{{#items}}
+			<li class="navpage-item">
+				<a class="navpage-link" href="{{href}}">
+					{{link}}
+				</a>
+			</li>
+			{{/items}}
+		</ul>
+		{{/navPage}}
+
+		<div id="js-page-main" class="page-main">
+
+		</div>
+
+	</div>
+	{{/pageBody}}
+
+	{{#pageFoot}}
+	<footer class="page-foot">
+		{{#pageDisclaimer}}
+		<small class="page-disclaimer">
+			{{pageDisclaimer}}
+		</small>
+		{{/pageDisclaimer}}
+	</footer>
+	{{/pageFoot}}
+
+</section>
+{{/page}}

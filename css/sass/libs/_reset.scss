@@ -1,0 +1,247 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+## Reset & Normalize
+
+Heavily borrowed from [normalize.css](http://necolas.github.io/normalize.css/) by Nicolas Gallagher, [HTML5 Boilerplate](http://html5boilerplate.com/) by Paul Irish et al, [OOCSS](https://github.com/stubbornella/oocss) by Nicole Sullivan, .  Comments per [Styledocco](http://jacobrask.github.io/styledocco/).
+
+- Set all elements to `box-sizing: border-box`
+- Correct `[hidden]` style not present in IE 8/9
+
+
+*/
+
+* { @include box-sizing( border-box ); }
+
+[hidden] { display: none; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### HTML
+
+- Always force a scrollbar in non-IE
+- Prevent iOS text size adjust after orientation change, without disabling  user zoom.
+- Set `overflow-x: hidden` on `html` and `body`
+- Prevent system color scheme from being used in FF, IE, & Opera.
+- Instead, format `html` styles (from mixin in config)
+- Optionally set default font family
+
+
+*/
+
+html, body { overflow-x: hidden; }
+
+html {
+	@include html;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	overflow-y: scroll;
+}
+
+/*
+### Body
+
+- Formats `body` styles (from mixin in config)
+- Remove default margin from `body`
+
+
+*/
+
+body {
+	@include body;
+	margin: 0;
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Block Elements
+
+- Correct `display:block` not being set on HTML5 elements in IE8/9
+- Make `address` a block level element, remove italic style
+- Reset margin on `p`, `figure`, and `blockquote`
+- Sets `h1` through `h6` `font-weight` and `font-size` to `inherit`
+- Wrap preformatted text (CSS3) or closest equivalent (prior versions)
+- [Redeclare monospace](http://en.wikipedia.org/wiki/User:Davidgothberg/Test59) for `pre` and `code`
+
+
+*/
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+	@extend %reset-block;
+}
+
+address {
+	@extend %reset-block;
+	font-style: inherit;
+}
+
+hr { @extend %hr; }
+
+p,
+figure,
+blockquote { @extend %reset-margin; }
+
+h1,h2,h3,h4,h5,h6 {
+	font-size: inherit;
+	font-weight: inherit;
+}
+
+pre {
+	white-space: pre; // css 2
+	white-space: pre-wrap; // css 3
+	word-wrap: break-word;
+	overflow-x: auto;
+}
+
+pre,
+code {
+	font-family: monospace, monospace;
+	@if $legacy-support-for-ie { _font-family: "Courier New", monospace; }
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Inline Elements
+
+- Remove italic style from `dfn`
+- Remove border from `abbr`
+- Add help cursor to `abbr` and `dfn`
+- Normalize `strong`, `b`, `em`, and `i`
+- [Position subscript and superscript content without affecting line-height](http://gist.github.com/413930) / [baselinecss](http://baselinecss.com/)
+- Normalize quotes on `q` and `blockquote` (show none by default)
+- Add [Selection styles, must be separate](http://quirksmode.org/css/selection.php) for `::selection` pseudo-element (from mixin in config)
+- Set `small` within `footer` to `display:block`
+
+
+*/
+
+dfn {
+	font-style: inherit;
+}
+
+abbr {
+	border: 0;
+}
+
+abbr[title],
+dfn[title] {
+	cursor: help;
+}
+
+strong,
+b {
+	font-weight: 700;
+}
+
+em,
+i {
+	font-style: italic;
+}
+
+sub,
+sup {
+	position: relative;
+	vertical-align: baseline;
+	@extend %reset-lineheight;
+	@extend %small;
+}
+sub { bottom: -0.25em; }
+sup { top: -0.5em; }
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: "";
+}
+
+mark { @include selected-text; }
+::selection { @include selected-text; }
+::-moz-selection { @include selected-text; }
+::-webkit-selection { @include selected-text; }
+
+footer small {
+	@extend %reset-block;
+}
+
+/*
+#### Links
+
+- Formats link (`a`) styles (from mixin in config)
+- [Make outline thin dotted](http://necolas.github.com/normalize.css)
+- [Accessible focus treatment](http://people.opera.com/patrickl/experiments/keyboard/test)
+
+
+     <a href="#test">Test Link</a>
+
+*/
+
+a {
+	@include links;
+	&:focus { outline: thin dotted; }
+	&:active,
+	&:hover { outline: 0; }
+}
+
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Reset Placeholders
+
+Placeholder "classes" for a style resets.  For use with `@extend`.
+
+- `%reset-block` sets `display: block`
+- `%reset-margin` sets `margin: 0`
+- `%reset-padding` sets `padding: 0`
+- `%reset-border` sets `border: 0`
+- `%reset-lineheight` sets `line-height: 0`
+- `%reset-list` sets `list-style: none`
+- `%h1` formats richtext `h1` styles (from mixin in config)
+- `%h2` formats richtext `h2` styles (from mixin in config)
+- `%h3` formats richtext `h3` styles (from mixin in config)
+- `%h4` formats richtext `h4` styles (from mixin in config)
+- `%h5` formats richtext `h5` styles (from mixin in config)
+- `%h6` formats richtext `h6` styles (from mixin in config)
+- `%big` formats richtext `big` styles (from mixin in config)
+- `%small` formats richtext `small` styles (from mixin in config)
+- `%hr` formats richtext `hr` styles (from mixin in config)
+
+
+*/
+
+%reset-block { display: block; }
+%reset-margin { margin: 0; }
+%reset-padding { padding: 0; }
+%reset-border { border: 0; }
+%reset-lineheight { line-height: 0; }
+%reset-list { list-style: none; }
+
+%h1 { @include h1; }
+%h2 { @include h2; }
+%h3 { @include h3; }
+%h4 { @include h4; }
+%h5 { @include h5; }
+%h6 { @include h6; }
+
+%big { @include big; }
+%small {  @include small; }
+%hr { @include hr; }
+
+// ------------------------------------------------------------------------------------- \\

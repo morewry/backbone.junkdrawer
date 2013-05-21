@@ -1,0 +1,120 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+@mixin hidden { display: none; }
+
+// ------------------------------------------------------------------------------------- \\
+
+$rem-conversion-ratio: $static-font-size / #{1}rem;
+
+@mixin rem($property, $pxsize) {
+  @if $legacy-support-for-ie { #{$property}: $pxsize; }
+  #{$property}: $pxsize / $rem-conversion-ratio;
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+// Old IE Styles
+// http://jakearchibald.github.io/sass-ie/
+@mixin old-ie( $support, $type: false ) {
+	@if $support {
+		@if $type { .ie-#{$type} & { @content } }
+		@else { @content }
+	}
+	@else {
+		@if not $type { @content }
+		@else { .#{$type} & { @content } }
+	}
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+// Media Queries
+// http://thesassway.com/intermediate/responsive-web-design-in-sass-using-media-queries-in-sass-32
+@mixin respond-to( $type ) {
+	@if $type == ipad {
+		@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) { @content }
+	}
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+// Starter for pseudo element styling
+// http://nicolasgallagher.com/multiple-backgrounds-and-borders-with-css2/
+@mixin psuedolayeropts( $z-index, $box-position ) {
+	@if $z-index != -1 { z-index: $z-index; }
+	@if length($box-position) and $box-position != 0 {
+		@if length($box-position) >= 1 { top: nth($box-position, 1); }
+		@if length($box-position) >= 2 { right: nth($box-position, 2); }
+		@if length($box-position) >= 3 { bottom: nth($box-position, 3); }
+		@if length($box-position) >= 4 { left: nth($box-position, 4); }
+	}
+}
+@mixin pseudolayer( $z-index: -1, $box-position: 0, $before: true, $after: false ) {
+	position: relative;
+	@if $before and $after != true {
+		&:before {
+			@extend %pseudolayer;
+			@include psuedolayeropts( $z-index, $box-position );
+			@content;
+		}
+	}
+	@if $before != true and $after {
+		&:after {
+			@extend %pseudolayer;
+			@include psuedolayeropts( $z-index, $box-position );
+			@content;
+		}
+	}
+	@if $before and $after {
+		&:before, &:after {
+			@extend %pseudolayer;
+			@include psuedolayeropts( $z-index, $box-position );
+			@content;
+		}
+	}
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+// Dyanamically generate grid classes.
+@mixin widths ( $units, $make-class ) {
+	$i: 1;
+	$unit-width: ( 100% / $units );
+	@while $i <= $units {
+		%width-#{$i}of#{$units} {
+			$current-width: $unit-width * $i;
+			@if $current-width == 100% { @extend %width-1of1; }
+			@else if $current-width == 80% and $units != 5 { @extend %width-4of5; }
+			@else if $current-width == 75 and $units != 4% { @extend %width-3of4; }
+			@else if floor($current-width) == 66% and $units != 3 { @extend %width-2of3; }
+			@else if $current-width == 60% and $units != 5 { @extend %width-3of5; }
+			@else if $current-width == 50% and $units != 2 { @extend %width-1of2; }
+			@else if $current-width == 40% and $units != 5 { @extend %width-2of5; }
+			@else if floor($current-width) == 33% and $units != 3 { @extend %width-1of3; }
+			@else if $current-width == 25% and $units != 4 { @extend %width-1of4; }
+			@else if $current-width == 20% and $units != 5 { @extend %width-1of5; }
+			@else { width: $unit-width * $i; }
+		}
+		@if $make-class {
+			.width-#{$i}of#{$units} { @extend %width-#{$i}of#{$units}; }
+		} // if
+		$i: $i + 1;
+	} // while
+} // mixin
+
+// ------------------------------------------------------------------------------------- \\
+
+// http://yuilibrary.com/yui/docs/cssgrids/
+@mixin white-space-collapse( $value ) {
+	-o-white-space-collapse: $value;
+	-ms-white-space-collapse: $value;
+	-moz-white-space-collapse: $value;
+	-webkit-white-space-collapse: $value;
+	white-space-collapse: $value;
+	word-spacing: -$space;
+	> * { word-spacing: normal; }
+}
+
+// ------------------------------------------------------------------------------------- \\
