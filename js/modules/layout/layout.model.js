@@ -5,7 +5,15 @@ define(
 	],
 	function(){
 
-		App.Model.Site = Backbone.Model.extend({
+		App.Layout = App.Layout || {};
+
+		/**
+		 *
+		 *
+		 *
+		 *
+		**/
+		App.Layout.Model = Backbone.Model.extend({
 
 			// Backbone.LocalStorage: Save to a localStorage database
 			// localStorage: new Backbone.LocalStorage("uniquename"),
@@ -56,9 +64,9 @@ define(
 			// Backbone: Will be invoked when the model is created.
 			// initialize: function(){} // initialize
 
-		}); // App.Model.Site
+		}); // App.Layout.Model
 
-		return App.Model.Site;
+		return App.Layout.Model;
 
 	} // fn
 ); // define

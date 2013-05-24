@@ -1,11 +1,12 @@
 define(
 	[
+		'module/convey/convey.model',
 		'backbone'
 		//,'backbone.localstorage'
 	],
 	function(){
 
-		App.Example = App.Example || {};
+		App.Convey = App.Convey || {};
 
 		/**
 		 *
@@ -13,26 +14,26 @@ define(
 		 *
 		 *
 		**/
-		App.Example.Collection = Backbone.Collection.extend({
+		App.Convey.Collection = Backbone.Collection.extend({
 
 			// Backbone.LocalStorage: Save to a localStorage database
 			// localStorage: new Backbone.LocalStorage("uniquename"),
 
 			// Backbone: Reference to reference collection location on server.
-			url: "",
+			// url: "",
 
 			// Backbone: Specify the model class that the collection contains.
-			model: ,
+			model: App.Convey.Model
 
 			// Backbone: Will be invoked when the collection is created.
-			initialize: function(){}, // initialize
+			// initialize: function(){}, // initialize
 
 			// Backbone: Called whenever a collection is fetched from server.
-			parse: function(response){} // parse
+			// parse: function(response){} // parse
 
-		}); // App.Example.Collection
+		}); // App.Convey.Collection
 
-		return App.Example.Collection;
+		return App.Convey.Collection;
 
 	} // fn
 ); // define

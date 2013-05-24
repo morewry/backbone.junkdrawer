@@ -1,0 +1,18 @@
+<article data-convey="conveyor-{{cvid}}" class="modal invisible">
+	{{#title}}
+	<header class="modal-head">
+		<h6 class="modal-title">{{title}}</h6>
+		<button data-convey="hide-{{cvid}}">
+			<abbr title="close">x</abbr>
+		</button>
+	</header>
+	{{/title}}
+	{{^title}}
+	<button data-convey="hide-{{cvid}}">
+		<abbr title="close">x</abbr>
+	</button>
+	{{/title}}
+	<div class="modal-body">
+		{{message}}
+	</div>
+</article>

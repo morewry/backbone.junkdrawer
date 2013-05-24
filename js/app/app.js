@@ -5,9 +5,11 @@ define(
 			baseUrl: '/js/',
 			// enforceDefine: true,
 			/**
+			 *
 			 * Shims
 			 * Configure the dependencies and exports for older, traditional 'browser globals'
 			 * scripts that do not use define() to declare the dependencies and set a module value.
+			 *
 			**/
 			shim: {
 				'backbone': {
@@ -25,17 +27,30 @@ define(
 						],
 						exports: 'Backbone.Layout'
 					}, // backbone.layoutmanager
+					'backbone.localstorage': {
+						deps: ['backbone'],
+						exports: 'Backbone.LocalStorage'
+					}, // backbone.localstorage
+					'backbone.subroute': {
+						deps: ['backbone'],
+						exports: 'Backbone.SubRoute'
+					}, // backbone.subroute
 					'backbone.syphon': {
 						deps: ['backbone'],
 						exports: 'Backbone.Syphon'
 					}, // backbone.syphon
-					'backbone.localstorage': {
-						deps: ['backbone'],
-						exports: 'Backbone.LocalStorage'
-					}, // backbone.syphon
 				'json2': {
 					exports: 'JSON'
 				},
+				'jquery': {
+					exports: 'jQuery',
+					init: function() {
+						$.noConflict();
+					}
+				},
+					'jquery.ui.position': {
+						deps: ['jquery']
+					},
 				'underscore': {
 					exports: '_'
 				}, // underscore
@@ -55,22 +70,26 @@ define(
 					} // zepto.deferred
 			}, // shim
 			/**
+			 *
 			 * Paths
 			 * Path mappings for module names not found directly under baseUrl
 			 * Don't have to add one for each file. Used as shortcuts or for scripts with shims above.
+			 *
 			**/
 			paths: {
-				'app/router': '/js/app/router',
-				'app/config': '/js/app/config',
-				'app/layout': '/js/app/layout',
+				'main.app': 'app/app',
+				'main.router': 'app/router',
 				'backbone': 'libs/backbone/backbone',
-					'backbone.syphon': 'libs/backbone/backbone.syphon',
 					'backbone.layoutmanager': 'libs/backbone/backbone.layoutmanager',
 					'backbone.localstorage': 'libs/backbone/backbone.localstorage',
+					'backbone.subroute': 'libs/backbone/backbone.subroute',
+					'backbone.syphon': 'libs/backbone/backbone.syphon',
 				'custom': 'libs/custom',
 				'hogan': 'libs/hogan',
 				'html': '/html',
 				'json2': 'libs/json2',
+				'jquery': 'libs/jquery/jquery',
+					'jquery.ui.position': 'libs/jquery/jquery.ui.position',
 				'module': 'modules',
 				'require': 'libs/require/require',
 					'async': 'libs/require/async',
@@ -105,10 +124,12 @@ define(
 			], // deps
 			callback: function() {
 
-				// console.log utility
-				$.log = function(val) { if (window.console) console.log(val); }
-
-				// Configure layout manager
+				/**
+				 *
+				 * Configure layout manager
+				 * Provide defaults, override w/async fetch & render
+				 *
+				**/
 				Backbone.Layout.configure({
 					manage: true,
 					el: false,
@@ -124,11 +145,20 @@ define(
 						done(
 							template(context)
 						);
-					} // render
+					}, // render
+					serialize: function() {
+						return _.clone(this.model.attributes);
+					} // serialize
 				}); // Backbone.Layout.configure
 
-				// create global object
+				/**
+				 *
+				 * Create global App object
+				 * Establishes naming convention for modules
+				 *
+				**/
 				window.App = {
+					Log: function(val) { if (window.console) console.log(val); },
 					View: {},
 					Collection: {},
 					Model: {},
@@ -153,7 +183,7 @@ define(
 							} else {
 								// Or create a new layout with options
 								this.layout = new Backbone.Layout(_.extend({
-									el: '#body'
+									el: '#js-body'
 								}, options));
 							} // if
 
@@ -164,43 +194,76 @@ define(
 					Event: _.extend({}, Backbone.Events)
 				}; // App
 
-				// Start history
+				/**
+				 *
+				 * Start history
+				 *
+				 *
+				**/
 				// Backbone.history.start({pushState: true, root: '/'});
 				Backbone.history.start();
 
-				// Route all click events by default
-				$(document).on('click', 'a[href]:not([data-bypass])', function(e) {
+				/**
+				 *
+				 * Prevent default on 'click' events
+				 * Route if no associated handler
+				 *
+				**/
+				$(document).on('click.backbone', 'a[href]:not([data-bypass])', function(e) {
 					e.preventDefault();
-					$.log('Click routed by backbone');
-					// Backbone.history.navigate($(this).attr('href'), {trigger: true, replace: true});
-					Backbone.history.navigate($(this).attr('href'), {trigger: true});
+					_this = $(this);
+					App.Log('Click handled by backbone');
+					Backbone.history.navigate(_this.attr('href'), {trigger: true});
 				}); // on click
 
-				// Route all submit events by default
-				$(document).on('submit', 'form:not([data-bypass])', function(e) {
+
+				/**
+				 *
+				 * Prevent default on 'submit' events
+				 * Route if no associated handler
+				 *
+				**/
+				$(document).on('submit.backbone', 'form[action]:not([data-bypass])', function(e) {
 					e.preventDefault();
-					$.log('Submit routed by backbone');
-					// Backbone.history.navigate($(this).attr('action'), {trigger: true, replace: true});
-					Backbone.history.navigate($(this).attr('action'), {trigger: true});
+					_this = $(this);
+					App.Log('Submit handled by backbone');
+					Backbone.history.navigate(_this.attr('href'), {trigger: true});
 				}); // on submit
 
-				// Retrieve & instantiate main layout & router
+				/**
+				 *
+				 * Retrieve layout module & main router
+				 *
+				 *
+				**/
 				require(
 					[
-						'app/router',
-						'app/config',
-						'app/layout'
+						'main.router',
+						'module/layout/layout.model',
+						'module/layout/layout.view'
 					],
-					function(appRouter, appConfig, appLayout) {
+					function(appRouter, layoutModel, layoutView) {
+						App.Router.Main = App.Router.Main || new appRouter;
+						App.Model.Layout = App.Model.Layout || new layoutModel;
 
-						// Listen for route events
-						new appRouter().on('route:defaultRoute', function(actions) {
-							$.log( 'Route: ' + actions );
+						/**
+						 *
+						 * Instantiate main router
+						 *
+						 *
+						**/
+						App.Router.Main.on('route', function(actions) {
+							App.Log( 'Route: ' + actions );
 						});
 
-						// Create initial layout
-						App.Layout.Use().setView(new appLayout.Main({
-							model: new appConfig()
+						/**
+						 *
+						 * Create layout
+						 *
+						 *
+						**/
+						App.Layout.Use().setView(new layoutView.Main({
+							model: App.Model.Layout
 						}), true).render();
 
 					} // fn

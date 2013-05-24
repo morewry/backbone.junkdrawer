@@ -5,7 +5,7 @@ define(
 	],
 	function(){
 
-		App.Example = App.Example || {};
+		App.Convey = App.Convey || {};
 
 		/**
 		 *
@@ -13,7 +13,7 @@ define(
 		 *
 		 *
 		**/
-		App.Example.Model = Backbone.Model.extend({
+		App.Convey.Model = Backbone.Model.extend({
 
 			// Backbone.LocalStorage: Save to a localStorage database
 			// localStorage: new Backbone.LocalStorage("uniquename"),
@@ -23,16 +23,28 @@ define(
 
 			// Backbone: Hash (or fn that returns one) of default attrs for model.
 			defaults: {
-				example: 'World',
-				count: 0
+				// Per Backbone.Layout
+				template: 'convey',
+				append: true,
+				// Per api.jqueryui.com/position/
+				position: {
+					my: 'center',
+					at: 'center',
+					of: App.Layout.Use().$el,
+					collision: 'fit',
+					within: App.Layout.Use().$el
+				},
+				origin: App.Layout.Use(),
+				cvid: 'none',
+				message: null
 			} // defaults
 
 			// Backbone: Will be invoked when the model is created.
 			// initialize: function(){} // initialize
 
-		}); // App.Example.Model
+		}); // App.Convey.Model
 
-		return App.Example.Model;
+		return App.Convey.Model;
 
 	} // fn
 ); // define
