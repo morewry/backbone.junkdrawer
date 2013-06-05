@@ -1,0 +1,26 @@
+<form action="/listing/search">
+	<fieldset>
+			<legend>Location</legend>
+		<label>
+			City &amp; ST, or ZIP Code
+			<input type="search" name="propsearch"
+			 {{#propsearch}}value="{{propsearch}}"{{/propsearch}}>
+		</label>
+	</fieldset>
+	<fieldset>
+		<legend>Price Range</legend>
+		<label>
+			Min Price
+			<input type="number" name="minprice"
+			 {{#minprice}}value="{{minprice}}"{{/minprice}}>
+		</label>
+		<label>
+			Max Price
+			<input type="number" name="maxprice"
+			 {{#maxprice}}value="{{maxprice}}"{{/maxprice}}>
+		</label>
+	</fieldset>
+	<fieldset>
+		<button type="submit">Search</button>
+	</fieldset>
+</form>

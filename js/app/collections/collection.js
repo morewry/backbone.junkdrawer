@@ -19,7 +19,7 @@ define(
 			// localStorage: new Backbone.LocalStorage("uniquename"),
 
 			// Backbone: Reference to reference collection location on server.
-			url: "",
+			url: '',
 
 			// Backbone: Specify the model class that the collection contains.
 			model: ,
