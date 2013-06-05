@@ -1,0 +1,62 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Modals (& Dialogs)
+
+Provides formatting and structural defaults for modals.  For use with `@extend`.
+
+- `%modal`
+- `%modal-screen`
+- `%modal-close`
+- `%modal-head`
+- `%modal-body`
+- `%modal-foot`
+
+
+     <article class="modal" style="display:block;">
+          <header class="modal-head">
+               <h1 class="modal-title">Title</h1>
+               <a href="#" class="modal-close">close</a>
+          </header>
+          <div class="modal-body">
+               Test body content for dialogs and modals.
+          </div>
+          <footer class="modal-foot">
+               <a href="#" class="btn btn-skin btn-1">Test Button</a> in modal foot
+          </footer>
+     </article>
+     <div class="modal-screen"></div>
+*/
+
+%modal {
+	@include modal;
+	position: absolute;
+	z-index: 999;
+}
+	%modal-bg {
+		@include modal-bg;
+		position: fixed;
+	}
+	%modal-fg {
+		@include modal-fg;
+	}
+	%modal-close {
+		@include modal-close;
+		position: absolute;
+	}
+		%modal-head {
+			@include modal-head;
+		}
+		%modal-body {
+			@include modal-body;
+			overflow-x: hidden;
+			overflow-y: visible;
+		}
+		%modal-foot {
+			@include modal-foot;
+			text-align: center;
+		}
+
+// ------------------------------------------------------------------------------------- \\

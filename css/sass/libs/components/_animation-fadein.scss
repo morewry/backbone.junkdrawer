@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Animation: Fade In
+*/
+
+// ------------------------------------------------------------------------------------- \\
+
+@-webkit-keyframes fadein {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@-moz-keyframes fadein {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@-o-keyframes fadein {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes fadein {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+%fadein {
+	-webkit-animation-name: fadein;
+	-moz-animation-name: fadein;
+	-o-animation-name: fadein;
+	animation-name: fadein;
+}
+
+// ------------------------------------------------------------------------------------- \\

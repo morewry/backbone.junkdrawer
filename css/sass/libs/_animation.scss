@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+## Animation
+
+Heavily borrowed from [Dan Eden](https://github.com/daneden/animate.css/blob/master/animate.css) pure CSS animations.
+
+*/
+
+// ------------------------------------------------------------------------------------- \\
+
+%animated {
+	-webkit-animation-duration: 1s;
+	-moz-animation-duration: 1s;
+	-o-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	-moz-animation-fill-mode: both;
+	-o-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
+// ------------------------------------------------------------------------------------- \\

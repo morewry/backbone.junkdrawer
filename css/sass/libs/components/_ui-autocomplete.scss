@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Autocomplete
+
+Provides structural defaults for an autocomplete widget.  For use with `@extend`.
+
+- `%autocomplete`
+- `%autocomplete-list`
+- `%autocomplete-item`
+- `%autocomplete-suggestion`
+- `%autocomplete-link`
+- `%autocomplete-count`
+- `%autocomplete-error`
+
+
+*/
+
+%autocomplete {
+	@include autocomplete;
+	z-index: 997;
+}
+	%autocomplete-list { }
+		%autocomplete-item { }
+			%autocomplete-suggestion { @include autocomplete-suggestion; }
+				%autocomplete-link { }
+			%autocomplete-count { }
+	%autocomplete-error { }
+
+// ------------------------------------------------------------------------------------- \\

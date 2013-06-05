@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Graded Tables
+
+Use the placeholder `table-graded` to add lines between table rows.  For use with `@extend`.
+
+- `%table-graded`
+
+
+     <table width="100%" cellspacing="0" cellpadding="0" class="table-graded">
+          <thead>
+               <tr>
+                    <th>Test Table Heading</th>
+                    <th>And</th>
+               </tr>
+          </thead>
+          <tbody>
+               <tr>
+                    <td>Cell contents</td>
+                    <td>And</th>
+               </tr>
+               <tr>
+                    <td>Cell contents</td>
+                    <td>And</th>
+               </tr>
+          </tbody>
+     </table>
+
+*/
+
+%table-graded {
+	border: hidden;
+	@if $legacy-support-for-ie { _border: 3px solid transparent; }
+	& tr { border: 1px dotted $border-color; }
+	& thead,
+	& tbody,
+	& tfoot { border: 1px solid $border-color; }
+	& thead { border: 2px solid $border-color; }
+	& tfoot { border: 2px solid $border-color; }
+}
+
+// ------------------------------------------------------------------------------------- \\

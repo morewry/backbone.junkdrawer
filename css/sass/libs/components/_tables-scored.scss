@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Scored Tables
+
+Use the placeholder `table-scored` to add lines between table columns.  For use with `@extend`.
+
+- `%table-scored`
+
+
+     <table width="100%" cellspacing="0" cellpadding="0" class="table-scored">
+          <thead>
+               <tr>
+                    <th>Test Table Heading</th>
+                    <th>And</th>
+               </tr>
+          </thead>
+          <tbody>
+               <tr>
+                    <td>Cell contents</td>
+                    <td>And</th>
+               </tr>
+               <tr>
+                    <td>Cell contents</td>
+                    <td>And</th>
+               </tr>
+          </tbody>
+     </table>
+
+*/
+
+%table-scored {
+	border: hidden;
+	@if $legacy-support-for-ie { _border: 2px solid transparent; }
+	& th,
+	& td { border-right: 1px solid $border-color; }
+}
+
+// ------------------------------------------------------------------------------------- \\

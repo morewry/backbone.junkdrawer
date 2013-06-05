@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Inline-Block Layouts
+
+Shortcuts for inline block layouts.  Use the placeholders `inline-row` and `inline-unit`.   For use with `@extend`.
+
+- `%inline-row`
+- `%inline-unit`
+- To suppress whitespace between units, use `%inline-row-nospace`. Technique from [YUI](http://yuilibrary.com/yui/docs/cssgrids/).
+- To keep content inside of units by wrapping use `%inline-unit-nowrap`.
+
+
+     <!-- Regular Inline Row -->
+     <div class="inline-row">
+          <div class="inline-unit">Inline block unit</div>
+          <div class="inline-unit">Inline block unit</div>
+          <div class="inline-unit">Inline block unit</div>
+     <div>
+
+     <!-- Inline Row with no whitepsace -->
+     <div class="inline-row-nospace">
+          <div class="inline-unit">Inline block unit</div>
+          <div class="inline-unit">Inline block unit</div>
+          <div class="inline-unit">Inline block unit</div>
+     <div>
+
+By default, an `inline-row` won't allow the `inline-unit`s to wrap, but the content inside each `inline-unit` can.
+
+*/
+%inline-row { white-space: nowrap; }
+
+%inline-row-nospace {
+	@extend %inline-row;
+	@include white-space-collapse( discard );
+}
+
+	%inline-unit {
+		@if $legacy-support-for-mozilla { display: -moz-inline-stack; }
+		display: inline-block;
+		vertical-align: middle;
+		white-space: normal;
+		@if $legacy-support-for-ie { _display: inline; @include haslayout; }
+	}
+
+	%inline-unit-nowrap {
+		@extend %inline-unit;
+		white-space: nowrap;
+	}
+
+// ------------------------------------------------------------------------------------- \\

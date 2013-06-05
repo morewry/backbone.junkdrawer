@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Unstyled List
+
+Formatting placeholder "class" for an unstyled list.  For use with `@extend`.
+
+- `%list-unstyled`
+
+
+     <ul class="rtf list-unstyled">
+          <li>Test list item one</li>
+          <li>Test list item number two</li>
+          <li>And finally test list item number three</li>
+     </ul>
+
+*/
+
+%list-unstyled {
+	@extend %space-out-none;
+	@extend %space-in-none;
+	@extend %reset-list;
+}
+
+// ------------------------------------------------------------------------------------- \\

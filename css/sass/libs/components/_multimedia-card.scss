@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Media Card Layout
+
+Formatting placeholder "classes" for media + content in a card/horizontal layout.  For use with `@extend`.
+
+- `%media-card`
+- `%media-card-frame`
+- `%media-card-item`
+- `%media-card-body`
+
+
+Media card will automatically lay out an image, video, or icon next to a block of text.  If the multimedia does not have any risk of overflow, media card does not require widths.  If the multimedia needs to scale, it is only necessary to set a width on the media block.  Setting a width on the body is completely optional.
+
+     <div class="media-card">
+          <div class="media media-card-media">
+               <div class="media-frame media-card-frame">
+                    <img class="media-item media-card-item" src="test-house.jpg" width="100" height="50" />
+               </div>
+          </div>
+          <div class="media-card-body">
+               This is media card body.
+          </div>
+     </div>
+
+
+*/
+%media-card {
+	@extend %reset-block;
+	@extend %grid-row;
+}
+	%media-card-media {
+		@extend %grid-unit;
+		@extend %space-in-font-right;
+	}
+		%media-card-frame { }
+	%media-card-body { @extend %grid-last; }
+
+// Extends media - align media to the right
+%media-card-right { @extend %media-card; }
+	%media-card-right-media {
+		@extend %media-card-media;
+		@extend %grid-right;
+	}
+		%media-card-right-frame {
+			@extend %space-out-gutter-left;
+			@extend %space-in-font-left;
+		}
+
+// ------------------------------------------------------------------------------------- \\

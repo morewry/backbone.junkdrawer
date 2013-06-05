@@ -23,19 +23,8 @@ define(
 
 			// Backbone: Hash (or fn that returns one) of default attrs for model.
 			defaults: {
-				// Per Backbone.Layout
-				template: 'convey',
-				append: true,
-				// Per api.jqueryui.com/position/
-				position: {
-					my: 'center',
-					at: 'center',
-					of: App.Layout.Use().$el,
-					collision: 'fit',
-					within: App.Layout.Use().$el
-				},
-				origin: App.Layout.Use(),
 				cvid: 'none',
+				title: null,
 				message: null
 			} // defaults
 

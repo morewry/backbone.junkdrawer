@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+## Multimedia Structure Options
+
+Structure for laying out media items with fixes for placement in fluid grids.  The following rules apply:
+
+- Do not add margins, padding, or borders to `media`.
+- Set margins, padding, and borders on `media-frame`.
+- Set widths on `media`, not its descendants.
+- Set heights on `media-frame` for cropping.
+
+
+Media will scale and crop the width and height so that images don't break layout.
+
+For use with `@extend`.
+
+- `%media`
+- `%media-frame`
+- `%media-item`
+
+
+     <div class="media">
+	       <a href="#" class="media-frame">
+			      <img class="media-item" src="#" width="200" height="100" />
+			 </a>
+     </div>
+
+
+*/
+%media { text-align: center; } // may be extended with width, must not have gutter or frame styles
+	%media-frame {
+		position: relative;
+		display: block;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		@include media-frame;
+	}
+		%media-item {
+			@extend %fluid-media;
+			min-height: inherit;
+			max-height: auto;
+		}
+		%media-caption {
+			position: absolute;
+			left: 0; right: 0; bottom: 0;
+			@extend %space-in-half-vertical;
+			@extend %space-in-horizontal;
+		}
+%media-body { @extend %reset-block; }
+
+// ------------------------------------------------------------------------------------- \\

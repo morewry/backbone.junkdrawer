@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Key-Value List
+
+Formatting placeholder "classes" for a vertical list of key-value pairs.  For use with `@extend`.
+
+- `%list-keyval`
+- `%list-keyval-item`
+- `%list-keyval-key`
+- `%list-keyval-val`
+
+
+     <dl class="list-keyval">
+          <dt class="list-keyval-key">Test list item one</dt>
+          <dd class="list-keyval-val">Test list item number two</dd>
+     </dl>
+
+*/
+
+%list-keyval { @extend %grid-row; }
+	%list-keyval-item {
+		@extend %grid-row;
+		white-space: nowrap;
+		&:after {
+			content: " : ";
+			margin-left: -$space;
+		}
+	}
+		%list-keyval-key {
+			@extend %grid-unit;
+			@extend %grid-first;
+		}
+		%list-keyval-val {
+			@extend %grid-unit;
+			white-space: normal;
+		}
+
+// ------------------------------------------------------------------------------------- \\

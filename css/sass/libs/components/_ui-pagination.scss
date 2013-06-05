@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Pagination
+
+Provides formatting and structural defaults for pagination.  For use with `@extend`.
+
+- `%pages`
+- `%pages-list`
+- `%pages-item`
+- `%pages-link`
+- `%pages-prev`
+- `%pages-next`
+
+
+     <ol class="pages-list">
+          <li class="pages-item">
+               <a href="#" class="pages-link">1</a>
+          </li>
+          <li class="pages-item">
+               <a href="#" class="pages-link">2</a>
+          </li>
+          <li class="pages-item">
+               <a href="#" class="pages-link">3</a>
+          </li>
+     </ol>
+*/
+
+%pages {
+	@extend %inline-row-nospace;
+	@extend %space-out-lead-vertical;
+	clear: both;
+}
+	%pages-list {
+		@extend %inline-unit;
+		@extend %inline-row;
+		@extend %width-8of10;
+		text-align: center;
+	}
+	%pages-item { @extend %inline-unit; }
+		%pages-link {
+			@extend %space-in-half-all;
+			&.active { border-bottom: 1px solid; }
+		}
+%pages-prev, %pages-next {
+	@extend %button;
+	@extend %inline-unit;
+	@extend %width-1of10;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+// ------------------------------------------------------------------------------------- \\

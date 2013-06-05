@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Striped Tables
+
+Use the placeholder `table-striped` to add zebra striping to table rows, columns, and sections.  For use with `@extend`.
+
+- `%table-striped`
+
+
+     <table width="100%" cellspacing="0" cellpadding="0" class="table-striped">
+          <thead>
+               <tr>
+                    <th>Test Table Heading</th>
+                    <th>And</th>
+               </tr>
+          </thead>
+          <tbody>
+               <tr>
+                    <td>Cell contents</td>
+                    <td>And</th>
+               </tr>
+               <tr>
+                    <td>Cell contents</td>
+                    <td>And</th>
+               </tr>
+          </tbody>
+     </table>
+
+*/
+
+%table-striped {
+	& > tbody:nth-of-type( odd ) { background: rgba(255,255,255,0.05); }
+	& > tbody:nth-of-type( even ) { background: rgba(0,0,0,0.05); }
+	& tr > th:nth-child( odd ),
+	& tr > td:nth-child( odd ) { background: rgba(255,255,255,0.05); }
+	& tr > th:nth-child( even ),
+	& tr > td:nth-child( even ) { background: rgba(0,0,0,0.05); }
+	& > tbody > tr:nth-child( odd ) { background: rgba(255,255,255,0.05); }
+	& > tbody > tr:nth-child( even ) { background: rgba(0,0,0,0.05); }
+	& > tbody > tr:hover > td,
+	& > tbody > tr:hover > th {  }
+}
+
+// ------------------------------------------------------------------------------------- \\

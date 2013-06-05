@@ -1,0 +1,36 @@
+@charset "utf-8";
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Delimited List
+
+Formatting placeholder "classes" for a horizontal single-line list with delimiters.  For use with `@extend`.
+
+- `%list-delim`
+- `%list-delim-item`
+
+
+     <ul class="list-delim">
+          <li class="list-delim-item">Delimited item</li>
+          <li class="list-delim-item">Delimited item</li>
+     </ul>
+
+*/
+
+%list-delim { }
+	%list-delim-item {
+		@extend %inline-row;
+		@extend %inline-unit;
+		white-space: nowrap;
+		&:before {
+			color: $border-color;
+			content: " \007C ";
+			padding: 0 $space;
+		}
+		&:first-child:before {
+			@extend %space-in-none;
+			content: "";
+		}
+	}
+
+// ------------------------------------------------------------------------------------- \\

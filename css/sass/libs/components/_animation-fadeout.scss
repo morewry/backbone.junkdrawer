@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Animation: Fade Out
+*/
+
+// ------------------------------------------------------------------------------------- \\
+
+@-webkit-keyframes fadeout {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+@-moz-keyframes fadeout {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+@-o-keyframes fadeout {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+@keyframes fadeout {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+%fadeout {
+	-webkit-animation-name: fadeout;
+	-moz-animation-name: fadeout;
+	-o-animation-name: fadeout;
+	animation-name: fadeout;
+}
+
+// ------------------------------------------------------------------------------------- \\

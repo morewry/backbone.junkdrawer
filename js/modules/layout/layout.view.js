@@ -1,7 +1,7 @@
 define(
 	[
-		'module/convey/convey.view',
-		'module/layout/layout.model',
+		'modules/convey/convey.view',
+		'modules/layout/layout.model',
 		'backbone',
 		'backbone.layoutmanager'
 	],
@@ -97,22 +97,88 @@ define(
 		**/
 		App.Layout.View.Body = Backbone.View.extend({
 			// Backbone: Hash (or fn that returns one) of delegated events.
+			// move to jquery plugin (?)
 			events: {
-				'click [data-convey*="show-"]': 'openMessage'
+				'click [data-js="convey-show-msg"]': 'openMsg',
+				'click [data-js="convey-show-dialog"]': 'openDialog',
+				'click [data-js="convey-show-custom"]': 'openCustom'
 			},
 
-			openMessage: function(e) {
+			/**
+			 *
+			 * Display a message (using convey)
+			 *
+			 *
+			**/
+			// move to jquery plugin (?)
+			openMsg: function(e) {
+				var $target = $(e.currentTarget),
+				tConfig = $target.data('js').split("-");
 				App.Event.trigger(
 					'setup.conveyor',
 					{
-						origin: this,
-						cvid: $(e.currentTarget).data('convey').replace('show-', ''),
-						title: 'Modal Title',
-						message: 'This is a simple message I can place anywhere (as soon as I figure out why the position is failing to position) and skin anyhow with different templates',
-						template: 'modal'
-					}
+						options: {
+							origin: this,
+							position: {
+								my: 'left top',
+								at: 'right bottom',
+								of: $target
+							}
+						}, // options
+						model: {
+							cvid: tConfig[2],
+							message: 'This is a simple message I can place anywhere and skin anyhow'
+						} // model
+					} // e
 				); // trigger('setup.conveyor')
-			}, // openMessage
+			}, // openMsg
+
+			/**
+			 *
+			 * Display a dialog (using convey)
+			 *
+			 *
+			**/
+			// move to jquery plugin (?)
+			openDialog: function(e) {
+				var tConfig = $(e.currentTarget).data('js').split("-");
+				App.Event.trigger(
+					'setup.conveyor',
+					{
+						options: {
+							template: 'modal'
+						}, // options
+						model: {
+							cvid: tConfig[2],
+							title: 'Modal Dialog Title',
+							message: 'A modal dialog I can place anywhere and skin anyhow with css or with different templates'
+						} // model
+					} // e
+				); // trigger('setup.conveyor')
+			}, // openDialog
+
+			/**
+			 *
+			 * Display a custom modal (using convey)
+			 *
+			 *
+			**/
+			// move to jquery plugin (?)
+			openCustom: function(e) {
+				var tConfig = $(e.currentTarget).data('js').split("-");
+				App.Event.trigger(
+					'setup.conveyor',
+					{
+						options: {
+							origin: App.Layout.Use().getView({template: 'site'}).getView({template: 'site-head'}),
+							template: 'examplecustom'
+						}, // options
+						model: {
+							cvid: tConfig[2]
+						} // model
+					} // e
+				); // trigger('setup.conveyor')
+			}, // openCustom
 
 			// Backbone.Layout: Specify a template for the view.
 			template: 'site-body',

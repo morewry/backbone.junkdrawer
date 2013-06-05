@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Dropdown
+
+Provides structural defaults for a dropdown widget, forked from [Twitter Bootstrap Dropdown](http://twitter.github.com/bootstrap/javascript.html#dropdowns).  For use with `@extend`.
+
+- `%dropdown`
+- `%dropdown-toggle`
+- `%dropdown-menu`
+- `%drop-up`
+- `%dropdown-right`
+
+
+     <div class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown toggle</a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+               <li>...</li>
+          </ul>
+     </div>
+
+     <div class="dropdown open">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown toggle</a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+               <li>...</li>
+          </ul>
+     </div>
+*/
+
+%dropdown { position: relative; }
+
+	%dropdown-menu {
+		@include dropdown-menu;
+		@include hidden;
+		position: absolute;
+		top: 100%; left: 0;
+		min-width: 100%;
+		&.dropdown-right { left: auto; right: 0; }
+		&.drop-up { top: auto; bottom: 100%; }
+	}
+
+.open {
+	> %dropdown-menu { @extend %reset-block; }
+	&, & > %dropdown-toggle, & > %dropdown-menu { z-index: 997; }
+}
+
+// ------------------------------------------------------------------------------------- \\

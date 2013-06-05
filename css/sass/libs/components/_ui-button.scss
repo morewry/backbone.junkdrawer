@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Buttons
+
+Provides structural defaults for buttons.  For use with `@extend`.
+
+- `%button`
+- `%button-fullwidth`
+
+
+     <button class="button">Example Button</button>
+
+*/
+
+%button {
+	@include button;
+	@extend %inline-unit-nowrap;
+}
+
+%button-fullwidth {
+	display: block;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+// ------------------------------------------------------------------------------------- \\

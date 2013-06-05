@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Messages
+
+Provides structural defaults for messages.  For use with `@extend`.
+
+- `%message`
+
+
+     <div class="message">Message</div>
+
+*/
+%message {
+	@include message;
+	@extend %inline-unit;
+}
+
+// ------------------------------------------------------------------------------------- \\

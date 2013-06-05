@@ -1,0 +1,57 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Grid
+
+Fluid grid for component & content layout heavily borrowed from [OOCSS Grids](https://github.com/stubbornella/oocss/wiki/Grids) by Nicole Sullivan.  For use with `@extend`.
+
+- `%grid-row`
+- `%grid-unit`
+
+
+     <div class="grid-row">
+          <div class="grid-unit">Grid unit</div>
+          <div class="grid-unit">Grid unit</div>
+          <div class="grid-unit">Grid unit</div>
+     <div>
+
+*/
+
+%grid-row { @extend %clearfix; }
+
+	%grid-unit { @extend %float-unit; }
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+#### Grid: First and Last
+
+Placeholder "classes" to specify the first and last grid unit in a row.  Not required, but may be necessary in some use cases.  For use with `@extend`.
+
+- `%grid-first`
+- `%grid-last`
+- `%grid-right`
+
+
+*/
+%grid-first {
+	padding-left: 0;
+	clear: left;
+}
+
+%grid-last {
+	float: none;
+	width: auto;
+	@if $legacy-support-for-ie {
+		_position: relative;
+		_left: -3px;
+		_margin-right: -3px;
+	}
+	@extend %clearinner;
+} // option 1 for last unit to fix subpixel rounding errors
+
+%grid-right { float: right !important; } // option 2 for last unit to right justify
+
+// ------------------------------------------------------------------------------------- \\

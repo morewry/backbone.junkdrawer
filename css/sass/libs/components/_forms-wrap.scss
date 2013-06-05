@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+/*
+### Field Placeholders
+
+Formatting placeholder "classes" for field styles.  For use with `@extend` on input wrappers.
+
+- `%field`
+- `%input`
+- `%select`
+- `%textarea`
+- `%choice`
+- `%checkbox`
+- `%radio`
+
+
+*/
+
+%field { @include field; }
+%input { @include input; }
+%select { @include select; }
+%textarea { @include textarea; }
+%choice {  @include choice; }
+%checkbox { @include checkbox; }
+%radio { @include radio; }
+
+// ------------------------------------------------------------------------------------- \\

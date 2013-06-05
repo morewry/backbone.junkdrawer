@@ -1,6 +1,5 @@
 define(
 	function() {
-
 		require.config({
 			baseUrl: '/js/',
 			// enforceDefine: true,
@@ -45,11 +44,24 @@ define(
 				'jquery': {
 					exports: 'jQuery',
 					init: function() {
-						$.noConflict();
+						jQuery.noConflict();
 					}
 				},
-					'jquery.ui.position': {
-						deps: ['jquery']
+					'libs/custom/jquery.convey': {
+						deps: [
+							'jquery',
+							'libs/jquery/jquery.ui.position',
+							'libs/jquery/jquery.timeout'
+						],
+						exports: 'jQuery.conveyPlugin'
+					},
+					'libs/jquery/jquery.timeout': {
+						deps: ['jquery'],
+						exports: 'jQuery.timeout'
+					},
+					'libs/jquery/jquery.ui.position': {
+						deps: ['jquery'],
+						exports: 'jQuery.position'
 					},
 				'underscore': {
 					exports: '_'
@@ -77,22 +89,18 @@ define(
 			 *
 			**/
 			paths: {
-				'main.app': 'app/app',
-				'main.router': 'app/router',
 				'backbone': 'libs/backbone/backbone',
 					'backbone.layoutmanager': 'libs/backbone/backbone.layoutmanager',
 					'backbone.localstorage': 'libs/backbone/backbone.localstorage',
 					'backbone.subroute': 'libs/backbone/backbone.subroute',
 					'backbone.syphon': 'libs/backbone/backbone.syphon',
-				'custom': 'libs/custom',
 				'hogan': 'libs/hogan',
 				'html': '/html',
 				'json2': 'libs/json2',
 				'jquery': 'libs/jquery/jquery',
-					'jquery.ui.position': 'libs/jquery/jquery.ui.position',
-				'module': 'modules',
 				'require': 'libs/require/require',
 					'async': 'libs/require/async',
+					'cache': 'libs/require/cache',
 					'depend': 'libs/require/depend',
 					'domReady': 'libs/require/domReady',
 					'font': 'libs/require/font',
@@ -101,6 +109,7 @@ define(
 					'image': 'libs/require/image',
 					'json': 'libs/require/json',
 					'mdown': 'libs/require/mdown',
+					'markdownConverter': 'libs/require/markdown.converter',
 					'noext': 'libs/require/noext',
 					'propertyParser': 'libs/require/propertyParser',
 					'step': 'libs/require/step',
@@ -147,7 +156,7 @@ define(
 						);
 					}, // render
 					serialize: function() {
-						return _.clone(this.model.attributes);
+						return _.extend({}, _.clone(this.options), _.clone(this.model.attributes));
 					} // serialize
 				}); // Backbone.Layout.configure
 
@@ -158,24 +167,22 @@ define(
 				 *
 				**/
 				window.App = {
-					Log: function(val) { if (window.console) console.log(val); },
 					View: {},
 					Collection: {},
 					Model: {},
 					Template: {},
 					Router: {},
+					Event: _.extend({}, Backbone.Events),
+					Log: function(val) { if (window.console) console.log(val); },
 					Layout: {
 						Use: function(options) {
-							var defaults = {
-								name: null,
-								template: null
-							};
-							// Ensure options is an object, extend w/defaults
 							options = options || {};
-							_.extend(defaults, options);
-							// If a name was specified, use as template
-							options.template = (_.isString(options.name)) ? options.name : options.template;
-
+							// If only a name was passed in, use as template
+							if (_.isString(options)) {
+								options = _.extend({}, { template: options })
+							} else {
+								options = _.extend({}, options);
+							}
 							// Check if a layout already exists
 							if (this.layout) {
 								// If so, update the template
@@ -190,8 +197,7 @@ define(
 							// Cache the layout reference
 							return this.layout;
 						} // Use
-					}, // Layout
-					Event: _.extend({}, Backbone.Events)
+					} // Layout
 				}; // App
 
 				/**
@@ -232,45 +238,13 @@ define(
 
 				/**
 				 *
-				 * Retrieve layout module & main router
+				 * Request
 				 *
 				 *
 				**/
-				require(
-					[
-						'main.router',
-						'module/layout/layout.model',
-						'module/layout/layout.view'
-					],
-					function(appRouter, layoutModel, layoutView) {
-						App.Router.Main = App.Router.Main || new appRouter;
-						App.Model.Layout = App.Model.Layout || new layoutModel;
-
-						/**
-						 *
-						 * Instantiate main router
-						 *
-						 *
-						**/
-						App.Router.Main.on('route', function(actions) {
-							App.Log( 'Route: ' + actions );
-						});
-
-						/**
-						 *
-						 * Create layout
-						 *
-						 *
-						**/
-						App.Layout.Use().setView(new layoutView.Main({
-							model: App.Model.Layout
-						}), true).render();
-
-					} // fn
-				); // require
+				require(['app/main']);
 
 			} // callback
 		}); // require.config
-
-	} // fn
+ } // fn
 ); // define

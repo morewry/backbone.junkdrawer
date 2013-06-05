@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Widths
+
+These width placeholders can be added to grid units, inline units, and other items to dictate the amount of horizontal space each should occupy.  For use with `@extend`.
+
+*/
+
+// Dyanamically generate width classes for layout utilities
+@mixin widths ( $units, $make-class ) {
+	$i: 1;
+	$unit-width: ( 100% / $units );
+	@while $i <= $units {
+		%width-#{$i}of#{$units} {
+			$current-width: $unit-width * $i;
+			@if $current-width == 100% { @extend %width-1of1; }
+			@else if $current-width == 80% and $units != 5 { @extend %width-4of5; }
+			@else if $current-width == 75% and $units != 4 { @extend %width-3of4; }
+			@else if floor($current-width) == 66% and $units != 3 { @extend %width-2of3; }
+			@else if $current-width == 60% and $units != 5 { @extend %width-3of5; }
+			@else if $current-width == 50% and $units != 2 { @extend %width-1of2; }
+			@else if $current-width == 40% and $units != 5 { @extend %width-2of5; }
+			@else if floor($current-width) == 33% and $units != 3 { @extend %width-1of3; }
+			@else if $current-width == 25% and $units != 4 { @extend %width-1of4; }
+			@else if $current-width == 20% and $units != 5 { @extend %width-1of5; }
+			@else { width: $unit-width * $i; }
+		}
+		@if $make-class {
+			.width-#{$i}of#{$units} { @extend %width-#{$i}of#{$units}; }
+		} // if
+		$i: $i + 1;
+	} // while
+} // mixin
+
+/*
+#### Widths: Fluid
+
+- `%width-{x}of{y}`
+- mixin `width`
+
+
+*/
+
+%width-golden-a { width: 64%; }
+%width-golden-b { width: 36%; }
+%width-1of1 { width: 100%; }
+@include widths(2, false);
+@include widths(3, false);
+@include widths(4, false);
+@include widths(5, false);
+@include widths(6, false);
+@include widths(10, false);
+@include widths(12, false);
+@include widths(13, false);
+
+// ------------------------------------------------------------------------------------- \\

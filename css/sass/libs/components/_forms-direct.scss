@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+/*
+### Field Placeholders - Direct
+
+Applies field placeholders directly to fields.  You get more consistency by wrapping each input and styling that wrapper, but this will work for some use-cases.
+
+*/
+
+input,
+select,
+textarea {
+	@extend %field;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="search"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="password"] {
+	@extend %input;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	@extend %choice;
+}
+
+input[type="checkbox"] {
+	@extend %checkbox;
+}
+
+input[type="radio"] {
+	@extend %radio;
+}
+
+select {
+	@extend %select;
+}
+
+textarea {
+	@extend %textarea;
+}
+
+// ------------------------------------------------------------------------------------- \\

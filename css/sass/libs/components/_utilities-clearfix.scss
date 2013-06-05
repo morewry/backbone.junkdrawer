@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Clearing
+
+There are two re-usable clearing methods.
+
+*/
+
+/*
+#### Clearfix
+
+Standard clearfix, updated by [Nicolas Gallagher](http://nicolasgallagher.com/micro-clearfix-hack/), Sass implementation from [Forrst.com](http://forrst.com/posts/CSS_vs_SASS_vs_LessCSS-DPV).  For use with `@extend`
+
+- `%clearfix`
+
+
+     <div class="clearfix">Clearfix</div>
+
+*/
+
+%clearfix {
+	&:before,
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+		@if $legacy-support-for-ie { @include haslayout; }
+	}
+}
+
+/*
+#### Clearinner Overflow
+
+Easy clearing with `overflow: hidden` property.  For use with `@extend`
+
+- `%clearinner`
+
+
+     <div class="clearinner">clearinner</div>
+
+*/
+
+%clearinner {
+	overflow: hidden;
+	@if $legacy-support-for-ie {
+		_overflow: visible;
+		@include haslayout;
+	}
+}
+
+// ------------------------------------------------------------------------------------- \\

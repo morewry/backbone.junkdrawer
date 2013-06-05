@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Tabs
+
+Provides structural defaults for tabs.  For use with `@extend`.
+
+- `%tabs`
+- `%tabs-list`
+- `%tabs-content`
+
+*/
+
+%tabs {
+	@include tabs;
+	@extend %grid-row;
+}
+
+%tabs-list {
+	@extend %grid-unit;
+	a {
+		@extend %reset-block;
+		@include tabs-link;
+	}
+}
+
+%tabs-content { @include hidden; }
+
+// ------------------------------------------------------------------------------------- \\

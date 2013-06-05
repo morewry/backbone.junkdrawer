@@ -1,14 +1,14 @@
-<article data-convey="conveyor-{{cvid}}" class="modal invisible">
+<article id="{{cvid}}" data-js="convey-view-{{cvid}}" class="modal hidden">
 	{{#title}}
 	<header class="modal-head">
 		<h6 class="modal-title">{{title}}</h6>
-		<button data-convey="hide-{{cvid}}">
-			<abbr title="close">x</abbr>
+		<button class="modal-close" data-js="convey-hide-{{cvid}}">
+			<abbr title="close">&times;</abbr>
 		</button>
 	</header>
 	{{/title}}
 	{{^title}}
-	<button data-convey="hide-{{cvid}}">
+	<button data-js="convey-hide-{{cvid}}">
 		<abbr title="close">x</abbr>
 	</button>
 	{{/title}}

@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+/*
+### Floating Layouts
+
+Shortcuts for no-frills floating.  Use the placeholders `float-row` and `float-unit`.  For use with `@extend`
+
+- `%float-row`
+- `%float-unit`
+
+
+     <div class="float-row">
+          <div class="float-unit">Floating unit</div>
+          <div class="float-unit">Floating unit</div>
+          <div class="float-unit">Floating unit</div>
+     <div>
+
+*/
+
+%float-row { @extend %clearinner; }
+
+	%float-unit {
+		float: left;
+		@if $legacy-support-for-ie { @include floatfix; }
+	}
+
+// ------------------------------------------------------------------------------------- \\

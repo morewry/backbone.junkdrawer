@@ -1,29 +1,31 @@
 define(
 	[
-		'module/convey/convey.model',
-		'module/convey/convey.collection',
-		'jquery',
-		'jquery.ui.position',
+		'libs/custom/jquery.convey',
+		'modules/convey/convey.model',
+		'modules/convey/convey.collection',
 		'backbone',
 		'backbone.layoutmanager'
 	],
 	function(){
 
+		Backbone.$ = jQuery;
 		App.Convey = App.Convey || {};
 
 		/**
 		 *
-		 *
+		 * Convey View
 		 *
 		 *
 		**/
 		App.Convey.View = Backbone.View.extend({
 
 			// Backbone: Hash (or fn that returns one) of delegated events.
+			// move to jquery plugin (?)
 			events: function() {
 				var vents = {};
-				vents['click [data-convey*="show-' + this.options.cvid + '"]'] = 'showConveyor';
-				vents['click [data-convey*="hide-' + this.options.cvid + '"]'] = 'hideConveyor';
+				// vents['click [data-js="convey-show-' + this.model.get('cvid') + '"]'] = 'showConveyor';
+				vents['click [data-js="convey-hide-' + this.model.get('cvid') + '"]'] = 'hideConveyor';
+				// vents['click :not([data-js*="convey-"])'] = 'clearConveyors';
 				return vents;
 			},
 
@@ -37,29 +39,17 @@ define(
 					my: 'center',
 					at: 'center',
 					of: App.Layout.Use().$el,
-					collision: 'fit',
 					within: App.Layout.Use().$el
 				},
-				origin: App.Layout.Use(),
-				cvid: 'none',
-				title: null,
-				message: null
+				// Should be a Backbone.Layout view or layout
+				origin: App.Layout.Use()
 			}, // options
 
 			// Backbone.Layout: Specify a template for the view.
-			// template: // from options
+			// template: this.options.template
 
 			// Backbone.Layout: Declare nested subviews.
 			// views: {},
-
-			// Backbone.Layout: Provide data to Layout Manager render.
-			serialize: function() {
-				return {
-					cvid: this.options.cvid,
-					title: this.options.title,
-					message: this.options.message
-				};
-			}, // serialize
 
 			// Backbone: Called when view first created. Access this.options.
 			initialize: function() {
@@ -76,8 +66,8 @@ define(
 
 			// Backbone.Layout: Called after view render
 			afterRender: function() {
-				this.$el.position(this.options.position);
 				App.Event.trigger('render.conveyor', this);
+				this.$el.conveyPlugin({ position: this.options.position });
 				this.showConveyor();
 			},
 
@@ -87,9 +77,9 @@ define(
 			 *
 			 *
 			**/
-			showConveyor: function(){
-				this.$el.toggleClass('fadein', 'fadeout').removeClass("invisible").position(this.options.position);
+			showConveyor: function(conveyor) {
 				App.Event.trigger('show.conveyor', this);
+				this.$el.conveyPlugin('conveyShow');
 			},
 
 			/**
@@ -98,9 +88,20 @@ define(
 			 *
 			 *
 			**/
-			hideConveyor: function(){
-				this.$el.toggleClass('fadeout', 'fadein').removeClass("invisible").position(this.options.position);
+			hideConveyor: function(conveyor) {
 				App.Event.trigger('hide.conveyor', this);
+				this.$el.conveyPlugin('conveyHide');
+			},
+
+			/**
+			 *
+			 * clearConveyors
+			 *
+			 *
+			**/
+			clearConveyors: function() {
+				App.Event.trigger('hide.conveyor', this);
+				this.$el.conveyPlugin('conveyClear');
 			}
 
 		}); // App.Convey.View
@@ -112,8 +113,13 @@ define(
 		 *
 		**/
 		App.Event.on('setup.conveyor', function(conveyorOpts) {
-			var conveyorView = new App.Convey.View(conveyorOpts);
-			App.Event.trigger('ready.conveyor', conveyorView);
+			App.Event.trigger('ready.conveyor', new App.Convey.View(
+				_.extend(
+					{},
+					conveyorOpts.options,
+					{ model: new App.Convey.Model(conveyorOpts.model) }
+				)
+			));
 		});
 
 		return App.Convey.View;
