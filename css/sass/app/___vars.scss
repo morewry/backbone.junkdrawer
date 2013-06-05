@@ -184,12 +184,17 @@
 // ===================================================================================== \\
 
 //-- @mixin autocomplete() { }
-	//-- @mixin autocomplete-suggestion() { }	
+	//-- @mixin autocomplete-suggestion() { }
 //-- @mixin dropdown-menu() { }
 //-- @mixin links() { }
 //-- @mixin message() { }
 //-- @mixin modal() { }
+	//-- @mixin modal-bg() { }
+	//-- @mixin modal-fg() { }
 	//-- @mixin modal-close() { }
+		//-- @mixin modal-head() { }
+		//-- @mixin modal-body() { }
+		//-- @mixin modal-foot() { }
 //-- @mixin tabs() { }
 	//-- @mixin tabs-link() { }
 
@@ -202,5 +207,17 @@
 //-- @mixin small() { }
 //-- @mixin selected-text { }
 //-- @mixin hr() { }
+
+// ------------------------------------------------------------------------------------- \\
+
+// Custom Variables
+// ===================================================================================== \\
+
+$red: #d40015;
+$orange: #ff4411;
+$yellow: #fafac6;
+$green: #98a89e;
+$lightgray: #999999;
+$darkgray: #666666;
 
 // ------------------------------------------------------------------------------------- \\

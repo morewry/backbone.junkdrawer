@@ -172,3 +172,4 @@ docs
 *.sublime-*
 *.json
 shoptalklogo.html
+*.css
