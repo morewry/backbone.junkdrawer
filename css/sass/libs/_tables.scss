@@ -5,26 +5,26 @@
 /*
 ## Tables
 
-Resets, normalizations & default styles related to tables.
+Resets, normalizations & component styles related to tables.
 
 */
 
-table { 
-	display: table; 
-	table-layout: fixed; 
-	border-collapse: collapse; 
-	border-spacing: 0; 
-	max-width: 100%; 
+table {
+	display: table;
+	table-layout: fixed;
+	border-collapse: collapse;
+	border-spacing: 0;
+	max-width: 100%;
 }
  	caption { }
 	tr { }
-		th { 
-			@extend %space-in-all; 
-			text-transform: capitalize; 
+		th {
+			@extend %space-in-all;
+			text-transform: capitalize;
 		}
-		td { 
-			@extend %space-in-all; 
-			vertical-align: top; 
+		td {
+			@extend %space-in-all;
+			vertical-align: top;
 		}
 	colgroup { }
 	col { }
@@ -36,129 +36,5 @@ table {
 	tbody { }
 		tbody th { text-align: left; }
 	tfoot { }
-	
-// ------------------------------------------------------------------------------------- \\
-	
-/* 
-### Striped Tables
-
-Use the placeholder `table-striped` to add zebra striping to table rows, columns, and sections.  For use with `@extend`.
-
-- `%table-striped`
-
-
-     <table width="100%" cellspacing="0" cellpadding="0" class="table-striped">
-          <thead>
-               <tr>
-                    <th>Test Table Heading</th>
-                    <th>And</th>
-               </tr>
-          </thead>
-          <tbody>
-               <tr>
-                    <td>Cell contents</td>
-                    <td>And</th>
-               </tr>
-               <tr>
-                    <td>Cell contents</td>
-                    <td>And</th>
-               </tr>
-          </tbody>
-     </table>
-
-*/
-
-%table-striped {
-	& > tbody:nth-of-type( odd ) { background: rgba(255,255,255,0.05); }
-	& > tbody:nth-of-type( even ) { background: rgba(0,0,0,0.05); }
-	& tr > th:nth-child( odd ),
-	& tr > td:nth-child( odd ) { background: rgba(255,255,255,0.05); }
-	& tr > th:nth-child( even ),
-	& tr > td:nth-child( even ) { background: rgba(0,0,0,0.05); }
-	& > tbody > tr:nth-child( odd ) { background: rgba(255,255,255,0.05); }
-	& > tbody > tr:nth-child( even ) { background: rgba(0,0,0,0.05); }
-	& > tbody > tr:hover > td,
-	& > tbody > tr:hover > th {  }
-}
-
-// ------------------------------------------------------------------------------------- \\
-
-/*
-### Graded Tables
-
-Use the placeholder `table-graded` to add lines between table rows.  For use with `@extend`.
-
-- `%table-graded`
-
-
-     <table width="100%" cellspacing="0" cellpadding="0" class="table-graded">
-          <thead>
-               <tr>
-                    <th>Test Table Heading</th>
-                    <th>And</th>
-               </tr>
-          </thead>
-          <tbody>
-               <tr>
-                    <td>Cell contents</td>
-                    <td>And</th>
-               </tr>
-               <tr>
-                    <td>Cell contents</td>
-                    <td>And</th>
-               </tr>
-          </tbody>
-     </table>
-
-*/
-
-%table-graded {
-	border: hidden;
-	@if $legacy-support-for-ie { _border: 3px solid transparent; }
-	& tr { border: 1px dotted $border-color; }
-	& thead,
-	& tbody,
-	& tfoot { border: 1px solid $border-color; }
-	& thead { border: 2px solid $border-color; }
-	& tfoot { border: 2px solid $border-color; }
-}
-
-// ------------------------------------------------------------------------------------- \\
-
-/*
-### Scored Tables
-
-Use the placeholder `table-scored` to add lines between table columns.  For use with `@extend`.
-
-- `%table-scored`
-
-
-     <table width="100%" cellspacing="0" cellpadding="0" class="table-scored">
-          <thead>
-               <tr>
-                    <th>Test Table Heading</th>
-                    <th>And</th>
-               </tr>
-          </thead>
-          <tbody>
-               <tr>
-                    <td>Cell contents</td>
-                    <td>And</th>
-               </tr>
-               <tr>
-                    <td>Cell contents</td>
-                    <td>And</th>
-               </tr>
-          </tbody>
-     </table>
-
-*/
-
-%table-scored {
-	border: hidden;
-	@if $legacy-support-for-ie { _border: 2px solid transparent; }
-	& th,
-	& td { border-right: 1px solid $border-color; }
-}
 
 // ------------------------------------------------------------------------------------- \\

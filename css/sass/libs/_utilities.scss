@@ -5,7 +5,7 @@
 /*
 ## Utilities
 
-Non-semantic (or visually semantic) placeholders and utilities.  Heavily borrowed from [HTML5 Boilerplate](http://html5boilerplate.com/) by Paul Irish et al.
+Non-semantic (or visually semantic) placeholders and classes.  Heavily borrowed from [HTML5 Boilerplate](http://html5boilerplate.com/) by Paul Irish et al.
 
 */
 
@@ -23,77 +23,6 @@ Non-semantic (or visually semantic) placeholders and utilities.  Heavily borrowe
 	}
 }
 
-// ------------------------------------------------------------------------------------- \\
-
-/*
-### Clearing
-
-There are two re-usable clearing methods.
-
-*/
-
-/*
-#### Clearfix
-
-Standard clearfix, updated by [Nicolas Gallagher](http://nicolasgallagher.com/micro-clearfix-hack/), Sass implementation from [Forrst.com](http://forrst.com/posts/CSS_vs_SASS_vs_LessCSS-DPV).  For use with `@extend`
-
-- `%clearfix`
-
-
-     <div class="clearfix">Clearfix</div>
-
-*/
-
-%clearfix {
-	&:before,
-	&:after {
-		content: "";
-		display: table;
-		clear: both;
-		@if $legacy-support-for-ie { @include haslayout; }
-	}
-}
-
-/*
-#### Clearinner Overflow
-
-Easy clearing with `overflow: hidden` property.  For use with `@extend`
-
-- `%clearinner`
-
-
-     <div class="clearinner">clearinner</div>
-
-*/
-
-%clearinner {
-	overflow: hidden;
-	@if $legacy-support-for-ie {
-		_overflow: visible;
-		@include haslayout;
-	}
-}
-
-// ------------------------------------------------------------------------------------- \\
-
-/*
-### Pseudo-Element Layers
-
-Multiple borders and backgrounds with pseudo elements per [Nicolas Gallagher](http://nicolasgallagher.com/multiple-backgrounds-and-borders-with-css2/).  For use with `@extend`.
-
-- `%pseudolayer`
-- Mixin `pseudolayer`
-
-
-*/
-
-%pseudolayer {
-	display: block;
-	content: "";
-	position: absolute;
-	top: 0; right: 0; bottom: 0; left: 0;
-	z-index: -1;
-}
 
 // ------------------------------------------------------------------------------------- \\
 
@@ -103,14 +32,17 @@ Multiple borders and backgrounds with pseudo elements per [Nicolas Gallagher](ht
 Makes an element invisible with `display` property.  Available as a placeholder or a class.
 
 - `%hidden`
+- mixin `hidden`
+- class `.hidden`
 
 
      <div class="hidden">Hidden</div>
 
 */
 
+@mixin hidden() { display: none; }
 %hidden { @include hidden; }
-.hidden { @include hidden; }
+.hidden { @extend %hidden; }
 
 // ------------------------------------------------------------------------------------- \\
 
@@ -120,13 +52,15 @@ Makes an element invisible with `display` property.  Available as a placeholder 
 Makes an element invisible, but accessible, with `position: absolute` and `clip` properties.  Available as a placeholder or a class.  Technique per [WebAIM](http://webaim.org/techniques/css/invisiblecontent/).
 
 - `%accessible`
+- mixin `accessible`
+- class `.accessible`
 
 
      <div class="accessible">Accessible</div>
 
 */
 
-%accessible {
+@mixin accessible() {
 	position: absolute;
 	clip: rect( 1px,1px,1px,1px );
 	&:focus { // todo a&:focus??
@@ -134,6 +68,7 @@ Makes an element invisible, but accessible, with `position: absolute` and `clip`
 		clip: auto;
 	}
 }
+%accessible { @include accessible; }
 .accessible { @extend %accessible; }
 
 // ------------------------------------------------------------------------------------- \\
@@ -144,13 +79,16 @@ Makes an element invisible, but accessible, with `position: absolute` and `clip`
 Makes an element invisible with `visibility` property.  Available as a placeholder or a class.
 
 - `%invisible`
+- mixin `invisible`
+- class `.invisible`
 
 
      <div class="invisible">Invisible</div>
 
 */
 
-%invisible { visibility: hidden; }
+@mixin invisible() { visibility: hidden; }
+%invisible { @include invisible; }
 .invisible { @extend %invisible; }
 
 // ------------------------------------------------------------------------------------- \\
@@ -161,147 +99,20 @@ Makes an element invisible with `visibility` property.  Available as a placehold
 Makes an element visible with `visibility` property.  Available as a placeholder or a class.
 
 - `%visible`
+- mixin `visible`
+- class `.visible`
 
 
      <div class="visible">Visible</div>
 
 */
 
-%visible {
+@mixin visible() {
 	display: block;
 	visibility: visible;
 }
+%visible { @include visible; }
 .visible { @extend %visible; }
-
-// ------------------------------------------------------------------------------------- \\
-
-/*
-### Floating Layouts
-
-Shortcuts for no-frills floating.  Use the placeholders `float-row` and `float-unit`.  For use with `@extend`
-
-- `%float-row`
-- `%float-unit`
-
-
-     <div class="float-row">
-          <div class="float-unit">Floating unit</div>
-          <div class="float-unit">Floating unit</div>
-          <div class="float-unit">Floating unit</div>
-     <div>
-
-*/
-
-%float-row { @extend %clearinner; }
-
-	%float-unit {
-		float: left;
-		@if $legacy-support-for-ie { @include floatfix; }
-	}
-
-// ------------------------------------------------------------------------------------- \\
-
-/*
-### Inline-Block Layouts
-
-Shortcuts for inline block layouts.  Use the placeholders `inline-row` and `inline-unit`.   For use with `@extend`.
-
-- `%inline-row`
-- `%inline-unit`
-- To suppress whitespace between units, use `%inline-row-nospace`. Technique from [YUI](http://yuilibrary.com/yui/docs/cssgrids/).
-- To keep content inside of units by wrapping use `%inline-unit-nowrap`.
-
-
-     <!-- Regular Inline Row -->
-     <div class="inline-row">
-          <div class="inline-unit">Inline block unit</div>
-          <div class="inline-unit">Inline block unit</div>
-          <div class="inline-unit">Inline block unit</div>
-     <div>
-
-     <!-- Inline Row with no whitepsace -->
-     <div class="inline-row-nospace">
-          <div class="inline-unit">Inline block unit</div>
-          <div class="inline-unit">Inline block unit</div>
-          <div class="inline-unit">Inline block unit</div>
-     <div>
-
-By default, an `inline-row` won't allow the `inline-unit`s to wrap, but the content inside each `inline-unit` can.
-
-*/
-%inline-row { white-space: nowrap; }
-
-%inline-row-nospace {
-	@extend %inline-row;
-	@include white-space-collapse( discard );
-}
-
-	%inline-unit {
-		@if $legacy-support-for-mozilla { display: -moz-inline-stack; }
-		display: inline-block;
-		vertical-align: middle;
-		white-space: normal;
-		@if $legacy-support-for-ie { _display: inline; @include haslayout; }
-	}
-
-	%inline-unit-nowrap {
-		@extend %inline-unit;
-		white-space: nowrap;
-	}
-
-// ------------------------------------------------------------------------------------- \\
-
-/*
-### Grid
-
-Fluid grid for module & content layout heavily borrowed from [OOCSS Grids](https://github.com/stubbornella/oocss/wiki/Grids) by Nicole Sullivan.  For use with `@extend`.
-
-- `%grid-row`
-- `%grid-unit`
-
-
-     <div class="grid-row">
-          <div class="grid-unit">Grid unit</div>
-          <div class="grid-unit">Grid unit</div>
-          <div class="grid-unit">Grid unit</div>
-     <div>
-
-*/
-
-%grid-row { @extend %clearfix; }
-
-	%grid-unit { @extend %float-unit; }
-
-// ------------------------------------------------------------------------------------- \\
-
-/*
-#### Grid: First and Last
-
-Placeholder "classes" to specify the first and last grid unit in a row.  Not required, but may be necessary in some use cases.  For use with `@extend`.
-
-- `%grid-first`
-- `%grid-last`
-- `%grid-right`
-
-
-*/
-%grid-first {
-	padding-left: 0;
-	clear: left;
-}
-
-%grid-last {
-	float: none;
-	width: auto;
-	@if $legacy-support-for-ie {
-		_position: relative;
-		_left: -3px;
-		_margin-right: -3px;
-	}
-	@extend %clearinner;
-} // option 1 for last unit to fix subpixel rounding errors
-
-%grid-right { float: right !important; } // option 2 for last unit to right justify
 
 // ------------------------------------------------------------------------------------- \\
 
@@ -320,69 +131,5 @@ Set a container to appear full width with content centered from [CSS Tricks](htt
 	padding-left: 2000px;
 	padding-right: 2000px;
 }
-
-// ------------------------------------------------------------------------------------- \\
-
-/*
-### Alignment
-
-Align all (float/margin/text-align) to center, left, or right.  For use with `@extend`.
-
-- `%align-center`
-- `%align-left`
-- `%align-right`
-
-
-*/
-
-%align-center-block {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-%align-center {
-	@extend %align-center-block;
-	text-align: center;
-}
-
-%align-left {
-	float: left;
-	text-align: left;
-}
-
-%align-right {
-	float: right;
-	text-align: right;
-}
-
-// ------------------------------------------------------------------------------------- \\
-
-/*
-### Widths
-
-These width classes can be added to grid units, inline units, and other items to dictate the amount of horizontal space each should occupy.  For use with `@extend`.
-
-*/
-
-/*
-#### Widths: Fluid
-
-- `%width-{x}of{y}`
-
-
-*/
-
-%width-golden-a { width: 64%; }
-%width-golden-b { width: 36%; }
-%width-1of1 { width: 100%; }
-@include widths(2, false);
-@include widths(3, false);
-@include widths(4, false);
-@include widths(5, false);
-@include widths(6, false);
-@include widths(10, false);
-@include widths(12, false);
-@include widths(13, false);
 
 // ------------------------------------------------------------------------------------- \\

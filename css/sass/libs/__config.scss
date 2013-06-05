@@ -296,7 +296,7 @@ $inverse-color: $text-color;
 @mixin button() {
 	@extend %space-in-half-vertical;
 	@extend %space-in-gutterhalf-horizontal;
-	@include pseudolayer( $z-index: 1, $after: true );
+	@include pseudolayer( $after: true );
 	&, &:before, &:after { @include border-radius( $fluid-pad ); }
 	font-weight: bold;
 	color: contrast-color( $background-color, lighten($background-color,6%), darken($background-color,6%) );
@@ -359,14 +359,39 @@ $inverse-color: $text-color;
 }
 
 @mixin modal() {
-	@extend %space-in-gutter-all;
+	@include pseudolayer( $after: true );
+	@extend %space-in-gutter-horizontal;
+	@extend %space-in-font-vertical;
 	max-width: 75%;
+	&:target {
+
+	}
+}
+@mixin modal-bg() {
+	@include rgba-background-inline( transparentize( $inverse-background-color, 0.25 ) );
+}
+@mixin modal-fg() {
+	background: $background-color;
+	border: $padhalf solid transparentize( $background-color, 0.50 );
+	@include border-radius( $fluid-font-size );
+	@include background-clip( padding-box );
+	@include box-shadow( 0 0 $padhalf $inverse-color );
 }
 	@mixin modal-close() {
-		top: -10px; right: -10px; // half of icon size
 		@extend %icon;
 		@extend %icon-close;
+		@extend %space-in-none;
+		position: absolute;
+		top: -$fluid-pad; right: -$fluid-pad;
+		background-color: $text-color;
+		font-size: 124%;
+		text-shadow: 1px 1px 1px #000;
+		@include border-radius( $fluid-lead );
+		> * { position: relative; top: 1px; } // todo
 	}
+		@mixin modal-head () { }
+		@mixin modal-body () { }
+		@mixin modal-foot () { }
 
 @mixin tabs() { }
 	@mixin tabs-link() { }

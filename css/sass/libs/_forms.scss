@@ -92,7 +92,7 @@ select {
 input,
 select,
 textarea {
-	@extend %field;
+	// @extend %field;
 }
 
 input[type="text"],
@@ -102,43 +102,22 @@ input[type="email"],
 input[type="tel"],
 input[type="url"],
 input[type="password"] {
-	@extend %input;
+	// @extend %input;
 	min-height: $fluid-lead;
 }
 
 input[type="checkbox"],
 input[type="radio"] {
 	@extend %reset-padding;
-	@extend %choice;
+	// @extend %choice;
 }
 
 input[type="checkbox"] {
-	@extend %checkbox;
+	// @extend %checkbox;
 }
 
 input[type="radio"] {
-	@extend %radio;
-}
-
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-	@extend %button;
-	min-height: $fluid-lead;
-	cursor: pointer;
-	-webkit-appearance: button;
-	@if $legacy-support-for-ie {
-		_width: auto;
-		_overflow: visible;
-	}
-	&:focus { outline: thin dotted; }
-	&:active, &:hover { outline: none; }
-}
-
-button[disabled],
-html input[disabled] {
-	@extend %disabled;
+	// @extend %radio;
 }
 
 input[type="search"] {
@@ -155,6 +134,12 @@ select {
 	min-height: $fluid-lead;
 }
 
+textarea {
+	overflow-y: auto;
+	resize: vertical;
+	@extend %textarea;
+}
+
 button::-moz-focus-inner,
 input::-moz-focus-inner {
 	// can't be combined with other selectors
@@ -162,47 +147,36 @@ input::-moz-focus-inner {
 	border: 0;
 }
 
-textarea {
-	overflow-y: auto;
-	resize: vertical;
-	@extend %textarea;
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	@extend %button;
+	min-width: $fluid-gutter;
+	min-height: $fluid-lead;
+	cursor: pointer;
+	-webkit-appearance: button;
+	@if $legacy-support-for-ie {
+		_width: auto;
+		_overflow: visible;
+	}
+	&:focus { outline: thin dotted; }
+	&:active, &:hover { outline: none; }
 }
 
-// ------------------------------------------------------------------------------------- \\
-
-/*
-### Field Placeholders
-
-Formatting placeholder "classes" for field styles.  For use with `@extend`.
-
-- `%field`
-- `%input`
-- `%select`
-- `%textarea`
-- `%choice`
-- `%checkbox`
-- `%radio`
-
-
-*/
-
-%field { @include field; }
-%input { @include input; }
-%select { @include select; }
-%textarea { @include textarea; }
-%choice {  @include choice; }
-%checkbox { @include checkbox; }
-%radio { @include radio; }
+button[disabled],
+html input[disabled] {
+	@extend %disabled;
+}
 
 // ------------------------------------------------------------------------------------- \\
 
 /*
 ### Form Miscellany
 
-Misc browser normalization styles including placeholders, valid, and invalid.
+Including placeholders, valid, and invalid styles.
 
 - `::placeholder` selectors can't be combined or they won't work
-
 
 */
 
