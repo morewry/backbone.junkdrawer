@@ -1,5 +1,6 @@
 define(
 	[
+		'modules/listing/listing.router',
 		'backbone',
 		'backbone.subroute'
 	],

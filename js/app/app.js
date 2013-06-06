@@ -233,7 +233,7 @@ define(
 					e.preventDefault();
 					_this = $(this);
 					App.Log('Submit handled by backbone');
-					Backbone.history.navigate(_this.attr('href'), {trigger: true});
+					Backbone.history.navigate(_this.attr('action'), {trigger: true});
 				}); // on submit
 
 				/**
@@ -242,8 +242,37 @@ define(
 				 *
 				 *
 				**/
-				require(['app/main']);
+				require(
+					[
+						'app/app.router',
+						'app/app.model',
+						'app/app.view'
+					],
+					function(appRouter, appModel, appView) {
+						App.Router.Main = App.Router.Main || new appRouter;
+						App.Model.Layout = App.Model.Layout || new appModel;
 
+						/**
+						 *
+						 * Instantiate main router
+						 *
+						 *
+						**/
+						App.Router.Main.on('route', function(actions) {
+							App.Log( 'Route: ' + actions );
+						});
+
+						/**
+						 *
+						 * Create main layout
+						 *
+						 *
+						**/
+						App.Layout.Use().setView(new appView.Main({
+							model: App.Model.Layout
+						}), true).render();
+					} // fn
+				); // require
 			} // callback
 		}); // require.config
  } // fn
