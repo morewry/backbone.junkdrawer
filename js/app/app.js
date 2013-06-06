@@ -38,6 +38,9 @@ define(
 						deps: ['backbone'],
 						exports: 'Backbone.Syphon'
 					}, // backbone.syphon
+				'libs/jath': {
+					exports: 'Jath'
+				},
 				'json2': {
 					exports: 'JSON'
 				},

@@ -1,7 +1,7 @@
 define(
 	[
 		'modules/convey/convey.view',
-		'modules/layout/layout.model',
+		'app/app.model',
 		'backbone',
 		'backbone.layoutmanager'
 	],
