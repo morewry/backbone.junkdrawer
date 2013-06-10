@@ -22,7 +22,7 @@ define(
 			// events: {},
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'site-head',
+			template: 'site-head'
 
 			// Backbone.Layout: Declare nested subviews.
 			// views: {}, // views
@@ -46,7 +46,7 @@ define(
 			// events: {},
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'nav-main',
+			template: 'nav-main'
 
 			// Backbone.Layout: Declare nested subviews.
 			// views: {}, // views
@@ -181,7 +181,7 @@ define(
 			}, // openCustom
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'site-body',
+			template: 'site-body'
 
 			// Backbone.Layout: Declare nested subviews.
 			// views: {}, // views
@@ -205,7 +205,7 @@ define(
 			// events: {},
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'nav-foot',
+			template: 'nav-foot'
 
 			// Backbone.Layout: Declare nested subviews.
 			// views: {}, // views

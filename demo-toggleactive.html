@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width">
+	<title>Toggle Active</title>
+	<style>
+		html, body { overflow-x: hidden; }
+		html {
+			/* resets */
+			overflow-y: scroll;
+			-webkit-text-size-adjust: 100%;
+			-ms-text-size-adjust: 100%;
+			/* style */
+			font-size: 1.25vw;
+			line-height: 1.618033;
+			color: #555;
+			background: #FFF;
+		}
+		body {
+			margin: 1.618033rem;
+			padding: 1.618033rem;
+		}
+		.hide { display: none; }
+		.tabs {
+			/* resets */
+			margin: 0; padding: 0;
+			list-style: none;
+			/* style */
+			overflow: hidden;
+		}
+			.tabs--tab {
+				float: left;
+				margin-right: 0.5rem;
+				border: 1px solid;
+			}
+			.tabs--tab__active { border-bottom-color: transparent; }
+		button {
+			/* resets */
+			margin: 0;
+			background: transparent;
+			border: 0;
+			font-size: 100%;
+			line-height: 1;
+			width: auto;
+			/* style */
+			padding: 0.309016rem 0.5rem;
+		}
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+</head>
+<body>
+
+<ol class="tabs" data-toggles data-states="'active':'tabs--tab__active'">
+	<li>
+		<button class="tabs--tab tabs--tab__1" data-tog data-target="tab-name1" data-states="'active':'tabs--tab__active tabs--tab__1__active'">Tab Name1</button>
+   </li>
+	<li>
+		<button class="tabs--tab tabs--tab__2" data-tog data-target="tab-name2">Tab Name2</button>
+	</li>
+	<li>
+		<button class="tabs--tab tabs--tab__3" data-tog data-target="tab-name3">Tab Name3</button>
+	</li>
+</ol>
+
+<div data-id="tab-name1" class="hide">
+	Tab Name 1 Content
+</div>
+
+<div data-id="tab-name2" class="hide">
+	Tab Name 2 Content
+</div>
+
+<div data-id="tab-name3" class="hide">
+	Tab Name 3 Content
+</div>
+
+<script defer async src="/js/libs/custom/jquery.stateclasses.js"></script>
+<script defer async src="/js/libs/custom/jquery.toggleactive.js"></script>
+<script defer async>
+(function ($) {
+
+}(jQuery))
+</script>
+
+</body>
+</html>
