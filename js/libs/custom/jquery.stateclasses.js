@@ -37,11 +37,11 @@
 
 	Plugin.prototype = {
 		init: function () {
-			var statesConfig = this.$el.data('states');
-			if( statesConfig ) { $.extend( this.settings.states, statesConfig ); }
+			var statesTemp = '{' + this.$el.data('states').replace(/[']/gi, '"') + '}',
+			    statesConfig = $.parseJSON(statesTemp);
+			if ( statesConfig ) { $.extend( this.settings.states, statesConfig ); }
 			this.setEventNamespace();
 			this.bindAllEvents();
-			// $(this.settings.selector).each(function( i, el ) { });
 		}, // init
 
 		getEventFullname: function ( eventName ) {
@@ -67,27 +67,45 @@
 
 		getPreviousState: function () {
 			var statesConfig = this.settings.states;
-			return (this.$el.hasClass(statesConfig.active)) ? statesConfig.active : statesConfig.normal;
+			return (this.isStateActive) ? statesConfig.active : statesConfig.normal;
 		}, // getPreviousState
 
-		bindHoverEvents: function ( $statefulEl ) {
-			$.each(this.settings.hoverEvents, function( i, curEvent ) {
-				var eventFullname = this.getEventFullname(curEvent);
-				$statefulEl.unbind(eventFullname).bind(eventFullname, function() {
-					this.$el.toggleClass(this.getPreviousState()).toggleClass(this.settings.states.hover);
-				}); // bind eventFullname
+		isStateActive: function () {
+			var statesConfig = this.settings.states;
+			return this.$el.hasClass(statesConfig.active);
+		}, // isStateActive
+
+		bindHoverEvents: function ( statefulEl ) {
+			var plugin = this;
+			$.each(plugin.settings.hoverEvents, function( i, curEventName ) {
+				plugin.bindOtherEvents( statefulEl, curEventName, plugin.settings.states.hover)
 			}); // each this.settings.hoverEvents
 		}, // bindHoverEvents
 
+		bindOtherEvents: function ( statefulEl, stateName, stateClass ) {
+			var plugin = this,
+			    eventFullname = plugin.getEventFullname(stateName);
+			$(document).off(eventFullname).on(eventFullname, statefulEl, function() {
+				var $this = $(this),
+				    previousState = plugin.getPreviousState();
+				$this.toggleClass(stateClass);
+				if ( !plugin.isStateActive ) {
+					$this.toggleClass(previousState);
+				}
+			}); // on eventFullname
+		}, // bindOtherEvents
+
 		bindAllEvents: function () {
-			var $statefulEl = $(this.settings.states.delegateTo) || this.$el;
-			$.each(this.settings.states, function( curState, stateClass ) {
-				this.$el.removeClass(stateClass);
-				switch( curState ){
-					case "hover":
-						this.bindHoverEvents( $statefulEl );
-					break;
-				} // switch curState
+			var plugin = this,
+			    delegateTo = plugin.settings.states.delegateTo,
+			    statefulEl = (delegateTo) ? delegateTo : plugin.$el.selector;
+			$.each(plugin.settings.states, function( stateName, stateClass ) {
+				if ( stateName == "hover") {
+					plugin.bindHoverEvents( statefulEl );
+				}
+				else {
+					plugin.bindOtherEvents( statefulEl, stateName, stateClass );
+				}
 			}); // each statesConfig
 		} // bindEvents
 	}; // prototype

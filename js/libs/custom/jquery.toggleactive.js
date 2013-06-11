@@ -18,7 +18,11 @@
 	var pluginName = "toggleActive",
 	defaults = {
 		toggleSelector: "[data-tog]",
-		toggleGroupSelector: "[data-toggles]"
+		toggleGroupSelector: "[data-toggles]",
+		targetSelector: '[data-id="{{target}}"]',
+		states: {
+			"active": "active"
+		}
 	};
 
 	function Plugin ( el, options ) {
@@ -32,34 +36,35 @@
 
 	Plugin.prototype = {
 		init: function () {
-			$(document).on("click.toggleActive", this.settings.toggleSelector, this.toggleActive );
+			$(document).off("click.toggleActive").on("click.toggleActive", this.settings.toggleSelector, this, this.toggleActive );
 		}, // init
+
 		toggleActive: function (e) {
-			var $this = $(e.target),
-			    $parent = function($this) {
-			    	return $this.parents(this.settings.toggleGroupSelector);
-			    },
-			    $toggles = $parent($this).find(this.settings.toggleSelector),
-			    $all = $this.add($toggles),
+			var plugin = e.data,
+			    $this = $(this),
+			    $group = $this.parents(plugin.settings.toggleGroupSelector),
+			    $all = $group.find(plugin.settings.toggleSelector),
+			    $sibs = $all.not($this),
 			    stateClass = function($this) {
-			    	return $this.data("states") || $parent($this).data("states") || { "active" : "active" };
+			    	return $this.data("states") || $group.data("states") || plugin.settings.states;
 			    };
 
-			$this.data({ tog: true });
-			$toggles.data({ tog: false });
+			$this.data("tog", true);
+			$sibs.data("tog", false);
 
-			$.each($all, function() {
+			$.each($all, function(i) {
 				var $this = $(this),
-				    $target = $('[data-id="' + $this.data("target") + '"]');
-				if( $this.data("tog") ) {
-					$this.addClass(stateClass($this).active);
+				    $target = $(plugin.settings.targetSelector.replace("{{target}}", $this.data("target")));
+
+				if( !!$this.data("tog") ) {
+					$this.trigger("active");
 					$target.removeClass("hide");
 				}
 				else {
-					$this.removeClass(stateClass($this).active);
+					$this.trigger("normal");
 					$target.addClass("hide");
 				}
-			}); // each
+			}); // each $all
 		} // toggleActive
 	}; // prototype
 
