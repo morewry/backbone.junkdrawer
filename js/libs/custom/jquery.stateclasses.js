@@ -125,13 +125,13 @@
 				else {
 					if( e.type == "mouseenter" ) { $this.addClass( e.data.stateClassName ); }
 					else if( e.type == "mouseleave" ) { $this.removeClass( e.data.stateClassName ); }
-					else { $this.toggleClass( e.data.stateClassName ); }
+					else {
+						$this.toggleClass( e.data.stateClassName );
+						if ( e.data.stateName == "active" ) {
+							$this.removeClass( plugin.settings.inactiveList );
+						}
+					}
 				}
-			}
-			// If currently active, or setting to active
-			else if ( isActiveNow || e.data.stateName == "active" ) {
-				$this.addClass( plugin.settings.states.active );
-				$this.removeClass( plugin.settings.inactiveList );
 			}
 		} // toggleClasses
 
