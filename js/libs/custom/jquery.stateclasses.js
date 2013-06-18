@@ -14,108 +14,134 @@
 		factory(jQuery);
 	}
 }(function ($) {
-
 	var pluginName = "stateClasses",
 	defaults = {
 		selector: "[data-states]",
-		states: {
-			active: "active",
-			hover: "hover",
-			normal: ""
+		normal: {
+			events: ["normal"],
+			type: "swap",
+			classname: ""
 		},
-		hoverEvents: ["mouseenter", "mouseleave"]
+		active: {
+			events: ["active"],
+			type: "swap",
+			classname: "active"
+		},
+		hover: {
+			events: ["mouseenter", "mouseleave"],
+			type: "toggle",
+			classname: "hover"
+		},
+		states: {
+			normal: "",
+			active: "active",
+			hover: "hover"
+		}
 	};
-
 	function Plugin ( el, options ) {
 		this.el = el;
 		this.$el = $(el);
-		this.settings = $.extend( {}, defaults, options );
 		this._defaults = defaults;
 		this._name = pluginName;
+		this._data = (this.$el.data('states')) ? $.parseJSON('{"' + this.$el.data('states').replace(/( )?[:,]( )?/gi, function(m) { return '"' + m + '"'; }) + '"}') : false;
+		this.settings = $.extend( {}, defaults, options );
+		this.settings.states = $.extend( {}, this.settings.states, this.justStates(this._data) ) || this.settings.states;
+		this.settings.delegate = (this._data && this._data.delegate) ? this._data.delegate : false;
+		this.settings.inactiveList = $.map( this.settings.states, function( v, k ) { return (k !== "active") ? v : null; } ).join(" ");
 		this.init();
 	}
-
 	Plugin.prototype = {
+
 		init: function () {
-			var statesTemp = '{' + this.$el.data('states').replace(/[']/gi, '"') + '}',
-			    statesConfig = $.parseJSON(statesTemp);
-			if ( statesConfig ) { $.extend( this.settings.states, statesConfig ); }
-			this.setEventNamespace();
-			this.bindAllEvents();
+			this.bindStateEvents();
+			// console.log(this.settings);
 		}, // init
 
-		getEventFullname: function ( eventName ) {
-			eventName = eventName || 'eventname';
-			return eventName + '.' + this.getEventNamespace();
-		}, // getEventFullname
+		justStates: function ( oIn ) {
+			var oOut = $.extend({}, oIn);
+			if (oOut && oOut.delegate) { delete oOut.delegate; }
+			return oOut;
+		}, // justStates
 
-		setEventNamespace: function () {
-			var eventNamespace,
-			    delegateTo = this.settings.states.delegateTo;
-			if ( delegateTo ) {
-				eventNamespace = this._name + '.' + delegateTo.replace(/[^a-z0-9-]/gi, '');
+		genEventNames: function ( stateName ) {
+			var eNames = false,
+			    plugin = this;
+			if ( plugin.settings[stateName] && plugin.settings[stateName].events ) {
+				eNames = $.map( plugin.settings[stateName].events, function( v, k, s ) { return plugin.genEventNamespace( v, s ); }).join(" ");
 			}
-			else {
-				eventNamespace = this._name;
+			return eNames;
+		}, // genEventNames
+
+		genEventNamespace: function ( eventName, stateName ) {
+			var eNamespace = eventName + '.' + stateName + '.' + this._name;
+			if ( this.settings.delegate ) {
+				eNamespace = eNamespace + '.' + this.settings.delegate.replace(/[^a-z0-9-]/gi, "");
 			}
-			this.settings.eventNamespace = eventNamespace;
-		}, // setEventNamespace
+			return eNamespace;
+		}, // getNamespace
 
-		getEventNamespace: function () {
-			return this.settings.eventNamespace;
-		}, // getEventNamespace
+		isActiveNow: function ( $el ) {
+			return $el.hasClass( this.settings.states.active );
+		}, // isActiveNow
 
-		getPreviousState: function () {
-			var statesConfig = this.settings.states;
-			return (this.isStateActive) ? statesConfig.active : statesConfig.normal;
-		}, // getPreviousState
-
-		isStateActive: function () {
-			var statesConfig = this.settings.states;
-			return this.$el.hasClass(statesConfig.active);
-		}, // isStateActive
-
-		bindHoverEvents: function ( statefulEl ) {
-			var plugin = this;
-			$.each(plugin.settings.hoverEvents, function( i, curEventName ) {
-				plugin.bindOtherEvents( statefulEl, curEventName, plugin.settings.states.hover)
-			}); // each this.settings.hoverEvents
-		}, // bindHoverEvents
-
-		bindOtherEvents: function ( statefulEl, stateName, stateClass ) {
+		bindStateEvents: function () {
 			var plugin = this,
-			    eventFullname = plugin.getEventFullname(stateName);
-			$(document).off(eventFullname).on(eventFullname, statefulEl, function() {
-				var $this = $(this),
-				    previousState = plugin.getPreviousState();
-				$this.toggleClass(stateClass);
-				if ( !plugin.isStateActive ) {
-					$this.toggleClass(previousState);
-				}
-			}); // on eventFullname
-		}, // bindOtherEvents
+			    statefulEl = plugin.settings.delegate || plugin.settings.selector,
+			    statefulEvents;
+			if ( !plugin.$el.data( plugin._name ) ) {
+				$.each(plugin.settings.states, function( stateName, stateClassName ) {
+					statefulEvents = plugin.genEventNames( stateName );
+					if ( statefulEvents ) {
+						if ( plugin.settings.delegate ) {
+							$(document).off(statefulEvents).on(
+								statefulEvents,
+								statefulEl,
+								{ plugin: plugin, stateName: stateName, stateClassName: stateClassName },
+								plugin.toggleClasses
+							); // on
+						} // if delegate
+						else {
+							plugin.$el.off(statefulEvents).unbind(statefulEvents).bind(
+								statefulEvents,
+								{ plugin: plugin, stateName: stateName, stateClassName: stateClassName },
+								plugin.toggleClasses
+							); // bind
+						} // else !delegate
+					} // if statefulEvents
+				}); // each plugin.settings.states
+			} // if $el not already stated
+		}, // bindStateEvents
 
-		bindAllEvents: function () {
-			var plugin = this,
-			    delegateTo = plugin.settings.states.delegateTo,
-			    statefulEl = (delegateTo) ? delegateTo : plugin.$el.selector;
-			$.each(plugin.settings.states, function( stateName, stateClass ) {
-				if ( stateName == "hover") {
-					plugin.bindHoverEvents( statefulEl );
+		toggleClasses: function( e ) {
+			e.stopPropagation();
+			var plugin = e.data.plugin,
+			    $this = $(this),
+			    isActiveNow = plugin.isActiveNow( $this );
+			// If not currently active, or setting to normal
+			if ( !isActiveNow || e.data.stateName == "normal" ) {
+				if ( e.data.stateName == "normal" ) {
+					$this.removeClass( plugin.settings.states.active );
 				}
 				else {
-					plugin.bindOtherEvents( statefulEl, stateName, stateClass );
+					if( e.type == "mouseenter" ) { $this.addClass( e.data.stateClassName ); }
+					else if( e.type == "mouseleave" ) { $this.removeClass( e.data.stateClassName ); }
+					else { $this.toggleClass( e.data.stateClassName ); }
 				}
-			}); // each statesConfig
-		} // bindEvents
-	}; // prototype
+			}
+			// If currently active, or setting to active
+			else if ( isActiveNow || e.data.stateName == "active" ) {
+				$this.addClass( plugin.settings.states.active );
+				$this.removeClass( plugin.settings.inactiveList );
+			}
+		} // toggleClasses
 
+	}; // prototype
 	$.fn[ pluginName ] = function ( options ) {
 		var instance, returns, options = options || {};
 		returns = this.each(function () {
-			instance = $.data( this, "plugin_" + pluginName );
+			instance = $.data( this, pluginName );
 			if ( typeof options === 'object' && !instance ) {
-				$.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+				$.data( this, pluginName, new Plugin( this, options ) );
 			}
 			if ( instance instanceof Plugin && typeof instance[options] === 'function' ) {
 				returns = instance[options].apply( instance, Array.prototype.slice.call( arguments, 1 ) );
@@ -123,5 +149,4 @@
 		});
 		return returns;
 	}; // $.fn
-
 }));

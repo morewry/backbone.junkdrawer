@@ -44,9 +44,12 @@
 			font-size: 100%;
 			line-height: 1;
 			width: auto;
+			cursor: pointer;
 			/* style */
 			padding: 0.309016rem 0.5rem;
 		}
+		.active { background-color: rgba(255,0,0, 0.25); cursor: default; }
+		.hover { background-color: rgba(0,0,255, 0.25); }
 	</style>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	<script src="/js/libs/custom/jquery.stateclasses.js"></script>
@@ -54,9 +57,10 @@
 </head>
 <body>
 
-<ol class="tabs" data-toggles data-states="'active':'tabs--tab__active', 'delegateTo': '[data-tog]'">
+
+<ol class="tabs" data-toggles data-states="active:tabs--tab__active active, delegate:[data-tog]">
 	<li>
-		<button class="tabs--tab tabs--tab__1" data-tog data-target="tab-name1" data-states="'active':'tabs--tab__active tabs--tab__1__active'">Tab Name1</button>
+		<button class="tabs--tab tabs--tab__1" data-tog data-target="tab-name1" data-states="active:tabs--tab__1__active tabs--tab__active active">Tab Name1</button>
    </li>
 	<li>
 		<button class="tabs--tab tabs--tab__2" data-tog data-target="tab-name2">Tab Name2</button>
@@ -78,6 +82,8 @@
 	Tab Name 3 Content
 </div>
 
+<a href="#" data-states>Test</a>
+
 
 <script defer async>
 (function ($) {
@@ -85,6 +91,5 @@
 	$("[data-toggles]").toggleActive();
 }(jQuery))
 </script>
-
 </body>
 </html>
