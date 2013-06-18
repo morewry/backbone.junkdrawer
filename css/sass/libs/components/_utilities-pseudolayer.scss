@@ -15,35 +15,40 @@ Multiple borders and backgrounds with pseudo elements per [Nicolas Gallagher](ht
 
 // Starter for pseudo element styling
 // http://nicolasgallagher.com/multiple-backgrounds-and-borders-with-css2/
-@mixin psuedolayeropts( $z-index, $box-position ) {
-	@if $z-index != -1 { z-index: $z-index; }
-	@if length($box-position) and $box-position != 0 {
-		@if length($box-position) >= 1 { top: nth($box-position, 1); }
-		@if length($box-position) >= 2 { right: nth($box-position, 2); }
-		@if length($box-position) >= 3 { bottom: nth($box-position, 3); }
-		@if length($box-position) >= 4 { left: nth($box-position, 4); }
-	}
+@function psuedolayer_getIndex( $loop, $index, $maxlength ) {
+	$result: $index;
+	@if $loop > 1 { $result: $loop * $index * $maxlength; }
+	@return $result;
 }
-@mixin pseudolayer( $z-index: -1, $box-position: 0, $before: true, $after: false ) {
+@function psuedolayer_chkZindex( $zindex, $i ) {
+	$result: false;
+	@if ( length($zindex) and (length($zindex) >= $i) and (nth($zindex, $i) != -1) ) {
+		$result: true;
+	}
+	@return $result;
+}
+@function psuedolayer_chkPos( $position, $i ) {
+	$result: false;
+	@if ( length($position) and (length($position) >= $i) and (nth($position, $i) != 0) ) {
+		$result: true;
+	}
+	@return $result;
+}
+@mixin psuedolayer-options( $zindex, $position, $i ) {
+	@if psuedolayer_chkZindex( $zindex, psuedolayer_getIndex( $i, 1, 2 ) ) { z-index: nth($zindex, psuedolayer_getIndex( $i, 1, 2 )); }
+	@if psuedolayer_chkPos( $position, psuedolayer_getIndex( $i, 1, 4 ) ) { top: nth($position, psuedolayer_getIndex( $i, 1, 4 )); }
+	@if psuedolayer_chkPos( $position, psuedolayer_getIndex( $i, 2, 4 ) ) { right: nth($position, psuedolayer_getIndex( $i, 2, 4 )); }
+	@if psuedolayer_chkPos( $position, psuedolayer_getIndex( $i, 3, 4 ) ) { bottom: nth($position, psuedolayer_getIndex( $i, 3, 4 )); }
+	@if psuedolayer_chkPos( $position, psuedolayer_getIndex( $i, 4, 4 ) ) { left: nth($position, psuedolayer_getIndex( $i, 4, 4 )); }
+}
+@mixin pseudolayer( $zindex: -1, $position: 0, $layers: (before) ) {
+	$index: 1;
 	position: relative;
-	@if $before and $after != true {
-		&:before {
+	@each $pLayer in $layers {
+		@if length($layers) > $index { $index: index($layers, $pLayer); }
+		&:#{$pLayer} {
 			@extend %pseudolayer;
-			@include psuedolayeropts( $z-index, $box-position );
-			@content;
-		}
-	}
-	@if $before != true and $after {
-		&:after {
-			@extend %pseudolayer;
-			@include psuedolayeropts( $z-index, $box-position );
-			@content;
-		}
-	}
-	@if $before and $after {
-		&:before, &:after {
-			@extend %pseudolayer;
-			@include psuedolayeropts( $z-index, $box-position );
+			@include psuedolayer-options( $zindex, $position, $index );
 			@content;
 		}
 	}

@@ -13,7 +13,7 @@ $rem-conversion-ratio: $static-font-size / #{1}rem;
 
 // Old IE Styles
 // http://jakearchibald.github.io/sass-ie/
-@mixin old-ie( $support, $type: false ) {
+@mixin old-ie( $support: false, $type: false ) {
 	@if $support {
 		@if $type { .ie-#{$type} & { @content } }
 		@else { @content }

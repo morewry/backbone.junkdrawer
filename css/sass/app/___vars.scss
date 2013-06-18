@@ -13,6 +13,26 @@
 //-- $fluid-font-size:;
 //-- $static-font-size:;
 
+// Default font sizes
+//-- $font-ratio:;
+//-- $fonthalf-ratio:;
+//-- $fontx2-ratio:;
+
+// Font sizes in static proportions - rems
+//-- $font:;
+//-- $fonthalf:;
+//-- $fontx2:;
+
+// Font sizes in static proportions - ems
+//-- $fluid-font:;
+//-- $fluid-fonthalf:;
+//-- $fluid-fontx2:;
+
+// Font sizes in static proportions - px
+//-- $static-font:;
+//-- $static-fonthalf:;
+//-- $static-fontx2:;
+
 // ------------------------------------------------------------------------------------- \\
 
 // Leading
@@ -169,14 +189,23 @@
 // ===================================================================================== \\
 
 //-- @mixin fieldset() { }
+	//-- @mixin fieldset-skin() { }
 //-- @mixin field() { }
+	//-- @mixin field-skin() { }
 //-- @mixin input() { }
+	//-- @mixin input-skin() { }
 //-- @mixin select() { }
+	//-- @mixin select-skin() { }
 //-- @mixin textarea() { }
+	//-- @mixin textarea-skin() { }
 //-- @mixin choice() { }
+	//-- @mixin choice-skin() { }
 //-- @mixin checkbox() { }
+	//-- @mixin checkbox-skin() { }
 //-- @mixin radio() { }
+	//-- @mixin radio-skin() { }
 //-- @mixin button() { }
+	//-- @mixin button-skin() { }
 
 // ------------------------------------------------------------------------------------- \\
 

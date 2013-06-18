@@ -182,7 +182,7 @@ Add styles to data/definition lists.
 
 %rtf blockquote {
 	@extend %space-in-gutterx2-horizontal;
-	@include pseudolayer( $after: true ) {
+	@include pseudolayer( $layers: (before after) ) {
 		@extend %space-in-all;
 		color: $border-color;
 		font-family: $font-family-alt;

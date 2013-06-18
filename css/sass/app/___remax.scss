@@ -1,0 +1,140 @@
+@charset "utf-8";
+
+// ------------------------------------------------------------------------------------- \\
+
+%remax-skin-noise { background-image: inline-image("embed/noise.png"); }
+
+/*
+*RE/MAX Skin 1* is a skin with a noisy blue background, light interior shadow providing a bevel effect, and drop shadow. An example is the about navigation on the corporate pages.
+
+     <div class="remax-skin-1">RE/MAX Skin 1</div>
+
+*/
+%remax-skin-1 {
+	$color: #FFF;
+	$bgcolor: #062237;
+	$start: rgba(61,156,220,0.37);
+	$end: rgba(61,156,220,0);
+	$shadow: rgba(4,4,4,0.29);
+	@include pseudolayer( $zindex: 1 );
+	@include old-ie( $oldiesupport, false ) {
+		@include box-shadow( 0 $fonthalf $font $shadow );
+	}
+	@include old-ie( $oldiesupport, lt9 ) {
+		-ms-filter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=11, OffY=16, Color='#{ie-hex-str($shadow)}', Positive='true')";
+	}
+	&:before {
+		@include old-ie( $oldiesupport, false ) {
+			@include background-image(
+				linear-gradient($start, $end)
+			);
+		}
+		@include old-ie( $oldiesupport, lt9 ) {
+			@include filter-gradient($start, $end);
+		}
+	}
+	&, & a { color: $color; }
+	background-color: $bgcolor;
+	@extend %remax-skin-noise !optional;
+}
+
+/*
+*RE/MAX Skin 2* is a skin with a blue background, interior shadow providing a glow and bevel effect, and an upward arrow. An example is the active state of items in the corporate page about menu.
+
+     <div class="remax-skin-2">RE/MAX Skin 2</div>
+
+*/
+%remax-skin-2 {
+	$color: #FFF;
+	$bgcolor: #0073C3;
+	$start: rgba(255,255,255,0.12);
+	$end: rgba(0,0,0,0.12);
+	$shadow: ( rgba(3,3,3,0.38) rgba(13,62,127,0.82) );
+	@include pseudolayer( $position: (-$fonthalf 0 0 50%) ) {
+		margin-left: -$fonthalf;
+		width: $font; height: $font;
+		background: #0073C3;
+		@include old-ie( $type: false ) {
+			@include box-shadow(
+				inset 0 $padhalf $pad nth($shadow, 1),
+				inset 0 0 $fonthalf nth($shadow, 2)
+			);
+			@include transform( rotate(45deg) );
+		}
+	};
+	@include old-ie( $oldiesupport, false ) {
+		@include background-image(
+			linear-gradient($start, $end)
+		);
+		@include box-shadow(
+			inset 0 $padhalf $pad nth($shadow, 1),
+			inset 0 0 $font nth($shadow, 2)
+		);
+	}
+	@include old-ie( $oldiesupport, lt9 ) {
+		@include filter-gradient($start, $end);
+	}
+	&, & a { color: $color; }
+	background-color: $bgcolor;
+}
+
+%remax-skin-3 {
+	$start: #FFF;
+	$end: #55636D;
+	$border: rgba(153,153,153,0.50);
+	$border-ie: #4D4D4D;
+	$shadow: ( $start rgba(0,0,0,0.50) );
+	@include background-clip( padding-box );
+	@include old-ie( $oldiesupport, false ) {
+		@include background(
+			linear-gradient( $start, $end )
+		);
+		@include box-shadow(
+			inset 0 2px 0 nth($shadow, 1),
+			0 1px 3px nth($shadow, 2)
+		);
+		border: $padhalf solid $border;
+	} // old-ie
+	@include old-ie( $oldiesupport, lt9 ) {
+		@include filter-gradient( $start, $end );
+		border: $padhalf solid $border-ie;
+	} // old-ie
+	@extend %remax-skin-3-text;
+}
+
+%remax-skin-3-text {
+	&,
+	&:visited,
+	&:focus,
+	&:active,
+	&:hover {
+		color: #1C1C1D;
+		font-size: 130%;
+		text-transform: uppercase;
+		@include text-shadow( 1px 1px 0 #FCFFFF );
+	}
+}
+
+// ------------------------------------------------------------------------------------- \\
+
+.demo-remaxtoolbar {
+	@extend %remax-skin-1;
+	@extend %grid-row;
+	@extend %space-out-leadx2-top;
+	@extend %space-out-lead-bottom;
+}
+	.demo-remaxtoolbar-link {
+		@extend %grid-unit;
+		@extend %space-in-font-horizontal;
+		@extend %space-in-vertical;
+		&.active {
+			@extend %remax-skin-2;
+		}
+	}
+
+.demo-remaxbutton {
+	@extend %button;
+	@extend %remax-skin-3;
+}
+
+// ------------------------------------------------------------------------------------- \\

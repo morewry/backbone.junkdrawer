@@ -25,6 +25,26 @@ $font-size: #{$font-size-ratio}rem !default;
 $fluid-font-size: #{$font-size-ratio}em !default;
 $static-font-size: 16px !default;
 
+// Default font sizes
+$font-ratio: $font-size-ratio !default;
+$fonthalf-ratio: $font-ratio / 2 !default;
+$fontx2-ratio: $font-ratio * 2 !default;
+
+// Font sizes in static proportions - rems
+$font: $font-size !default;
+$fonthalf: #{$fonthalf-ratio}rem !default;
+$fontx2: #{$fontx2-ratio}rem !default;
+
+// Font sizes in static proportions - ems
+$fluid-font: $fluid-font-size !default;
+$fluid-fonthalf: #{$fonthalf-ratio}em !default;
+$fluid-fontx2: #{$fontx2-ratio}em !default;
+
+// Font sizes in static proportions - px
+$static-font: $static-font-size !default;
+$static-fonthalf: $static-font / 2 !default;
+$static-fontx2: $static-font * 2 !default;
+
 // ------------------------------------------------------------------------------------- \\
 
 // Leading
@@ -296,25 +316,27 @@ $inverse-color: $text-color;
 @mixin button() {
 	@extend %space-in-half-vertical;
 	@extend %space-in-gutterhalf-horizontal;
-	@include pseudolayer( $after: true );
+	@include pseudolayer( $layers: (before after) );
 	&, &:before, &:after { @include border-radius( $fluid-pad ); }
 	font-weight: bold;
-	color: contrast-color( $background-color, lighten($background-color,6%), darken($background-color,6%) );
-	background-color: $link-color;
-	@include background-image(
-		linear-gradient( rgba(255,255,255,0.14), rgba(0,0,0,0.10) )
-	);
-	@include box-shadow(
-		inset 1px 1px 0 rgba(255,255,255,0.26),
-		1px 1px 1px rgba(0,0,0,0.26)
-	);
-	border: 1px solid;
-	border-color: rgba(255,255,255,0.02) rgba(0,0,0,0.46) rgba(0,0,0,0.46) rgba(255,255,255,0.02);
-	&:focus:before,
-	&:hover:before { @include rgba-background-inline( rgba(255,255,255,0.25) ); }
-	&:active:before { @include rgba-background-inline( rgba(0,0,0,0.15) ); }
-	&[disabled]:before { @include rgba-background-inline( rgba(125,125,125,0.50) ); }
 }
+	@mixin button-skin() {
+		color: contrast-color( $background-color, lighten($background-color,6%), darken($background-color,6%) );
+		background-color: $link-color;
+		@include background-image(
+			linear-gradient( rgba(255,255,255,0.14), rgba(0,0,0,0.10) )
+		);
+		@include box-shadow(
+			inset 1px 1px 0 rgba(255,255,255,0.26),
+			1px 1px 1px rgba(0,0,0,0.26)
+		);
+		border: 1px solid;
+		border-color: rgba(255,255,255,0.02) rgba(0,0,0,0.46) rgba(0,0,0,0.46) rgba(255,255,255,0.02);
+		&:focus:before,
+		&:hover:before { @include rgba-background-inline( rgba(255,255,255,0.25) ); }
+		&:active:before { @include rgba-background-inline( rgba(0,0,0,0.15) ); }
+		&[disabled]:before { @include rgba-background-inline( rgba(125,125,125,0.50) ); }
+	}
 
 @mixin placeholder-text() {
 	color: $text-color;
@@ -359,7 +381,7 @@ $inverse-color: $text-color;
 }
 
 @mixin modal() {
-	@include pseudolayer( $after: true );
+	@include pseudolayer( $layers: (before after) );
 	@extend %space-in-gutter-horizontal;
 	@extend %space-in-font-vertical;
 	max-width: 75%;

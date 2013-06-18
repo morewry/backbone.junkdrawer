@@ -1,21 +1,7 @@
 @charset "utf-8";
 
-/**  D40015  FF4411  FAFAC6  999999  666666  **/
-// ------------------------------------------------------------------------------------- \\
-
-@font-face {
-  font-family: 'Inconsolata';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Inconsolata'), url(http://themes.googleusercontent.com/static/fonts/inconsolata/v6/BjAYBlHtW3CJxDcjzrnZCIbN6UDyHWBl620a-IRfuBk.woff) format('woff');
-}
-
-@font-face {
-  font-family: 'Inconsolata';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Inconsolata Bold'), local('Inconsolata-Bold'), url(http://themes.googleusercontent.com/static/fonts/inconsolata/v6/AIed271kqQlcIRSOnQH0yTqR_3kx9_hJXbbyU8S6IN0.woff) format('woff');
-}
+@import "___portfolio";
+@import "___remax";
 
 // ------------------------------------------------------------------------------------- \\
 

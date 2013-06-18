@@ -20,6 +20,10 @@ Provides structural defaults for buttons.  For use with `@extend`.
 	@extend %inline-unit-nowrap;
 }
 
+%button-skin {
+	@include button-skin;
+}
+
 %button-fullwidth {
 	display: block;
 	padding-left: 0;
