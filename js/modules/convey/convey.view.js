@@ -32,7 +32,7 @@ define(
 			// Backbone: View options
 			options: {
 				// Per Backbone.Layout
-				template: 'convey',
+				template: 'convey/convey',
 				append: true,
 				// Per api.jqueryui.com/position/
 				position: {

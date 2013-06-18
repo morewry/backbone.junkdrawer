@@ -146,7 +146,7 @@ define(
 					'setup.conveyor',
 					{
 						options: {
-							template: 'modal'
+							template: 'convey/modal'
 						}, // options
 						model: {
 							cvid: tConfig[2],
@@ -171,7 +171,7 @@ define(
 					{
 						options: {
 							origin: App.Layout.Use().getView({template: 'site'}).getView({template: 'site-head'}),
-							template: 'examplecustom'
+							template: 'convey/examplecustom'
 						}, // options
 						model: {
 							cvid: tConfig[2]
