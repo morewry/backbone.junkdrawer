@@ -20,6 +20,7 @@ define(
 
 			// Backbone: Specify for models w/out collections.
 			// urlRoot: '',
+			// url: '',
 
 			// Backbone: Hash (or fn that returns one) of default attrs for model.
 			defaults: {
@@ -28,7 +29,19 @@ define(
 			} // defaults
 
 			// Backbone: Will be invoked when the model is created.
-			// initialize: function(){} // initialize
+			initialize: function(){
+				this.fetch({
+					success: function( model, response, options ) {
+						App.Log(model);
+					},
+					error: function ( model, response, options ) {
+						App.Log(response);
+					},
+					complete: function ( xhr, textstatus ) {
+						App.Log(textstatus);
+					}
+				});
+			} // initialize
 
 		}); // App.Example.Model
 

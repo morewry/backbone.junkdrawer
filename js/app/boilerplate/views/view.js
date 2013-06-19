@@ -18,7 +18,7 @@ define(
 
 			// Backbone: Hash (or fn that returns one) of delegated events.
 			events: {
-				'submit': 'updateCount'
+				'submit': 'update'
 			},
 
 			// Backbone.Layout: Specify a template for the view.
@@ -31,13 +31,10 @@ define(
 			// serialize: function() { },
 
 			// Backbone: Called when view first created. Access this.options.
-			initialize: function() {
-				this.render().view.$el.prependTo('body');
-				this.model.on('change', this.render, this);
-				this.model.on('destroy', this.cleanup, this);
-			},
+			// initialize: function() { this.render().view.$el.prependTo('body'); }
+			initialize: Backbone.Layout.prototype.options.initialize,
 
-			updateCount: function(e) {
+			update: function( e ) {
 				this.model.set(Backbone.Syphon.serialize(this.$el.find('form')[0]));
 			}
 
