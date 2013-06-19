@@ -1,5 +1,6 @@
 define(
 	[
+		'app/boilerplate/models/model',
 		'backbone'
 		//,'backbone.localstorage'
 	],
@@ -22,13 +23,13 @@ define(
 			url: '',
 
 			// Backbone: Specify the model class that the collection contains.
-			model: ,
+			model: App.Example.Model
 
 			// Backbone: Will be invoked when the collection is created.
-			initialize: function(){}, // initialize
+			// initialize: function(){}, // initialize
 
 			// Backbone: Called whenever a collection is fetched from server.
-			parse: function(response){} // parse
+			// parse: function( response ){} // parse
 
 		}); // App.Example.Collection
 

@@ -29,6 +29,7 @@ define(
 			} // defaults
 
 			// Backbone: Will be invoked when the model is created.
+			/*
 			initialize: function(){
 				this.fetch({
 					success: function( model, response, options ) {
@@ -42,6 +43,7 @@ define(
 					}
 				});
 			} // initialize
+			*/
 
 		}); // App.Example.Model
 
