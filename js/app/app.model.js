@@ -19,50 +19,33 @@ define(
 			// localStorage: new Backbone.LocalStorage("uniquename"),
 
 			// Backbone: Specify for models w/out collections.
-			// urlRoot: '',
+			urlRoot: '/js/app/app.config.json',
 
 			// Backbone: Hash (or fn that returns one) of default attrs for model.
 			defaults: {
 				sid: 0,
-				site: true,
-				siteMenu: true,
-				siteHead: true,
-				siteMedia: false,
-				siteLogo: true,
-				siteTitle: "Test site title",
-				siteSubTitle: "Test site subtitle",
-				siteFoot: true,
-				siteDisclaimer: "Test site disclaimer",
-				siteBody: true,
-				navMain: {
-					items: [
-						{
-							link: "Properties",
-							href: "real-estate"
-						},
-						{
-							link: "Buyers",
-							href: "buyers"
-						},
-						{
-							link: "Sellers",
-							href: "sellers"
-						},
-						{
-							link: "About",
-							href: "about"
-						},
-						{
-							link: "Contact",
-							href: "contact"
-						}
-					],
-				},
-				navFoot: false
-			} // defaults
+				site: true, // boolean
+				siteMenu: false, // boolean
+					navMain: false, // object {items: [{link, href}]}
+				siteHead: false, // boolean
+					siteMedia: false, // string, html
+					siteLogo: false, // boolean
+					siteTitle: false, // string, simple or html
+					siteSubTitle: false, // string, simple or html
+				siteBody: false, // boolean
+				siteFoot: false, // boolean
+					siteDisclaimer: false, // string, simple or html
+					navFoot: false // object {items: [{link, href}]}
+			}, // defaults
 
 			// Backbone: Will be invoked when the model is created.
-			// initialize: function(){} // initialize
+			initialize: function(){
+				this.fetch({
+					success: function( model, response, options ) {
+						App.Log(model.attributes);
+					}
+				});
+			} // initialize
 
 		}); // App.Layout.Model
 

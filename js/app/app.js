@@ -152,10 +152,18 @@ define(
 							done(pcTemplate);
 						});
 					}, // fetch
+					initialize: function() {
+						App.Log("Layout-View initialized");
+						this.listenTo(this.model, 'change', this.render);
+						this.listenTo(this.model, 'destroy', this.render);
+						//this.model.on('change', this.render, this);
+						//this.model.on('destroy', this.cleanup, this);
+					}, // initialize
 					render: function(template, context) {
 						var done = this.async();
 						done(
-							template(context)
+							template(context),
+							App.Log("Layout-View rendered")
 						);
 					}, // render
 					serialize: function() {
@@ -196,7 +204,6 @@ define(
 									el: '#js-body'
 								}, options));
 							} // if
-
 							// Cache the layout reference
 							return this.layout;
 						} // Use
@@ -220,9 +227,9 @@ define(
 				**/
 				$(document).on('click.backbone', 'a[href]:not([data-bypass])', function(e) {
 					e.preventDefault();
-					_this = $(this);
+					$this = $(this);
 					App.Log('Click handled by backbone');
-					Backbone.history.navigate(_this.attr('href'), {trigger: true});
+					Backbone.history.navigate($this.attr('href'), {trigger: true});
 				}); // on click
 
 
@@ -234,9 +241,9 @@ define(
 				**/
 				$(document).on('submit.backbone', 'form[action]:not([data-bypass])', function(e) {
 					e.preventDefault();
-					_this = $(this);
+					$this = $(this);
 					App.Log('Submit handled by backbone');
-					Backbone.history.navigate(_this.attr('action'), {trigger: true});
+					Backbone.history.navigate($this.attr('action'), {trigger: true});
 				}); // on submit
 
 				/**

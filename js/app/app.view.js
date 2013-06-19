@@ -22,16 +22,10 @@ define(
 			// events: {},
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'site-head'
-
-			// Backbone.Layout: Declare nested subviews.
-			// views: {}, // views
-
-			// Backbone.Layout: Provide data to Layout Manager render.
-			// serialize: function() { }, // serialize
+			template: 'site-head',
 
 			// Backbone: Called when view first created. Access this.options.
-			// initalize: function() {} // initalize
+			initialize: Backbone.Layout.prototype.options.initialize
 
 		}); // App.Layout.View.Head
 
@@ -46,16 +40,10 @@ define(
 			// events: {},
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'nav-main'
-
-			// Backbone.Layout: Declare nested subviews.
-			// views: {}, // views
-
-			// Backbone.Layout: Provide data to Layout Manager render.
-			// serialize: function() { }, // serialize
+			template: 'nav-main',
 
 			// Backbone: Called when view first created. Access this.options.
-			// initalize: function() {} // initalize
+			initialize: Backbone.Layout.prototype.options.initialize
 
 		}); // App.Layout.View.NavMain
 
@@ -81,11 +69,8 @@ define(
 				]
 			}, // views
 
-			// Backbone.Layout: Provide data to Layout Manager render.
-			// serialize: function() { }, // serialize
-
 			// Backbone: Called when view first created. Access this.options.
-			// initalize: function() {} // initalize
+			initialize: Backbone.Layout.prototype.options.initialize
 
 		}); // App.Layout.View.Menu
 
@@ -181,16 +166,10 @@ define(
 			}, // openCustom
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'site-body'
-
-			// Backbone.Layout: Declare nested subviews.
-			// views: {}, // views
-
-			// Backbone.Layout: Provide data to Layout Manager render.
-			// serialize: function() { }, // serialize
+			template: 'site-body',
 
 			// Backbone: Called when view first created. Access this.options.
-			// initalize: function() {} // initalize
+			initialize: Backbone.Layout.prototype.options.initialize
 
 		}); // App.Layout.View.Body
 
@@ -205,16 +184,10 @@ define(
 			// events: {},
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'nav-foot'
-
-			// Backbone.Layout: Declare nested subviews.
-			// views: {}, // views
-
-			// Backbone.Layout: Provide data to Layout Manager render.
-			// serialize: function() { }, // serialize
+			template: 'nav-foot',
 
 			// Backbone: Called when view first created. Access this.options.
-			// initalize: function() {} // initalize
+			initialize: Backbone.Layout.prototype.options.initialize
 
 		}); // App.Layout.View.NavFoot
 
@@ -240,11 +213,8 @@ define(
 				]
 			}, // views
 
-			// Backbone.Layout: Provide data to Layout Manager render.
-			// serialize: function() { }, // serialize
-
 			// Backbone: Called when view first created. Access this.options.
-			//initalize: function() {} // initalize
+			initialize: Backbone.Layout.prototype.options.initialize
 
 		}); // App.Layout.View.Foot
 
@@ -280,11 +250,8 @@ define(
 				]
 			}, // views
 
-			// Backbone.Layout: Provide data to Layout Manager render.
-			// serialize: function() { }, // serialize
-
 			// Backbone: Called when view first created. Access this.options.
-			// initalize: function() {} // initalize
+			initialize: Backbone.Layout.prototype.options.initialize
 
 		}); // App.Layout.View.Main
 
