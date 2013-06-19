@@ -26,8 +26,6 @@ disable_warnings = true
 compiletype = environment
 
 # Set this to the root of your project when deployed:
-# additional_import_paths = ['Y:\sass']
-
 project_path = File.dirname(__FILE__) + "/"
 
 http_path = "/resources"
@@ -40,6 +38,8 @@ fonts_dir = "fonts/"
 utils_dir = "utilities/"
 
 utils_path =  project_path + utils_dir
+
+# additional_import_paths = ['Y:\sass']
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed
