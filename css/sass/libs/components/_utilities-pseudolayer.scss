@@ -13,13 +13,12 @@ Multiple borders and backgrounds with pseudo elements per [Nicolas Gallagher](ht
 
 */
 
-// Starter for pseudo element styling
-// http://nicolasgallagher.com/multiple-backgrounds-and-borders-with-css2/
 @function psuedolayer_getIndex( $loop, $index, $maxlength ) {
 	$result: $index;
 	@if $loop > 1 { $result: $loop * $index * $maxlength; }
 	@return $result;
 }
+
 @function psuedolayer_chkZindex( $zindex, $i ) {
 	$result: false;
 	@if ( length($zindex) and (length($zindex) >= $i) and (nth($zindex, $i) != -1) ) {
@@ -27,6 +26,7 @@ Multiple borders and backgrounds with pseudo elements per [Nicolas Gallagher](ht
 	}
 	@return $result;
 }
+
 @function psuedolayer_chkPos( $position, $i ) {
 	$result: false;
 	@if ( length($position) and (length($position) >= $i) and (nth($position, $i) != 0) ) {
@@ -34,6 +34,7 @@ Multiple borders and backgrounds with pseudo elements per [Nicolas Gallagher](ht
 	}
 	@return $result;
 }
+
 @mixin psuedolayer-options( $zindex, $position, $i ) {
 	@if psuedolayer_chkZindex( $zindex, psuedolayer_getIndex( $i, 1, 2 ) ) { z-index: nth($zindex, psuedolayer_getIndex( $i, 1, 2 )); }
 	@if psuedolayer_chkPos( $position, psuedolayer_getIndex( $i, 1, 4 ) ) { top: nth($position, psuedolayer_getIndex( $i, 1, 4 )); }
@@ -41,6 +42,7 @@ Multiple borders and backgrounds with pseudo elements per [Nicolas Gallagher](ht
 	@if psuedolayer_chkPos( $position, psuedolayer_getIndex( $i, 3, 4 ) ) { bottom: nth($position, psuedolayer_getIndex( $i, 3, 4 )); }
 	@if psuedolayer_chkPos( $position, psuedolayer_getIndex( $i, 4, 4 ) ) { left: nth($position, psuedolayer_getIndex( $i, 4, 4 )); }
 }
+
 @mixin pseudolayer( $zindex: -1, $position: 0, $layers: (before) ) {
 	$index: 1;
 	position: relative;
