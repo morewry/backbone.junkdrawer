@@ -18,7 +18,7 @@
 
 require "rgbapng"
 # require "breakpoint"
-require File.join(File.dirname(__FILE__), 'listfiles.rb')
+require File.join(File.dirname(__FILE__), 'utilities/listfiles.rb')
 
 # Set options
 
