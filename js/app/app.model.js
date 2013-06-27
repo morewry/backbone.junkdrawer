@@ -1,11 +1,10 @@
 define(
 	[
+		'app/app',
 		'backbone'
 		//,'backbone.localstorage'
 	],
 	function(){
-
-		App.Layout = App.Layout || {};
 
 		/**
 		 *
@@ -13,7 +12,7 @@ define(
 		 *
 		 *
 		**/
-		App.Layout.Model = Backbone.Model.extend({
+		var AppModel = Backbone.Model.extend({
 
 			// Backbone.LocalStorage: Save to a localStorage database
 			// localStorage: new Backbone.LocalStorage("uniquename"),
@@ -40,16 +39,16 @@ define(
 
 			// Backbone: Will be invoked when the model is created.
 			initialize: function(){
-				this.fetch({
-					success: function( model, response, options ) {
-						App.Log(model.attributes);
-					}
-				});
+				this.deferred = this.fetch({
+					success: function ( model, response, options ) {
+						App.Log("App Model Fetched Successfully");
+					} // success
+				}); // fetch
 			} // initialize
 
-		}); // App.Layout.Model
+		}); // AppModel
 
-		return App.Layout.Model;
+		return AppModel;
 
 	} // fn
 ); // define

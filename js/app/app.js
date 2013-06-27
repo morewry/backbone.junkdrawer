@@ -1,140 +1,19 @@
 define(
+	[
+		'backbone',
+		'backbone.layoutmanager'
+	],
 	function() {
-		require.config({
-			baseUrl: '/js/',
-			// enforceDefine: true,
+
+		var AppInit = {
+
 			/**
 			 *
-			 * Shims
-			 * Configure the dependencies and exports for older, traditional 'browser globals'
-			 * scripts that do not use define() to declare the dependencies and set a module value.
+			 *
+			 *
 			 *
 			**/
-			shim: {
-				'backbone': {
-					deps: [
-						'json2',
-						'underscore',
-						'zepto'
-					],
-					exports: 'Backbone'
-				}, // backbone
-					'backbone.layoutmanager': {
-						deps: [
-							'backbone',
-							'zepto.deferred'
-						],
-						exports: 'Backbone.Layout'
-					}, // backbone.layoutmanager
-					'backbone.localstorage': {
-						deps: ['backbone'],
-						exports: 'Backbone.LocalStorage'
-					}, // backbone.localstorage
-					'backbone.subroute': {
-						deps: ['backbone'],
-						exports: 'Backbone.SubRoute'
-					}, // backbone.subroute
-					'backbone.syphon': {
-						deps: ['backbone'],
-						exports: 'Backbone.Syphon'
-					}, // backbone.syphon
-				'libs/jath': {
-					exports: 'Jath'
-				},
-				'json2': {
-					exports: 'JSON'
-				},
-				'jquery': {
-					exports: 'jQuery',
-					init: function() {
-						jQuery.noConflict();
-					}
-				},
-					'libs/custom/jquery.convey': {
-						deps: [
-							'jquery',
-							'libs/jquery/jquery.ui.position',
-							'libs/jquery/jquery.timeout'
-						],
-						exports: 'jQuery.conveyPlugin'
-					},
-					'libs/jquery/jquery.timeout': {
-						deps: ['jquery'],
-						exports: 'jQuery.timeout'
-					},
-					'libs/jquery/jquery.ui.position': {
-						deps: ['jquery'],
-						exports: 'jQuery.position'
-					},
-				'underscore': {
-					exports: '_'
-				}, // underscore
-					'underscore.string': {
-						deps: ['underscore'],
-						exports: '_.str'
-					}, // underscore.string
-				'zepto': {
-					exports: 'Zepto'
-				}, // zepto
-					'zepto.deferred': {
-						deps: ['zepto'],
-						exports: 'Deferred',
-						init: function() {
-							this.Deferred.installInto(Zepto);
-						}
-					} // zepto.deferred
-			}, // shim
-			/**
-			 *
-			 * Paths
-			 * Path mappings for module names not found directly under baseUrl
-			 * Don't have to add one for each file. Used as shortcuts or for scripts with shims above.
-			 *
-			**/
-			paths: {
-				'backbone': 'libs/backbone/backbone',
-					'backbone.layoutmanager': 'libs/backbone/backbone.layoutmanager',
-					'backbone.localstorage': 'libs/backbone/backbone.localstorage',
-					'backbone.subroute': 'libs/backbone/backbone.subroute',
-					'backbone.syphon': 'libs/backbone/backbone.syphon',
-				'hogan': 'libs/hogan',
-				'html': '/html',
-				'json2': 'libs/json2',
-				'jquery': 'libs/jquery/jquery',
-				'require': 'libs/require/require',
-					'async': 'libs/require/async',
-					'cache': 'libs/require/cache',
-					'depend': 'libs/require/depend',
-					'domReady': 'libs/require/domReady',
-					'font': 'libs/require/font',
-					'goog': 'libs/require/goog',
-					'hgn': 'libs/require/hgn',
-					'image': 'libs/require/image',
-					'json': 'libs/require/json',
-					'mdown': 'libs/require/mdown',
-					'markdownConverter': 'libs/require/markdown.converter',
-					'noext': 'libs/require/noext',
-					'propertyParser': 'libs/require/propertyParser',
-					'step': 'libs/require/step',
-					'text': 'libs/require/text',
-				'underscore': 'libs/underscore',
-					'underscore.string': 'libs/underscore.string',
-				'zepto': 'libs/zepto',
-					'zepto.deferred': 'libs/zepto.deferred'
-			}, // paths
-			map: {
-			  '*': {
-				 'css': 'libs/require/css/css'
-			  }
-			}, // map
-			hgn: {
-				templateExtension: '.html'
-			}, // hgn
-			deps: [
-				'backbone',
-				'backbone.layoutmanager'
-			], // deps
-			callback: function() {
+			_preinit: function() {
 
 				/**
 				 *
@@ -148,67 +27,135 @@ define(
 					prefix: 'hgn!html/',
 					fetch: function(name) {
 						var done = this.async();
-						require([name], function(pcTemplate){
-							done(pcTemplate);
-						});
+						require(
+							[name],
+							function(pcTemplate){
+								done(pcTemplate);
+							} // fn
+						); // require
 					}, // fetch
 					initialize: function() {
-						App.Log("Layout-View initialized");
-						this.listenTo(this.model, 'change', this.render);
-						this.listenTo(this.model, 'destroy', this.render);
-						//this.model.on('change', this.render, this);
-						//this.model.on('destroy', this.cleanup, this);
+						App.Log("Backbone Layout-View initialized");
+						var _this = this;
+						if ( this.model ) {
+							this.model.deferred.done(function(){
+								_this.listenTo(_this.model, 'change', _this.render);
+								_this.listenTo(_this.model, 'destroy', _this.render);
+							}); // this.model.deferred.done
+						} // if this.model
 					}, // initialize
 					render: function(template, context) {
 						var done = this.async();
 						done(
 							template(context),
-							App.Log("Layout-View rendered")
+							App.Log("Backbone Layout-View rendered")
 						);
 					}, // render
 					serialize: function() {
-						return _.extend({}, _.clone(this.options), _.clone(this.model.attributes));
+						return _.extend({}, this.options, this.model.attributes);
 					} // serialize
 				}); // Backbone.Layout.configure
 
 				/**
 				 *
-				 * Create global App object
-				 * Establishes naming convention for modules
+				 * Create App object
+				 *
+				 * Include event aggregator
+				 * Include console.log wrapper
+				 * Include Use layout utility
+				 * Include Name utility
 				 *
 				**/
-				window.App = {
-					View: {},
-					Collection: {},
-					Model: {},
-					Template: {},
-					Router: {},
+				var AppObject = {
+					Init: false,
+					Module: {},
 					Event: _.extend({}, Backbone.Events),
 					Log: function(val) { if (window.console) console.log(val); },
-					Layout: {
-						Use: function(options) {
-							options = options || {};
-							// If only a name was passed in, use as template
-							if (_.isString(options)) {
-								options = _.extend({}, { template: options })
-							} else {
-								options = _.extend({}, options);
-							}
-							// Check if a layout already exists
-							if (this.layout) {
-								// If so, update the template
-								this.layout.template = options.template;
-							} else {
-								// Or create a new layout with options
-								this.layout = new Backbone.Layout(_.extend({
-									el: '#js-body'
-								}, options));
-							} // if
-							// Cache the layout reference
-							return this.layout;
-						} // Use
-					} // Layout
+					Use: function(options) {
+						options = options || {};
+						// If only a name was passed in, use as template
+						if (_.isString(options)) {
+							options = _.extend({}, { template: options })
+						} else {
+							options = _.extend({}, options);
+						}
+						// Check if a layout already exists
+						if (this.layout) {
+							// If so, update the template
+							this.layout.template = options.template;
+						} else {
+							// Or create a new layout with options
+							this.layout = new Backbone.Layout(_.extend({
+								el: '[data-view="app"]'
+							}, options));
+						} // if
+						// Cache the layout reference
+						return this.layout;
+					} // Use
 				}; // App
+
+				/**
+				 *
+				 *
+				 *
+				 *
+				**/
+				window.App = AppObject;
+
+			}, // _preinit
+
+			/**
+			 *
+			 *
+			 *
+			 *
+			**/
+			_init: function() {
+
+				/**
+				 *
+				 *
+				 *
+				 *
+				**/
+				if ( typeof App === "undefined" ) { AppInit._preinit(); }
+
+				/**
+				 *
+				 *
+				 *
+				 *
+				**/
+				if ( !App.Init ) {
+					require(
+						[
+							'app/app.model',
+							'app/app.router'
+						],
+						function ( appModel, appRouter ) {
+							App.Model = new appModel;
+							App.Router = new appRouter;
+							App.Model.deferred.done(function(){
+								require(['app/app.view'], function( appView ){
+									App.View = App.Use().setView(new appView({
+										model: App.Model
+									}), true).render(); // setView
+									AppInit._postinit();
+								}); // require
+							}); // App.Model.deferred.done
+						} // fn
+					); // require
+				} // if !App.Init
+
+			}, // _init
+
+			/**
+			 *
+			 *
+			 *
+			 *
+			**/
+			_postinit: function() {
 
 				/**
 				 *
@@ -225,13 +172,13 @@ define(
 				 * Route if no associated handler
 				 *
 				**/
-				$(document).on('click.backbone', 'a[href]:not([data-bypass])', function(e) {
+				$(document).off('submit.backbone')
+				.on('click.backbone', 'a[href]:not([data-bypass])', function(e) {
 					e.preventDefault();
 					$this = $(this);
-					App.Log('Click handled by backbone');
 					Backbone.history.navigate($this.attr('href'), {trigger: true});
+					App.Log("Click: preventDefault, Backbone.history.navigate");
 				}); // on click
-
 
 				/**
 				 *
@@ -239,51 +186,36 @@ define(
 				 * Route if no associated handler
 				 *
 				**/
-				$(document).on('submit.backbone', 'form[action]:not([data-bypass])', function(e) {
+				$(document).off('submit.backbone')
+				.on('submit.backbone', 'form[action]:not([data-bypass])', function(e) {
 					e.preventDefault();
 					$this = $(this);
-					App.Log('Submit handled by backbone');
 					Backbone.history.navigate($this.attr('action'), {trigger: true});
+					App.Log("Submit: preventDefault, Backbone.history.navigate");
 				}); // on submit
 
 				/**
 				 *
-				 * Request
+				 * Event-driven routing
 				 *
 				 *
 				**/
-				require(
-					[
-						'app/app.router',
-						'app/app.model',
-						'app/app.view'
-					],
-					function(appRouter, appModel, appView) {
-						App.Router.Main = App.Router.Main || new appRouter;
-						App.Model.Layout = App.Model.Layout || new appModel;
+				App.Router.on('route', function( route ) {
+					App.Router.subroute(route);
+					App.Log( 'Backbone Route: ' + route );
+				});
 
-						/**
-						 *
-						 * Instantiate main router
-						 *
-						 *
-						**/
-						App.Router.Main.on('route', function(actions) {
-							App.Log( 'Route: ' + actions );
-						});
+			} // _postinit
 
-						/**
-						 *
-						 * Create main layout
-						 *
-						 *
-						**/
-						App.Layout.Use().setView(new appView.Main({
-							model: App.Model.Layout
-						}), true).render();
-					} // fn
-				); // require
-			} // callback
-		}); // require.config
+		}; // AppInit
+
+		/**
+		 *
+		 *
+		 *
+		 *
+		**/
+		AppInit._init();
+
  } // fn
 ); // define

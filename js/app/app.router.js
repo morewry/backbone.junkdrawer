@@ -1,12 +1,10 @@
 define(
 	[
-		'modules/listing/listing.router',
+		'app/app',
 		'backbone',
 		'backbone.subroute'
 	],
 	function() {
-
-		App.Main = App.Main || {};
 
 		/**
 		 *
@@ -14,58 +12,130 @@ define(
 		 *
 		 *
 		**/
-		App.Main.Router = Backbone.Router.extend({
+		var AppRouter = Backbone.Router.extend({
 
 			routes: {
-				//'*actions': 'defaultRoute',
-				'': 'defaultRoute',
-				'listing(/*subroute)': 'routeListingModule',
-				'real-estate(/*subroute)': 'routeSearchModule',
-				'home-values(/*subroute)': 'routeValuesModule',
-				'buyers(/*subroute)': 'routeBuyersModule',
-				'sellers(/*subroute)': 'routeSellersModule',
-				'user(/*subroute)': 'routeUserModule'
+				//'*actions': 'default',
+				'': 'default',
+				'listing(/*subroute)': 'listing',
+				'real-estate(/*subroute)': 'search',
+				'home-values(/*subroute)': 'value',
+				'buyers(/*subroute)': 'buyers',
+				'sellers(/*subroute)': 'sellers',
+				'user(/*subroute)': 'user',
+				'portfolio(/*subroute)': 'portfolio'
 			}, // routes
 
-			routeListingModule: function(subroute){
-				if (!App.Router.Listing) {
-					App.Router.Listing = new App.Listing.Router('listing/');
+			/**
+			 *
+			 *
+			 *
+			 *
+			**/
+			config: {
+
+				listing: {
+					name: 'listing',
+					ref: 'Module.Listing.Router',
+					url: 'modules/listing/listing.router',
+					route: 'listing/'
+				},
+
+				search: {
+					name: 'search',
+					ref: 'Module.Search.Router',
+					url: 'modules/listing/listing.router',
+					route: 'real-estate/'
+				},
+
+				value: {
+					name: 'value',
+					ref: 'Module.Values.Router',
+					url: '',
+					route: 'home-values/'
+				},
+
+				buyers: {
+					name: 'buyers',
+					ref: 'Module.Buyers.Router',
+					url: '',
+					route: 'buyers/'
+				},
+
+				sellers: {
+					name: 'sellers',
+					ref: 'Module.Sellers.Router',
+					url: '',
+					route: 'sellers/'
+				},
+
+				user: {
+					name: 'user',
+					ref: 'Module.User.Router',
+					url: '',
+					route: 'user/'
+				},
+
+				portfolio: {
+					name: 'portfolio',
+					ref: 'Module.Portfolio.Router',
+					url: 'modules/portfolio/portfolio.router',
+					route: 'portfolio/'
 				}
-			},
 
-			routeSearchModule: function(subroute){
-				if (!App.Router.Search) {
-					App.Router.Search = new App.Search.Router('real-estate/');
-				}
-			},
+			}, // config
 
-			routeValuesModule: function(subroute){
-				if (!App.Router.Values) {
-					App.Router.Values = new App.Values.Router('home-values/');
-				}
-			},
+			/**
+			 *
+			 *
+			 *
+			 *
+			**/
+			subroute: function ( route ) {
+				App.Log("App.Router.subroute (" + route + ")...");
+				if ( !App.Router.config[route] ) return;
+				App.Log("...either exists or...");
+				var config = App.Router.config[route];
+				if ( typeof App[config.ref] === "undefined" ) {
+					require([config.url], function( thisRouter ){
+						App[config.ref] = new thisRouter(config.route);
+						App.Log("...initialized");
+					}); // require
+				} // if !App[ref]
+			}, // subroute
 
-			routeBuyersModule: function(subroute){
-				if (!App.Router.Buyers) {
-					App.Router.Buyers = new App.Buyers.Router('buyers/');
-				}
-			},
+			/**
+			 *
+			 *
+			 *
+			 *
+			**/
+			register: function( config ) {
+				var _this = this;
+				this.route(config.route, config.name, function() {
+					var _args = arguments;
+					require(
+						[config.path],
+						function ( module ) {
+							var options = function() {
+								var params = config.route.match(/[:\*]\w+/g),
+								    options;
+								if ( params ) {
+									options = {};
+									_.each(params, function( n, i ){
+										options[n.substring(1)] = _args[i];
+									}); // each
+								} // if
+								// http://blogs.captechconsulting.com/blog/philip-kedy/modularizing-your-backbone-router-using-requirejs
+							} // fn
+						} // fn
+					); // require
+				}); // route
+			} // register
 
-			routeSellersModule: function(subroute){
-				if (!App.Router.Sellers) {
-					App.Router.Sellers = new App.Sellers.Router('sellers/');
-				}
-			},
+		}); // AppRouter
 
-			routeUserModule: function(subroute){
-				if (!App.Router.User) {
-					App.Router.User = new App.User.Router('user/');
-				}
-			}
-
-		}); // App.Main.Router
-
-		return App.Main.Router;
+		return AppRouter;
 
 	} // fn
 ); // define
