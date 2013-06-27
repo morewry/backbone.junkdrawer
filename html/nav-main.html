@@ -1,8 +1,8 @@
 {{#navMain}}
-<ul id="js-navmain" class="navmain">
+<ul data-model="navMain" data-view="" data-attr="navMain" id="js-navmain" class="navmain">
 	{{#items}}
-	<li class="navmain-item">
-		<a class="navmain-link" href="{{href}}">
+	<li data-attr="navMain.items" class="navmain-item">
+		<a data-attr="navMain.items.href" class="navmain-link" href="{{href}}">
 			{{link}}
 		</a>
 	</li>

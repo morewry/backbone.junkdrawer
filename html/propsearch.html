@@ -1,9 +1,9 @@
-<form action="/listing/search">
+<form data-model="" data-view="" data-attr="" action="/listing/search" role="search">
 	<fieldset>
 			<legend>Location</legend>
 		<label>
 			City &amp; ST, or ZIP Code
-			<input type="search" name="propsearch"
+			<input data-attr="" type="search" name="propsearch"
 			 {{#propsearch}}value="{{propsearch}}"{{/propsearch}}>
 		</label>
 	</fieldset>
@@ -11,12 +11,12 @@
 		<legend>Price Range</legend>
 		<label>
 			Min Price
-			<input type="number" name="minprice"
+			<input data-attr="" type="number" name="minprice"
 			 {{#minprice}}value="{{minprice}}"{{/minprice}}>
 		</label>
 		<label>
 			Max Price
-			<input type="number" name="maxprice"
+			<input data-attr="" type="number" name="maxprice"
 			 {{#maxprice}}value="{{maxprice}}"{{/maxprice}}>
 		</label>
 	</fieldset>

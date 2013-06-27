@@ -1,16 +1,16 @@
 {{#siteHead}}
-<header id="js-site-head" class="site-head">
+<header data-model="" data-view="" data-attr="siteHead" id="js-site-head" class="site-head" role="banner">
 	{{#siteMedia}}
-		<div class="site-media">
-			<div class="site-media-frame">
+		<div data-attr="siteMedia" class="site-media">
+			<div data-attr="siteMedia" class="site-media-frame">
 				{{siteMedia}}
 			</div>
 		</div>
 	{{/siteMedia}}
-	{{#siteMedia}}<div class="site-media-body">{{/siteMedia}}
-		{{#siteLogo}}<img class="site-logo" />{{/siteLogo}}
-		{{#siteTitle}}<div class="site-title">{{siteTitle}}</div>{{/siteTitle}}
-		{{#siteSubTitle}}<div class="site-subtitle">{{siteSubTitle}}</div>{{/siteSubTitle}}
+	{{#siteMedia}}<div data-attr="siteMedia" class="site-media-body">{{/siteMedia}}
+		{{#siteLogo}}<img data-attr="siteLogo" class="site-logo" />{{/siteLogo}}
+		{{#siteTitle}}<div data-attr="siteTitle" class="site-title">{{siteTitle}}</div>{{/siteTitle}}
+		{{#siteSubTitle}}<div data-attr="siteSubTitle" class="site-subtitle">{{siteSubTitle}}</div>{{/siteSubTitle}}
 	{{#siteMedia}}</div>{{/siteMedia}}
 </header>
 {{/siteHead}}

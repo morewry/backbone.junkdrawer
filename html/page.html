@@ -1,35 +1,37 @@
 {{#page}}
-<section class="page">
+<section data-model="" data-view="" data-attr="" class="page">
 
 	{{#pageHead}}
-	<header class="page-head">
+	<header data-attr="" class="page-head">
 		{{#pageMedia}}
-			<div class="page-media">
+			<div data-attr="" class="page-media">
 				<div class="page-media-frame">
 					{{pageMedia}}
 				</div>
 			</div>
 		{{/pageMedia}}
-		{{#pageMedia}}<div class="page-media-body">{{/pageMedia}}
-			{{#pageLogo}}<img class="page-logo" />{{/pageLogo}}
-			{{#pageTitle}}<h1 class="page-title">{{pageTitle}}</h1>{{/pageTitle}}
-			{{#pageSubtitle}}<h2 class="page-subtitle">{{pageSubtitle}}</h2>{{/pageSubtitle}}
+		{{#pageMedia}}<div data-attr="" class="page-media-body">{{/pageMedia}}
+			{{#pageLogo}}<img data-attr="" class="page-logo" />{{/pageLogo}}
+			{{#pageTitle}}<h1 data-attr="" class="page-title">{{pageTitle}}</h1>{{/pageTitle}}
+			{{#pageSubtitle}}<h2 data-attr="" class="page-subtitle">{{pageSubtitle}}</h2>{{/pageSubtitle}}
 		{{#pageMedia}}</div>{{/pageMedia}}
 	</header>
 	{{/pageHead}}
 
 	{{#pageMenu}}
-	<nav class="page-menu">
+	<nav data-attr="" class="page-menu">
 
 	</nav>
 	{{/pageMenu}}
+
 	{{#pageBody}}
-	<div class="page-body">
+	<div data-attr="" class="page-body">
+
 		{{#navPage}}
-		<ul id="js-navpage" class="navpage">
+		<ul data-attr="" id="js-navpage" class="navpage">
 			{{#items}}
-			<li class="navpage-item">
-				<a class="navpage-link" href="{{href}}">
+			<li data-attr="" class="navpage-item">
+				<a data-attr="" class="navpage-link" href="{{href}}">
 					{{link}}
 				</a>
 			</li>
@@ -37,7 +39,7 @@
 		</ul>
 		{{/navPage}}
 
-		<div id="js-page-main" class="page-main">
+		<div data-attr="" id="js-page-main" class="page-main">
 
 		</div>
 
@@ -45,9 +47,9 @@
 	{{/pageBody}}
 
 	{{#pageFoot}}
-	<footer class="page-foot">
+	<footer data-attr="" class="page-foot">
 		{{#pageDisclaimer}}
-		<small class="page-disclaimer">
+		<small data-attr="" class="page-disclaimer">
 			{{pageDisclaimer}}
 		</small>
 		{{/pageDisclaimer}}
