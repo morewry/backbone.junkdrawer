@@ -1,6 +1,6 @@
 pre[class*="language-"],
 code[class*="language-"] {
-	color: #CCC;
+	color: $text-color;
 }
 
 .token { @extend %inline-unit; }
@@ -10,29 +10,31 @@ code[class*="language-"] {
 .token.keyword,
 .token.boolean,
 .token.regex {
-	color: #D40015;
+	color: $red;
 }
 
 .token.tag,
 .token.selector {
 	color: #FFF;
-	@include text-shadow(0 0 2px #D40015);
 }
+	.token.tag .token.tag,
+	.token.selector { @include text-shadow(0 0 3px $text-color, 0 0 1px #000, 1px 1px 0 #000, -1px -1px 0 #000); }
+	.token.tag .token { @include text-shadow(none); }
 
 .token.punctuation {
-	color: #98A89E;
+	color: $green;
 }
 
 .token.comment,
 .token.doctype,
 .token.prolog,
 .token.cdata {
-	color: #999;
+	color: $lightgray;
 }
 
 .token.property,
 .token.operator {
-	color: #FF4411;
+	color: $orange;
 }
 
 .token.number,
@@ -40,7 +42,7 @@ code[class*="language-"] {
 .token.attr-value,
 .token.url,
 .token.entity {
-	color: #FAFAC6;
+	color: $yellow;
 }
 
 .token.url {
