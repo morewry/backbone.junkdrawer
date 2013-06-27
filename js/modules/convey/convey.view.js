@@ -1,15 +1,12 @@
 define(
 	[
 		'libs/custom/jquery.convey',
-		'modules/convey/convey.model',
-		'modules/convey/convey.collection',
 		'backbone',
 		'backbone.layoutmanager'
 	],
 	function(){
 
 		Backbone.$ = jQuery;
-		App.Convey = App.Convey || {};
 
 		/**
 		 *
@@ -17,7 +14,7 @@ define(
 		 *
 		 *
 		**/
-		App.Convey.View = Backbone.View.extend({
+		var ConveyView = Backbone.View.extend({
 
 			// Backbone: Hash (or fn that returns one) of delegated events.
 			// move to jquery plugin (?)
@@ -38,11 +35,11 @@ define(
 				position: {
 					my: 'center',
 					at: 'center',
-					of: App.Layout.Use().$el,
-					within: App.Layout.Use().$el
+					of: App.Use().$el,
+					within: App.Use().$el
 				},
 				// Should be a Backbone.Layout view or layout
-				origin: App.Layout.Use()
+				origin: App.Use()
 			}, // options
 
 			// Backbone.Layout: Specify a template for the view.
@@ -104,25 +101,9 @@ define(
 				this.$el.conveyPlugin('conveyClear');
 			}
 
-		}); // App.Convey.View
+		}); // ConveyView
 
-		/**
-		 *
-		 * setup.conveyor listener
-		 *
-		 *
-		**/
-		App.Event.on('setup.conveyor', function(conveyorOpts) {
-			App.Event.trigger('ready.conveyor', new App.Convey.View(
-				_.extend(
-					{},
-					conveyorOpts.options,
-					{ model: new App.Convey.Model(conveyorOpts.model) }
-				)
-			));
-		});
-
-		return App.Convey.View;
+		return ConveyView;
 
 	} // fn
 ); // define

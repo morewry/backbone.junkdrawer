@@ -5,15 +5,13 @@ define(
 	],
 	function(){
 
-		App.Convey = App.Convey || {};
-
 		/**
 		 *
 		 *
 		 *
 		 *
 		**/
-		App.Convey.Model = Backbone.Model.extend({
+		var ConveyModel = Backbone.Model.extend({
 
 			// Backbone.LocalStorage: Save to a localStorage database
 			// localStorage: new Backbone.LocalStorage("uniquename"),
@@ -31,9 +29,9 @@ define(
 			// Backbone: Will be invoked when the model is created.
 			// initialize: function(){} // initialize
 
-		}); // App.Convey.Model
+		}); // ConveyModel
 
-		return App.Convey.Model;
+		return ConveyModel;
 
 	} // fn
 ); // define
