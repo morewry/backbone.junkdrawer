@@ -1,11 +1,10 @@
 define(
 	[
+		'app/app',
 		'backbone'
 		//,'backbone.localstorage'
 	],
 	function(){
-
-		App.Example = App.Example || {};
 
 		/**
 		 *
@@ -13,7 +12,7 @@ define(
 		 *
 		 *
 		**/
-		App.Example.Model = Backbone.Model.extend({
+		var ExampleModel = Backbone.Model.extend({
 
 			// Backbone.LocalStorage: Save to a localStorage database
 			// localStorage: new Backbone.LocalStorage("uniquename"),
@@ -45,9 +44,9 @@ define(
 			} // initialize
 			*/
 
-		}); // App.Example.Model
+		}); // ExampleModel
 
-		return App.Example.Model;
+		return ExampleModel;
 
 	} // fn
 ); // define

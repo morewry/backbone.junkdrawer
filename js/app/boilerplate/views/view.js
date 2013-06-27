@@ -1,12 +1,11 @@
 define(
 	[
+		'app/app',
 		'backbone',
 		'backbone.layoutmanager',
 		'backbone.syphon'
 	],
 	function(){
-
-		App.Example = App.Example || {};
 
 		/**
 		 *
@@ -14,7 +13,7 @@ define(
 		 *
 		 *
 		**/
-		App.Example.View = Backbone.View.extend({
+		var ExampleView = Backbone.View.extend({
 
 			// Backbone: Hash (or fn that returns one) of delegated events.
 			events: {
@@ -40,9 +39,9 @@ define(
 				// or e.target
 			}
 
-		}); // App.Example.View
+		}); // ExampleView
 
-		return App.Example.View;
+		return ExampleView;
 
 	} // fn
 ); // define

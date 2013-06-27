@@ -1,12 +1,11 @@
 define(
 	[
 		'app/boilerplate/models/model',
+		'app/app',
 		'backbone'
 		//,'backbone.localstorage'
 	],
-	function(){
-
-		App.Example = App.Example || {};
+	function( exampleModel ){
 
 		/**
 		 *
@@ -14,16 +13,16 @@ define(
 		 *
 		 *
 		**/
-		App.Example.Collection = Backbone.Collection.extend({
+		var ExampleCollection = Backbone.Collection.extend({
 
 			// Backbone.LocalStorage: Save to a localStorage database
 			// localStorage: new Backbone.LocalStorage("uniquename"),
 
 			// Backbone: Reference to reference collection location on server.
-			url: '',
+			// url: '',
 
 			// Backbone: Specify the model class that the collection contains.
-			model: App.Example.Model
+			model: exampleModel
 
 			// Backbone: Will be invoked when the collection is created.
 			// initialize: function(){}, // initialize
@@ -31,9 +30,9 @@ define(
 			// Backbone: Called whenever a collection is fetched from server.
 			// parse: function( response ){} // parse
 
-		}); // App.Example.Collection
+		}); // ExampleCollection
 
-		return App.Example.Collection;
+		return ExampleCollection;
 
 	} // fn
 ); // define
