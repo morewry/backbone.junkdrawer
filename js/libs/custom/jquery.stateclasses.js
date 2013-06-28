@@ -18,16 +18,15 @@
 	defaults = {
 		selector: "[data-states]",
 		normal: {
-			events: ["normal"],
-			classname: function(){ console.log(this);}
+			events: ["normal"]
 		},
 		active: {
-			events: ["active"],
-			classname: function(){ console.log(this); }
+			events: ["active"]
 		},
 		hover: {
-			events: ["mouseenter", "mouseleave"],
-			classname: function(){ console.log(this); }
+			events: ["mouseenter", "mouseleave", "focus", "blur"],
+			on: ["mouseenter", "focus"],
+			off: ["mouseleave", "blur"]
 		},
 		states: {
 			normal: "",
@@ -148,17 +147,17 @@
 					.addClass( plugin.settings.states.normal );
 				} // event.type == "normal"
 				else {
-					// If mouseenter.hover, add hover class
-					if( event.type == "mouseenter" ) { $this.addClass( plugin.settings.states.hover ); }
-					// If mouseleave.hover, remove hover class
-					else if( event.type == "mouseleave" ) { $this.removeClass( plugin.settings.states.hover ); }
+					// If on event (ex mouseenter, focus), add hover class
+					if( plugin.settings.hover.on.indexOf(event.type) > -1 ) { $this.addClass( plugin.settings.states.hover ); }
+					// If off event (ex mouseleave, blur), remove hover class
+					else if( plugin.settings.hover.off.indexOf(event.type) > -1 ) { $this.removeClass( plugin.settings.states.hover ); }
 					// If any other event, toggle its configured class
 					else {
 						$this.toggleClass( plugin.settings.states[event.type] || '' );
 						// If setting to active, also remove all other state classes
 						if ( event.type == "active" ) {
 							$this.removeClass( plugin.settings.inactiveList );
-						} // event.typee == "active"
+						} // event.type == "active"
 					} // event.type !== "mouseenter" || "mouseleave"
 				} // event.type !== "normal"
 			} // !isActiveNow || event.type == "normal"
