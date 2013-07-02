@@ -164,15 +164,15 @@ pip-log.txt
 
 # Other
 .svn
+*.svn
 .sass-cache
+*.scssc
+*.css
+*.sublime-*
 test/
 docs/
-*.svn-base
-*.scssc
-*.sublime-*
-*.json
-shoptalklogo.html
-*.css
+agentoffice/
 listing/
+user/
 portfolio/
-favicon.ico
+demos/
