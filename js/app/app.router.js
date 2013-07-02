@@ -4,7 +4,7 @@ define(
 		'backbone',
 		'backbone.subroute'
 	],
-	function() {
+	function () {
 
 		/**
 		 *
@@ -36,51 +36,51 @@ define(
 
 				listing: {
 					name: 'listing',
-					ref: 'Module.Listing.Router',
+					ref: 'Router.Listing',
 					url: 'modules/listing/listing.router',
-					route: 'listing/'
+					route: 'listing'
 				},
 
 				search: {
 					name: 'search',
-					ref: 'Module.Search.Router',
+					ref: 'Router.Search',
 					url: 'modules/listing/listing.router',
-					route: 'real-estate/'
+					route: 'real-estate'
 				},
 
 				value: {
 					name: 'value',
-					ref: 'Module.Values.Router',
+					ref: 'Router.Values',
 					url: '',
-					route: 'home-values/'
+					route: 'home-values'
 				},
 
 				buyers: {
 					name: 'buyers',
-					ref: 'Module.Buyers.Router',
+					ref: 'Router.Buyers',
 					url: '',
-					route: 'buyers/'
+					route: 'buyers'
 				},
 
 				sellers: {
 					name: 'sellers',
-					ref: 'Module.Sellers.Router',
+					ref: 'Router.Sellers',
 					url: '',
-					route: 'sellers/'
+					route: 'sellers'
 				},
 
 				user: {
 					name: 'user',
-					ref: 'Module.User.Router',
+					ref: 'Router.User',
 					url: '',
-					route: 'user/'
+					route: 'user'
 				},
 
 				portfolio: {
 					name: 'portfolio',
-					ref: 'Module.Portfolio.Router',
+					ref: 'Router.Portfolio',
 					url: 'modules/portfolio/portfolio.router',
-					route: 'portfolio/'
+					route: 'portfolio'
 				}
 
 			}, // config
@@ -94,44 +94,18 @@ define(
 			subroute: function ( route ) {
 				App.Log("App.Router.subroute (" + route + ")...");
 				if ( !App.Router.config[route] ) return;
-				App.Log("...either exists or...");
 				var config = App.Router.config[route];
 				if ( typeof App[config.ref] === "undefined" ) {
-					require([config.url], function( thisRouter ){
-						App[config.ref] = new thisRouter(config.route);
-						App.Log("...initialized");
-					}); // require
-				} // if !App[ref]
-			}, // subroute
-
-			/**
-			 *
-			 *
-			 *
-			 *
-			**/
-			register: function( config ) {
-				var _this = this;
-				this.route(config.route, config.name, function() {
-					var _args = arguments;
 					require(
-						[config.path],
-						function ( module ) {
-							var options = function() {
-								var params = config.route.match(/[:\*]\w+/g),
-								    options;
-								if ( params ) {
-									options = {};
-									_.each(params, function( n, i ){
-										options[n.substring(1)] = _args[i];
-									}); // each
-								} // if
-								// http://blogs.captechconsulting.com/blog/philip-kedy/modularizing-your-backbone-router-using-requirejs
-							} // fn
-						} // fn
+						[
+							config.url
+						],
+						function ( thisRouter ) {
+							App[config.ref] = new thisRouter(config.route);
+						}
 					); // require
-				}); // route
-			} // register
+				} // if !App[ref]
+			} // subroute
 
 		}); // AppRouter
 
