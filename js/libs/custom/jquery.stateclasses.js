@@ -25,8 +25,8 @@
 		},
 		hover: {
 			events: ["mouseenter", "mouseleave", "focus", "blur"],
-			on: ["mouseenter", "focus"],
-			off: ["mouseleave", "blur"]
+			on: ["mouseenter", "focus", "focusin"],
+			off: ["mouseleave", "blur", "focusout"]
 		},
 		states: {
 			normal: "",
