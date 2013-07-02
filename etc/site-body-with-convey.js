@@ -90,7 +90,7 @@ define(
 					'setup.conveyor',
 					{
 						options: {
-							origin: App.Use().getView({template: 'site'}).getView({template: 'site-head'}),
+							origin: App.UseLayout().getView({template: 'site'}).getView({template: 'site-head'}),
 							template: 'convey/examplecustom'
 						}, // options
 						model: {
