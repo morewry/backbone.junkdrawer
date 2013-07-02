@@ -13,6 +13,8 @@ ol,
 ul {
 	@extend %reset-block;
 	@extend %reset-list;
+	@extend %reset-margin;
+	@extend %reset-padding;
 }
 	li { display: list-item; }
 
