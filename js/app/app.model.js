@@ -4,7 +4,7 @@ define(
 		'backbone'
 		//,'backbone.localstorage'
 	],
-	function(){
+	function () {
 
 		/**
 		 *
@@ -18,7 +18,7 @@ define(
 			// localStorage: new Backbone.LocalStorage("uniquename"),
 
 			// Backbone: Specify for models w/out collections.
-			urlRoot: '/js/app/app.config.json',
+			urlRoot: '/js/app/app.json',
 
 			// Backbone: Hash (or fn that returns one) of default attrs for model.
 			defaults: {
@@ -38,10 +38,10 @@ define(
 			}, // defaults
 
 			// Backbone: Will be invoked when the model is created.
-			initialize: function(){
+			initialize: function () {
 				this.deferred = this.fetch({
 					success: function ( model, response, options ) {
-						App.Log("App Model Fetched Successfully");
+						// App.Log("App Model Fetched Successfully");
 					} // success
 				}); // fetch
 			} // initialize
