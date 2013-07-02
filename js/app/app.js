@@ -3,7 +3,7 @@ define(
 		'backbone',
 		'backbone.layoutmanager'
 	],
-	function() {
+	function () {
 
 		var AppInit = {
 
@@ -13,7 +13,7 @@ define(
 			 *
 			 *
 			**/
-			_preinit: function() {
+			_preinit: function () {
 
 				/**
 				 *
@@ -25,34 +25,55 @@ define(
 					manage: true,
 					el: false,
 					prefix: 'hgn!html/',
-					fetch: function(name) {
+					fetch: function ( name ) {
 						var done = this.async();
 						require(
 							[name],
-							function(pcTemplate){
+							function ( pcTemplate ) {
 								done(pcTemplate);
 							} // fn
 						); // require
 					}, // fetch
-					initialize: function() {
-						App.Log("Backbone Layout-View initialized");
-						var _this = this;
+					initialize: function () {
+						// App.Log("Backbone Layout-View initialized");
+						var _this = this,
+						doModelListen = function () {
+							_this.listenTo(_this.model, 'change add', _this.render);
+							_this.listenTo(_this.model, 'destroy remove', _this.remove);
+						},
+						doCollectionListen = function () {
+							_this.listenTo(_this.collection, 'reset change add remove', _this.render);
+						};
 						if ( this.model ) {
-							this.model.deferred.done(function(){
-								_this.listenTo(_this.model, 'change', _this.render);
-								_this.listenTo(_this.model, 'destroy', _this.render);
-							}); // this.model.deferred.done
+							if ( this.model.deferred ) {
+								this.model.deferred.done(doModelListen);
+							}
+							else {
+								doModelListen();
+							}
 						} // if this.model
+						if ( this.collection ) {
+							if ( this.collection.deferred ) {
+								this.collection.deferred.done(doCollectionListen);
+							}
+							else {
+								doCollectionListen();
+							}
+						} // if this.model
+						// todo: collection
 					}, // initialize
-					render: function(template, context) {
+					render: function ( template, context ) {
 						var done = this.async();
 						done(
-							template(context),
-							App.Log("Backbone Layout-View rendered")
+							template(context)
+							//, App.Log("Backbone Layout-View rendered")
 						);
 					}, // render
-					serialize: function() {
-						return _.extend({}, this.options, this.model.attributes);
+					serialize: function () {
+						var options = this.options || {},
+						collection = (this.collection) ? this.collection.models : {},
+						model = (this.model) ? this.model.attributes : {};
+						return _.extend({}, options, collection, model);
 					} // serialize
 				}); // Backbone.Layout.configure
 
@@ -62,16 +83,20 @@ define(
 				 *
 				 * Include event aggregator
 				 * Include console.log wrapper
-				 * Include Use layout utility
-				 * Include Name utility
+				 * Include Name (create nested objects from str name if they don't exist) utility
+				 * Include UseLayout (access/swap top level layout) utility
+				 * Include Region (search nested view) utility
 				 *
 				**/
 				var AppObject = {
 					Init: false,
+					Collection: {},
+					Model: {},
+					Router: {},
 					Module: {},
 					Event: _.extend({}, Backbone.Events),
-					Log: function(val) { if (window.console) console.log(val); },
-					Use: function(options) {
+					Log: function ( val ) { if (window.console) console.log(val); },
+					UseLayout: function ( options ) {
 						options = options || {};
 						// If only a name was passed in, use as template
 						if (_.isString(options)) {
@@ -80,18 +105,34 @@ define(
 							options = _.extend({}, options);
 						}
 						// Check if a layout already exists
-						if (this.layout) {
+						if (this.Layout) {
 							// If so, update the template
-							this.layout.template = options.template;
+							this.Layout.template = options.template;
 						} else {
 							// Or create a new layout with options
-							this.layout = new Backbone.Layout(_.extend({
+							this.Layout = new Backbone.Layout(_.extend({
 								el: '[data-view="app"]'
 							}, options));
 						} // if
 						// Cache the layout reference
-						return this.layout;
-					} // Use
+						return this.Layout;
+					}, // UseLayout
+					Region: function ( search ) {
+						var sv = App.UseLayout(),
+						rv,
+						doSearch = function ( cv ) {
+							cv.getView( function ( nv ) {
+								if ( search( nv ) ) {
+									rv = nv;
+								}
+								else {
+									doSearch( nv );
+								}
+							}); // getView
+						}; // doSearch
+						doSearch( sv );
+						return rv;
+					} // Region
 				}; // App
 
 				/**
@@ -110,42 +151,29 @@ define(
 			 *
 			 *
 			**/
-			_init: function() {
+			_init: function () {
 
 				/**
 				 *
-				 *
-				 *
-				 *
-				**/
-				if ( typeof App === "undefined" ) { AppInit._preinit(); }
-
-				/**
-				 *
-				 *
+				 * Initialize model and view
 				 *
 				 *
 				**/
-				if ( !App.Init ) {
-					require(
-						[
-							'app/app.model',
-							'app/app.router'
-						],
-						function ( appModel, appRouter ) {
-							App.Model = new appModel;
-							App.Router = new appRouter;
-							App.Model.deferred.done(function(){
-								require(['app/app.view'], function( appView ){
-									App.View = App.Use().setView(new appView({
-										model: App.Model
-									}), true).render(); // setView
-									AppInit._postinit();
-								}); // require
-							}); // App.Model.deferred.done
-						} // fn
-					); // require
-				} // if !App.Init
+				require(
+					[
+						'app/app.model',
+						'app/app.view'
+					],
+					function ( appModel, appView ) {
+						AppInit._preinit();
+						App.Model = new appModel;
+						App.Model.deferred.done(function () {
+							var newAppView = appView();
+							App.View = App.UseLayout().setView(new newAppView({ model: App.Model }), true).render();
+							AppInit._postinit();
+						}); // App.Model.deferred.done
+					} // fn
+				); // require
 
 			}, // _init
 
@@ -155,55 +183,73 @@ define(
 			 *
 			 *
 			**/
-			_postinit: function() {
+			_postinit: function () {
 
 				/**
 				 *
-				 * Start history
+				 * Initialize router and start history
 				 *
 				 *
 				**/
-				// Backbone.history.start({pushState: true, root: '/'});
-				Backbone.history.start();
+				require(
+					[
+						'app/app.router'
+					],
+					function ( appRouter ) {
+						App.Router = new appRouter;
+						Backbone.history.start({ pushState: true, silent: false, hashChange: true, root: '/' });
+						//Backbone.history.navigate(Backbone.history.fragment, {trigger: true});
+						//Backbone.history.loadUrl(Backbone.history.fragment);
+						if( Backbone.history.fragment ) App.Router.subroute( Backbone.history.fragment.split('/')[0] );
 
-				/**
-				 *
-				 * Prevent default on 'click' events
-				 * Route if no associated handler
-				 *
-				**/
-				$(document).off('submit.backbone')
-				.on('click.backbone', 'a[href]:not([data-bypass])', function(e) {
-					e.preventDefault();
-					$this = $(this);
-					Backbone.history.navigate($this.attr('href'), {trigger: true});
-					App.Log("Click: preventDefault, Backbone.history.navigate");
-				}); // on click
+						/**
+						 *
+						 * Event-driven top-level routing
+						 *
+						 *
+						**/
+						App.Router.on('route', function ( route ) {
+							App.Router.subroute(route);
+							App.Log( 'Backbone Route: ' + route );
+						});
 
-				/**
-				 *
-				 * Prevent default on 'submit' events
-				 * Route if no associated handler
-				 *
-				**/
-				$(document).off('submit.backbone')
-				.on('submit.backbone', 'form[action]:not([data-bypass])', function(e) {
-					e.preventDefault();
-					$this = $(this);
-					Backbone.history.navigate($this.attr('action'), {trigger: true});
-					App.Log("Submit: preventDefault, Backbone.history.navigate");
-				}); // on submit
+						/**
+						 *
+						 * Prevent default on 'click' events
+						 * Route if no associated handler
+						 *
+						**/
+						$(document).off('submit.backbone')
+						.on('click.backbone', 'a[href]:not([data-bypass])', function (e) {
+							e.preventDefault();
+							$this = $(this);
+							Backbone.history.navigate($this.attr('href'), {trigger: true});
+							App.Log("Click: preventDefault, Backbone.history.navigate");
+						}); // on click
 
-				/**
-				 *
-				 * Event-driven routing
-				 *
-				 *
-				**/
-				App.Router.on('route', function( route ) {
-					App.Router.subroute(route);
-					App.Log( 'Backbone Route: ' + route );
-				});
+						/**
+						 *
+						 * Prevent default on 'submit' events
+						 * Route if no associated handler
+						 *
+						**/
+						$(document).off('submit.backbone')
+						.on('submit.backbone', 'form[action]:not([data-bypass])', function (e) {
+							e.preventDefault();
+							$this = $(this);
+							Backbone.history.navigate($this.attr('action'), {trigger: true});
+							App.Log("Submit: preventDefault, Backbone.history.navigate");
+						}); // on submit
+
+						/**
+						 *
+						 *
+						 *
+						 *
+						**/
+						App.Init = true;
+					} // fn
+				); // require
 
 			} // _postinit
 
@@ -215,7 +261,7 @@ define(
 		 *
 		 *
 		**/
-		AppInit._init();
+		if ( typeof App === "undefined" || !App.Init ) { AppInit._init(); }
 
  } // fn
 ); // define
