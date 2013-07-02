@@ -4,7 +4,7 @@ define(
 		'backbone',
 		'backbone.layoutmanager'
 	],
-	function(){
+	function () {
 
 		// Has nested subviews
 		var AppView,
@@ -110,38 +110,38 @@ define(
 		 * Circumvent obnoxious scope issues
 		 *
 		**/
-		AppView = Backbone.View.extend({
-
-			// Backbone.Layout: Declare nested subviews.
-			views: {
-				"": new AppSubview.Site({
-					model: App.Model,
-					views: {
-						"": [
-							new AppSubview.SiteHead({
-								model: App.Model
-							}), // new AppSubview.SiteHead
-							new AppSubview.SiteMenu({
-								model: App.Model,
-								views: {
-									"": new AppSubview.SiteMenu.Nav({ model: App.Model })
-								} // views
-							}), // new AppSuview.SiteMenu
-							new AppSubview.SiteBody({
-								model: App.Model
-							}), // new AppSubview.SiteBody
-							new AppSubview.SiteFoot({
-								model: App.Model,
-								views: {
-									"": new AppSubview.SiteFoot.Nav({ model: App.Model }),
-								} // views
-							}) // new AppSuview.SiteFoot
-						] // ""
-					} // views
-				}) // new AppSubview.Site
-			} // views
-
-		}); // AppView
+		AppView = function () {
+			return Backbone.View.extend({
+				// Backbone.Layout: Declare nested subviews.
+				views: {
+					"": new AppSubview.Site({
+						model: App.Model,
+						views: {
+							"": [
+								new AppSubview.SiteHead({
+									model: App.Model
+								}), // new AppSubview.SiteHead
+								new AppSubview.SiteMenu({
+									model: App.Model,
+									views: {
+										"": new AppSubview.SiteMenu.Nav({ model: App.Model })
+									} // views
+								}), // new AppSuview.SiteMenu
+								new AppSubview.SiteBody({
+									model: App.Model
+								}), // new AppSubview.SiteBody
+								new AppSubview.SiteFoot({
+									model: App.Model,
+									views: {
+										"": new AppSubview.SiteFoot.Nav({ model: App.Model }),
+									} // views
+								}) // new AppSuview.SiteFoot
+							] // ""
+						} // views
+					}) // new AppSubview.Site
+				} // views
+			}) // Backbone.View.extend
+		}; // AppView
 
 		AppView.Subviews = AppSubview;
 
