@@ -35,11 +35,11 @@ define(
 				position: {
 					my: 'center',
 					at: 'center',
-					of: App.Use().$el,
-					within: App.Use().$el
+					of: App.UseLayout().$el,
+					within: App.UseLayout().$el
 				},
 				// Should be a Backbone.Layout view or layout
-				origin: App.Use()
+				origin: App.UseLayout()
 			}, // options
 
 			// Backbone.Layout: Specify a template for the view.
