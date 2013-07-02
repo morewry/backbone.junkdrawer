@@ -4,7 +4,7 @@ define(
 		'backbone'
 		//,'backbone.localstorage'
 	],
-	function(){
+	function () {
 
 		/**
 		 *
@@ -29,9 +29,9 @@ define(
 
 			// Backbone: Will be invoked when the model is created.
 			/*
-			initialize: function(){
+			initialize: function () {
 				this.fetch({
-					success: function( model, response, options ) {
+					success: function ( model, response, options ) {
 						App.Log(model);
 					},
 					error: function ( model, response, options ) {
