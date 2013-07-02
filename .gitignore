@@ -164,7 +164,7 @@ pip-log.txt
 
 # Other
 .svn
-*.svn
+*.svn*
 .sass-cache
 *.scssc
 *.css
