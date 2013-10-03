@@ -1,10 +1,22 @@
 // ------------------------------------------------------------------------------------- \\
 
+// Custom Variables
+// ===================================================================================== \\
+
+$red: #D40015;
+$orange: #FF4411;
+$yellow: #FAFAC6;
+$green: #98A89E;
+$lightgray: #999;
+$darkgray: #666;
+
+// ------------------------------------------------------------------------------------- \\
+
 // Fonts
 // ===================================================================================== \\
 
 // Default font faces
-//-- $font-family:;
+$font-family: "Inconsolata", monospace;
 //-- $font-family-alt:;
 
 // Default font sizes
@@ -128,12 +140,12 @@
 // Color Scheme
 // ===================================================================================== \\
 
-//-- $background-color:;
-//-- $text-color:;
+$background-color: #222;
+$text-color: #CCC;
 
-//-- $link-color:;
-	//-- $link-color-visited:;
-	//-- $link-color-hover:;
+$link-color: $yellow;
+	$link-color-visited: darken($yellow, 10%);
+	$link-color-hover: lighten($yellow, 10%);
 
 //-- $border-color:;
 
@@ -215,7 +227,16 @@
 //-- @mixin autocomplete() { }
 	//-- @mixin autocomplete-suggestion() { }
 //-- @mixin dropdown-menu() { }
-//-- @mixin links() { }
+@mixin links() {
+	color: $link-color;
+	text-decoration: none;
+	border-bottom: 1px dotted rgba( $link-color, 0.50 );
+	&:link { }
+	&:visited { color: $link-color-visited; }
+	&:focus,
+	&:active,
+	&:hover { color: $link-color-hover; }
+}
 //-- @mixin message() { }
 //-- @mixin modal() { }
 	//-- @mixin modal-bg() { }
@@ -236,17 +257,5 @@
 //-- @mixin small() { }
 //-- @mixin selected-text { }
 //-- @mixin hr() { }
-
-// ------------------------------------------------------------------------------------- \\
-
-// Custom Variables
-// ===================================================================================== \\
-
-$red: #d40015;
-$orange: #ff4411;
-$yellow: #fafac6;
-$green: #98a89e;
-$lightgray: #999999;
-$darkgray: #666666;
 
 // ------------------------------------------------------------------------------------- \\

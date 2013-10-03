@@ -189,7 +189,7 @@ $inverse-color: $text-color;
 }
 
 @mixin body() {
-	@extend %space-in-gutter-all;
+	// @extend %space-in-gutter-all;
 	font-size: $font-size;
 	line-height: $lead-ratio;
 	vertical-align: baseline;

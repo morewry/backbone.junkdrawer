@@ -45,8 +45,20 @@ textarea {
 	@extend %textarea;
 }
 
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	@extend %button;
+}
+
 button {
 	@extend %button-skin;
+}
+
+button[disabled],
+html input[disabled] {
+	@extend %disabled;
 }
 
 // ------------------------------------------------------------------------------------- \\

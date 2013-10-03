@@ -2,7 +2,7 @@
 
 // ------------------------------------------------------------------------------------- \\
 
-@import "__mixins";
+@import "mixins";
 
 // ------------------------------------------------------------------------------------- \\
 
@@ -21,7 +21,7 @@
 	@import "components/utilities-width";
 @import "forms";
 	@import "components/forms-wrap";
-	@import "components/forms-direct";
+	// @import "components/forms-direct";
 @import "lists";
 	@import "components/lists-delimited";
 	@import "components/lists-keyval";

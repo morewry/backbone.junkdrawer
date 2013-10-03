@@ -4,6 +4,7 @@ define(
 		'backbone',
 		'backbone.layoutmanager',
 		'backbone.syphon'
+		//,'backbone.modelbinder'
 	],
 	function () {
 

@@ -26,6 +26,16 @@ define(
 				site: true, // boolean
 				siteMenu: false, // boolean
 					navMain: false, // object {items: [{link, href}]}
+					/*
+						{
+							items: [
+								{
+									link: '',
+									href: ''
+								}
+							]
+						}
+					*/
 				siteHead: false, // boolean
 					siteMedia: false, // string, html
 					siteLogo: false, // boolean
@@ -35,6 +45,16 @@ define(
 				siteFoot: false, // boolean
 					siteDisclaimer: false, // string, simple or html
 					navFoot: false // object {items: [{link, href}]}
+					/*
+						{
+							items: [
+								{
+									link: '',
+									href: ''
+								}
+							]
+						}
+					*/
 			}, // defaults
 
 			// Backbone: Will be invoked when the model is created.

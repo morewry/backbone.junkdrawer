@@ -61,6 +61,9 @@ define(
 							}
 						} // if this.model
 						// todo: collection
+						if ( Backbone.ModelBinder ) {
+							this.options.modelbinder = new Backbone.ModelBinder();
+						}
 					}, // initialize
 					render: function ( template, context ) {
 						var done = this.async();
@@ -68,12 +71,18 @@ define(
 							template(context)
 							//, App.Log("Backbone Layout-View rendered")
 						);
+						if ( this.options && this.options.modelbinder ) {
+							this.options.modelbinder.bind( this.model, this.el, null, { boundAttribute: 'data-key' } );
+						}
 					}, // render
 					serialize: function () {
-						var options = this.options || {},
-						collection = (this.collection) ? this.collection.models : {},
+						// todo filter out prototypes, functions, private vars
+						var data,
+						options = _.clone(this.options) || {},
 						model = (this.model) ? this.model.attributes : {};
-						return _.extend({}, options, collection, model);
+						delete options.model;
+						data = _.extend({}, options, model);
+						return data;
 					} // serialize
 				}); // Backbone.Layout.configure
 
@@ -94,6 +103,7 @@ define(
 					Model: {},
 					Router: {},
 					Module: {},
+					// State: _.extend({}, Backbone.Model),
 					Event: _.extend({}, Backbone.Events),
 					Log: function ( val ) { if (window.console) console.log(val); },
 					UseLayout: function ( options ) {
@@ -200,7 +210,7 @@ define(
 						Backbone.history.start({ pushState: true, silent: false, hashChange: true, root: '/' });
 						//Backbone.history.navigate(Backbone.history.fragment, {trigger: true});
 						//Backbone.history.loadUrl(Backbone.history.fragment);
-						if( Backbone.history.fragment ) App.Router.subroute( Backbone.history.fragment.split('/')[0] );
+						if ( Backbone.history.fragment ) App.Router.subroute( Backbone.history.fragment.split('/')[0] );
 
 						/**
 						 *
@@ -210,7 +220,8 @@ define(
 						**/
 						App.Router.on('route', function ( route ) {
 							App.Router.subroute(route);
-							App.Log( 'Backbone Route: ' + route );
+							App.Event.trigger( 'route', { route: route } );
+							// App.Log( 'Backbone Route: ' + route );
 						});
 
 						/**
@@ -220,11 +231,11 @@ define(
 						 *
 						**/
 						$(document).off('submit.backbone')
-						.on('click.backbone', 'a[href]:not([data-bypass])', function (e) {
+						.on('click.backbone', 'a[href]:not([data-bypass])', function ( e ) {
 							e.preventDefault();
 							$this = $(this);
-							Backbone.history.navigate($this.attr('href'), {trigger: true});
-							App.Log("Click: preventDefault, Backbone.history.navigate");
+							Backbone.history.navigate( $this.attr('href'), { trigger: true } );
+							// App.Log("Click: preventDefault, Backbone.history.navigate");
 						}); // on click
 
 						/**
@@ -234,11 +245,11 @@ define(
 						 *
 						**/
 						$(document).off('submit.backbone')
-						.on('submit.backbone', 'form[action]:not([data-bypass])', function (e) {
+						.on('submit.backbone', 'form[action]:not([data-bypass])', function ( e ) {
 							e.preventDefault();
 							$this = $(this);
-							Backbone.history.navigate($this.attr('action'), {trigger: true});
-							App.Log("Submit: preventDefault, Backbone.history.navigate");
+							Backbone.history.navigate( $this.attr('action'), { trigger: true } );
+							// App.Log("Submit: preventDefault, Backbone.history.navigate");
 						}); // on submit
 
 						/**

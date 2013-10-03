@@ -130,14 +130,14 @@ input[type="search"]::-webkit-search-decoration {
 }
 
 select {
-	@extend %select;
+	// @extend %select;
 	min-height: $fluid-lead;
 }
 
 textarea {
+	// @extend %textarea;
 	overflow-y: auto;
 	resize: vertical;
-	@extend %textarea;
 }
 
 button::-moz-focus-inner,
@@ -151,7 +151,7 @@ button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	@extend %button;
+	// @extend %button;
 	min-width: $fluid-gutter;
 	min-height: $fluid-lead;
 	cursor: pointer;
@@ -166,7 +166,7 @@ input[type="submit"] {
 
 button[disabled],
 html input[disabled] {
-	@extend %disabled;
+	// @extend %disabled;
 }
 
 // ------------------------------------------------------------------------------------- \\

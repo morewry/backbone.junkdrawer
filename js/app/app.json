@@ -5,5 +5,13 @@
 		"siteTitle": "Rachael L Moore",
 		"siteSubTitle": "Front End Web Developer",
 	"siteMenu": true,
+		"navMain": {
+			"items": [
+				{
+					"link": "Portfolio",
+					"href": "/portfolio/"
+				}
+			]
+		},
 	"siteBody": true
 }

@@ -1,6 +1,8 @@
 pre[class*="language-"],
 code[class*="language-"] {
 	color: $text-color;
+	white-space: pre;
+	word-wrap: normal;
 }
 
 .token { @extend %inline-unit; }
@@ -25,7 +27,6 @@ code[class*="language-"] {
 	color: $green;
 }
 
-.token.comment,
 .token.doctype,
 .token.prolog,
 .token.cdata {
@@ -56,4 +57,8 @@ code[class*="language-"] {
 
 .token.entity {
 	cursor: help;
+}
+
+.token.comment {
+	display: block;
 }

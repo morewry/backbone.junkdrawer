@@ -56,7 +56,7 @@
 		background: #0073C3;
 		@include old-ie( $type: false ) {
 			@include box-shadow(
-				inset 0 $padhalf $pad nth($shadow, 1),
+				inset 0 ($padhalf / 2) $padhalf nth($shadow, 1),
 				inset 0 0 $fonthalf nth($shadow, 2)
 			);
 			@include transform( rotate(45deg) );
@@ -118,7 +118,7 @@
 // ------------------------------------------------------------------------------------- \\
 
 .demo-remaxtoolbar {
-	@extend %remax-skin-1;
+	@extend %remax-toolbar;
 	@extend %grid-row;
 	@extend %space-out-leadx2-top;
 	@extend %space-out-lead-bottom;
@@ -128,7 +128,7 @@
 		@extend %space-in-font-horizontal;
 		@extend %space-in-vertical;
 		&.active {
-			@extend %remax-skin-2;
+			@extend %remax-toolbar-actve;
 		}
 	}
 

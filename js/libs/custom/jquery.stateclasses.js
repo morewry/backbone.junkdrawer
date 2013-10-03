@@ -50,7 +50,6 @@
 
 		init: function () {
 			this.bindStateEvents();
-			// console.log(this.settings);
 		}, // init
 
 		// Create a copy of html data- config that removes opts "id" and "to"

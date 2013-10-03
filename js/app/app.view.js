@@ -3,6 +3,7 @@ define(
 		'app/app',
 		'backbone',
 		'backbone.layoutmanager'
+		//,'backbone.modelbinder'
 	],
 	function () {
 
@@ -19,7 +20,7 @@ define(
 		AppSubview.Site = Backbone.View.extend({
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'site',
+			template: 'app/site',
 
 			// Backbone: Called when view first created. Access this.options.
 			initialize: Backbone.Layout.prototype.options.initialize
@@ -35,7 +36,7 @@ define(
 		AppSubview.SiteHead = AppSubview.Site.extend({
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'site-head'
+			template: 'app/site-head'
 
 		});
 
@@ -47,8 +48,27 @@ define(
 		**/
 		AppSubview.SiteMenu = AppSubview.Site.extend({
 
+			// Backbone: Hash (or fn that returns one) of delegated events.
+			events: {
+				'click [data-togglemenu]': 'toggleSiteMenu'
+			},
+
+			visibility: true,
+
 			// Backbone.Layout: Specify a template for the view.
-			template: 'site-menu'
+			template: 'app/site-menu',
+
+			toggleSiteMenu: function ( e ) {
+				if ( this.visibility ) {
+					this.visibility = false;
+					this.$el.removeClass('slideInLeft expanded').addClass('slideOutLeft collapsed');
+				}
+				else {
+					this.visibility = true;
+					this.$el.removeClass('slideOutLeft collapsed').addClass('slideInLeft expanded');
+				}
+				App.Event.trigger('toggle:siteMenu', this.visibility);
+			}
 
 		});
 
@@ -61,7 +81,7 @@ define(
 		AppSubview.SiteMenu.Nav = AppSubview.SiteMenu.extend({
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'nav-main'
+			template: 'app/nav-main'
 
 		});
 
@@ -74,7 +94,24 @@ define(
 		AppSubview.SiteBody = AppSubview.Site.extend({
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'site-body'
+			template: 'app/site-body',
+
+			// Backbone.Layout: Run before view is rendered
+			beforeRender: function () {
+				_.bindAll(this, 'toggleSiteBody');
+				App.Event.on('toggle:siteMenu', this.toggleSiteBody);
+			},
+
+			toggleSiteBody: function ( visibility ) {
+				console.log("visible = " + visibility);
+				// todo css animation
+				if ( visibility ) {
+					this.$el.css("left", "0");
+				}
+				else {
+					this.$el.css("left", "-10%");
+				}
+			}
 
 		});
 
@@ -87,7 +124,7 @@ define(
 		AppSubview.SiteFoot = AppSubview.Site.extend({
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'site-foot'
+			template: 'app/site-foot'
 
 		});
 
@@ -100,7 +137,7 @@ define(
 		AppSubview.SiteFoot.Nav = AppSubview.SiteFoot.extend({
 
 			// Backbone.Layout: Specify a template for the view.
-			template: 'nav-foot'
+			template: 'app/nav-foot'
 
 		});
 
@@ -124,7 +161,7 @@ define(
 								new AppSubview.SiteMenu({
 									model: App.Model,
 									views: {
-										"": new AppSubview.SiteMenu.Nav({ model: App.Model })
+										"[data-id='content']": new AppSubview.SiteMenu.Nav({ model: App.Model })
 									} // views
 								}), // new AppSuview.SiteMenu
 								new AppSubview.SiteBody({
@@ -133,7 +170,7 @@ define(
 								new AppSubview.SiteFoot({
 									model: App.Model,
 									views: {
-										"": new AppSubview.SiteFoot.Nav({ model: App.Model }),
+										"[data-id='content']": new AppSubview.SiteFoot.Nav({ model: App.Model }),
 									} // views
 								}) // new AppSuview.SiteFoot
 							] // ""

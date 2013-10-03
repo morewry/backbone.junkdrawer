@@ -92,7 +92,7 @@ define(
 			 *
 			**/
 			subroute: function ( route ) {
-				App.Log("App.Router.subroute (" + route + ")...");
+				// App.Log("App.Router.subroute (" + route + ")...");
 				if ( !App.Router.config[route] ) return;
 				var config = App.Router.config[route];
 				if ( typeof App[config.ref] === "undefined" ) {
@@ -102,9 +102,12 @@ define(
 						],
 						function ( thisRouter ) {
 							App[config.ref] = new thisRouter(config.route);
+							App[config.ref].on('route', function ( subroute ) {
+								App.Event.trigger( 'route' + ':' + route + ':' + subroute, { route: route, subroute: subroute } );
+							});
 						}
 					); // require
-				} // if !App[ref]
+				} // if !App[config.ref]
 			} // subroute
 
 		}); // AppRouter

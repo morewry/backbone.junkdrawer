@@ -19,6 +19,13 @@ define(
 					],
 					exports: 'Backbone'
 				}, // backbone
+					'backbone.collectionbinder': {
+						deps: [
+							'backbone',
+							'backbone.modelbinder'
+						],
+						exports: 'Backbone.CollectionBinder'
+					}, // backbone.collectionbinder
 					'backbone.layoutmanager': {
 						deps: [
 							'backbone',
@@ -26,6 +33,10 @@ define(
 						],
 						exports: 'Backbone.Layout'
 					}, // backbone.layoutmanager
+					'backbone.modelbinder': {
+						deps: ['backbone'],
+						exports: 'Backbone.ModelBinder'
+					}, // backbone.modelbinder
 					'backbone.localstorage': {
 						deps: ['backbone'],
 						exports: 'Backbone.LocalStorage'
@@ -50,6 +61,17 @@ define(
 						jQuery.noConflict();
 					}
 				},
+					'libs/custom/jquery.stateclasses': {
+						deps: ['jquery'],
+						exports: 'jQuery.stateClasses'
+					},
+					'libs/custom/jquery.toggletarget': {
+						deps: [
+							'jquery',
+							'libs/custom/jquery.stateclasses'
+						],
+						exports: 'jQuery.toggleTarget'
+					},
 					'libs/custom/jquery.convey': {
 						deps: [
 							'jquery',
@@ -66,6 +88,12 @@ define(
 						deps: ['jquery'],
 						exports: 'jQuery.position'
 					},
+				'libs/prism': {
+					exports: 'Prism'
+				},
+				'libs/rainbow': {
+					exports: 'Rainbow'
+				},
 				'underscore': {
 					exports: '_'
 				}, // underscore
@@ -93,7 +121,9 @@ define(
 			**/
 			paths: {
 				'backbone': 'libs/backbone/backbone',
+					'backbone.collectionbinder': 'libs/backbone/backbone.collectionbinder',
 					'backbone.layoutmanager': 'libs/backbone/backbone.layoutmanager',
+					'backbone.modelbinder': 'libs/backbone/backbone.modelbinder',
 					'backbone.localstorage': 'libs/backbone/backbone.localstorage',
 					'backbone.subroute': 'libs/backbone/backbone.subroute',
 					'backbone.syphon': 'libs/backbone/backbone.syphon',
@@ -130,9 +160,7 @@ define(
 			hgn: {
 				templateExtension: '.html'
 			}, // hgn
-			deps: [
-				'app/app'
-			] // deps
+			deps: ['app/app'] // deps
 			// callback: function(app) { 	app(); } // callback
 		}); // require.config
  } // fn

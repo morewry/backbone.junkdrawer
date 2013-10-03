@@ -1,7 +1,11 @@
 @charset "utf-8";
 
-@import "___portfolio";
-@import "___remax";
+// ------------------------------------------------------------------------------------- \\
+
+@import "portfolio";
+
+/*
+@import "remax";
 
 // ------------------------------------------------------------------------------------- \\
 
@@ -86,7 +90,7 @@
 	@extend %space-in-gutter-horizontal;
 	@extend %space-in-font-vertical;
 	border: 1px solid $text-color;
-	@include box-shadow( $padhalf $padhalf $padhalf $padhalf rgba(0,0,0,0.33));
+	@include box-shadow( $padhalf $padhalf $padhalf $padhalf rgba(0,0,0,0.33) );
 	position: absolute;
 }
 
@@ -95,3 +99,4 @@
 [data-js|="convey-view-"] { @extend %animated; }
 
 // ------------------------------------------------------------------------------------- \\
+*/
