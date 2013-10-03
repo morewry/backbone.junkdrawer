@@ -164,16 +164,18 @@ pip-log.txt
 
 # Other
 .svn
-*.svn*
 .sass-cache
-*.scssc
-*.css
-*.sublime-*
 test/
 docs/
-agentoffice/
-listing/
-user/
-portfolio/
-demos/
+php/
 etc/
+*.svn-base
+*.scssc
+*.sublime-*
+*.json
+shoptalklogo.html
+*.css
+listing/
+portfolio/
+user/
+agentoffice/
