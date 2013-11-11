@@ -16,9 +16,8 @@
 
 # Require any additional compass plugins here.
 
-require "rgbapng"
+# require "rgbapng"
 # require "breakpoint"
-require File.join(File.dirname(__FILE__), 'utilities/listfiles.rb')
 
 # Set options
 
