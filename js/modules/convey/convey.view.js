@@ -4,7 +4,7 @@ define(
 		'backbone',
 		'backbone.layoutmanager'
 	],
-	function(){
+	function () {
 
 		Backbone.$ = jQuery;
 
@@ -18,7 +18,7 @@ define(
 
 			// Backbone: Hash (or fn that returns one) of delegated events.
 			// move to jquery plugin (?)
-			events: function() {
+			events: function () {
 				var vents = {};
 				// vents['click [data-js="convey-show-' + this.model.get('cvid') + '"]'] = 'showConveyor';
 				vents['click [data-js="convey-hide-' + this.model.get('cvid') + '"]'] = 'hideConveyor';
@@ -49,9 +49,9 @@ define(
 			// views: {},
 
 			// Backbone: Called when view first created. Access this.options.
-			initialize: function() {
+			initialize: function () {
 				// when ready (after setup), position and populate convey
-				App.Event.on('ready.conveyor', function(cv) {
+				App.Event.on('ready.conveyor', function (cv) {
 					var conveyorView = cv.options.origin.setView(cv, cv.options.append);
 					App.Event.trigger('init.conveyor', this);
 					conveyorView.render();
@@ -59,10 +59,10 @@ define(
 			},
 
 			// Backbone.Layout: called before view render
-			// beforeRender: function() {},
+			// beforeRender: function () {},
 
 			// Backbone.Layout: Called after view render
-			afterRender: function() {
+			afterRender: function () {
 				App.Event.trigger('render.conveyor', this);
 				this.$el.conveyPlugin({ position: this.options.position });
 				this.showConveyor();
@@ -74,7 +74,7 @@ define(
 			 *
 			 *
 			**/
-			showConveyor: function(conveyor) {
+			showConveyor: function (conveyor) {
 				App.Event.trigger('show.conveyor', this);
 				this.$el.conveyPlugin('conveyShow');
 			},
@@ -85,7 +85,7 @@ define(
 			 *
 			 *
 			**/
-			hideConveyor: function(conveyor) {
+			hideConveyor: function (conveyor) {
 				App.Event.trigger('hide.conveyor', this);
 				this.$el.conveyPlugin('conveyHide');
 			},
@@ -96,7 +96,7 @@ define(
 			 *
 			 *
 			**/
-			clearConveyors: function() {
+			clearConveyors: function () {
 				App.Event.trigger('hide.conveyor', this);
 				this.$el.conveyPlugin('conveyClear');
 			}

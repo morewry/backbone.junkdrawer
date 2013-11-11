@@ -4,7 +4,7 @@ define(
 		'modules/convey/convey.view',
 		'backbone'
 	],
-	function(conveyModel, conveyView){
+	function (conveyModel, conveyView) {
 
 		/**
 		 *
@@ -12,7 +12,7 @@ define(
 		 *
 		 *
 		**/
-		App.Event.on('setup.conveyor', function(conveyorOpts) {
+		App.Event.on('setup.conveyor', function (conveyorOpts) {
 			App.Event.trigger('ready.conveyor', new conveyView(
 				_.extend(
 					{},

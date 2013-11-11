@@ -4,7 +4,7 @@ define(
 		'backbone'
 		//,'backbone.localstorage'
 	],
-	function( conveyModel ){
+	function ( conveyModel ) {
 
 		/**
 		 *
@@ -24,10 +24,10 @@ define(
 			model: conveyModel
 
 			// Backbone: Will be invoked when the collection is created.
-			// initialize: function(){}, // initialize
+			// initialize: function () {}, // initialize
 
 			// Backbone: Called whenever a collection is fetched from server.
-			// parse: function(response){} // parse
+			// parse: function (response) {} // parse
 
 		}); // ConveyCollection
 

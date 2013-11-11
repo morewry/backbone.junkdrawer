@@ -3,7 +3,7 @@ define(
 		'backbone'
 		//,'backbone.localstorage'
 	],
-	function(){
+	function () {
 
 		/**
 		 *
@@ -27,7 +27,7 @@ define(
 			} // defaults
 
 			// Backbone: Will be invoked when the model is created.
-			// initialize: function(){} // initialize
+			// initialize: function () {} // initialize
 
 		}); // ConveyModel
 
