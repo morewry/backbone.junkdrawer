@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ## Rich Text Formatting
@@ -9,7 +9,7 @@ Content component for rich text blocks. Provides readable text formatting.  For 
 
 */
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Resets
@@ -20,7 +20,7 @@ Set overflow to help prevent WYSIWYG HTML from breaking layout.
 
 %rtf { overflow: hidden; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Headings
@@ -47,7 +47,7 @@ Format headings `h1` through `h6` according to heading styles.
 %rtf h5 { @extend %h5; }
 %rtf h6 { @extend %h6; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Vertical Spacing
@@ -71,7 +71,7 @@ Add bottom margins to block-level elements such as tables and paragraphs.
 %rtf dl,
 %rtf blockquote { @extend %space-out-lead-bottom; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Horizontal Spacing
@@ -89,7 +89,7 @@ Set maximum width of ideal line length for blocks of text such as headings, list
 	word-spacing: 1px;
 }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Paragraph
@@ -117,7 +117,7 @@ Paragraphs will have a bottom margin, maximum line width, and can optionally ind
 	@include column-gap( $fluid-gutter );
 }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Lists
@@ -144,7 +144,7 @@ Add bullets back to lists and set left padding.
 %rtf li ol,
 %rtf li ul { margin-bottom: 0; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Data lists
@@ -163,7 +163,7 @@ Add styles to data/definition lists.
 %rtf dt { font-weight: bold; }
 %rtf dd { @extend %space-out-gutter-left; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Quotes & Blockquotes
@@ -206,7 +206,7 @@ Add styles to data/definition lists.
 
 %rtf q { quotes: "\201C" "\201D" "\2018" "\2019"; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Multimedia
@@ -218,7 +218,7 @@ Add styles to data/definition lists.
 
 %rtf %media { position: relative; top: $fluid-pad; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Links
@@ -251,7 +251,7 @@ These are presumed to be plain text links.
 %rtf a[href^="\#"]:after { } // on page
 %rtf a%media:after { } // link around an image (hide or restyle for placement)
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Inline Elements
@@ -284,7 +284,7 @@ These are presumed to be plain text links.
 
 %rtf hr { @extend %hr; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Code and Pre
@@ -312,7 +312,7 @@ Optionally add line and space around code and preformatted text.
 	border: 1px solid $border-color;
 }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Rich Text Formatting: Ellipsis
@@ -326,4 +326,4 @@ Optionally add line and space around code and preformatted text.
 	overflow: hidden;
 }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 

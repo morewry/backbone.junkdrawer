@@ -1,11 +1,11 @@
 @charset "utf-8";
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ## Multimedia
 
-Resets & normalizations for multimedia (images, video, etc)
+Resets & normalizations for multimedia (images, video, etc).  This partial contains global defaults.
 
 - Set `max-width` on images and objects to prevent overflow
 - Removes border when inside `a` element in IE 6/7/8/9
@@ -51,4 +51,4 @@ svg:not(:root) {
 	overflow: hidden;
 }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 

@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ## States
@@ -9,7 +9,7 @@ States are a type of interaction cue.  They visually indicate the state of a UI 
 
 */
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Success or Valid
@@ -31,7 +31,7 @@ Use the placeholder `success` for success messages or `valid` form fields.  Can 
 
 %success-text { color: $success-text-color; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Normal or Info
@@ -53,7 +53,7 @@ Use the placeholder `info` for normal/informative messages that have no particul
 
 %info-text { color: $info-text-color; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Alert or Highlight
@@ -75,7 +75,7 @@ Use the placeholder `alert` for messages with warning level priority. Can also b
 
 %alert-text { color: $alert-text-color; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Warning
@@ -97,7 +97,7 @@ Use the placeholder `warning` for messages with warning level priority.
 
 %warning-text { color: $warning-text-color; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Error, Invalid, or Important
@@ -119,7 +119,7 @@ Use the placeholder `error` for messages with error level priority or `invalid` 
 
 %error-text { color: $error-text-color; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Inverse
@@ -141,7 +141,7 @@ Use the placeholder `inverse` for normal/informative messages that have no parti
 
 %inverse-text { color: $inverse-text-color; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Disabled

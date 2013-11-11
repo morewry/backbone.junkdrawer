@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ## Utilities
@@ -24,7 +24,7 @@ Non-semantic (or visually semantic) placeholders and classes.  Heavily borrowed 
 }
 
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Hidden
@@ -44,7 +44,7 @@ Makes an element invisible with `display` property.  Available as a placeholder 
 %hidden { @include hidden; }
 .hidden { @extend %hidden; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Accessible
@@ -71,7 +71,7 @@ Makes an element invisible, but accessible, with `position: absolute` and `clip`
 %accessible { @include accessible; }
 .accessible { @extend %accessible; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Invisible
@@ -91,7 +91,7 @@ Makes an element invisible with `visibility` property.  Available as a placehold
 %invisible { @include invisible; }
 .invisible { @extend %invisible; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Visible
@@ -114,7 +114,7 @@ Makes an element visible with `visibility` property.  Available as a placeholder
 %visible { @include visible; }
 .visible { @extend %visible; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
 
 /*
 ### Full Width Layouts
@@ -132,4 +132,4 @@ Set a container to appear full width with content centered from [CSS Tricks](htt
 	padding-right: 2000px;
 }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 

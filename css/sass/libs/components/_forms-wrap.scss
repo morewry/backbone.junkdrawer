@@ -1,6 +1,7 @@
 @charset "utf-8";
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
+
 /*
 ### Field Placeholders
 
@@ -14,7 +15,6 @@ Formatting placeholder "classes" for field styles.  For use with `@extend` on in
 - `%checkbox`
 - `%radio`
 
-
 */
 
 %field { @include field; }
@@ -25,4 +25,4 @@ Formatting placeholder "classes" for field styles.  For use with `@extend` on in
 %checkbox { @include checkbox; }
 %radio { @include radio; }
 
-// ------------------------------------------------------------------------------------- \\
+// ------------------------------------------------------------------------------------- 
